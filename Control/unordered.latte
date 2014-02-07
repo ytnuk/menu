@@ -1,0 +1,10 @@
+<ul n:inner-foreach="$tree as $node" n:block="unordered">
+    <li n:class="$breadcrumb->has($node->data->id)?active">
+        <a href="{plink $node->data->link,id=>$node->data->link_id}">
+            {$node->data->title}
+        </a>
+        {if $node->children AND $breadcrumb->has($node->data->id)}
+            {include unordered,tree=>$node->children}
+        {/if}
+    </li>
+</ul>

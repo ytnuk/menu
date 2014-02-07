@@ -1,0 +1,7 @@
+admin:
+    node:
+        form:
+            title:
+                label: Název
+            parent:
+                label: Zatřídit do

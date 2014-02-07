@@ -1,0 +1,20 @@
+<ul n:class="nav,navbar-nav">
+    <li{ifCurrent $root->link,id=>$root->link_id} class="active"{/ifCurrent}>
+        <a href="{plink $root->link,id=>$root->link_id}">
+            <span class="glyphicon glyphicon-home"></span>
+            {$root->title}
+        </a>
+    </li>
+    <li n:foreach="$menu as $node" n:class="$breadcrumb->has($node->data->id)?active,count($node->children)?dropdown">
+        <a href="{plink $node->data->link,id=>$node->data->link_id}"{if count($node->children)} class="dropdown-toggle" data-toggle="dropdown"{/if}>
+            {$node->data->title} <b class="caret" n:tag-if="count($node->children)"></b>
+        </a>
+        <ul n:if="count($node->children)" class="dropdown-menu" n:inner-foreach="$node->children as $node">
+            <li n:class="$breadcrumb->has($node->data->id)?active">
+                <a href="{plink $node->data->link,id=>$node->data->link_id}">
+                    {$node->data->title}
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

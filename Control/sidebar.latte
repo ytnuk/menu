@@ -1,0 +1,13 @@
+<div class="panel panel-default" n:foreach="$sidebar as $menu">
+    <div class="panel-heading clearfix">
+        <span class="panel-title">{$menu->data->title}</span>
+    </div>
+    <div class="list-group" n:inner-foreach="$menu->children as $node">
+        <a n:class="$breadcrumb->has($node->data->id)?active,list-group-item" href="{plink $node->data->link,id=>$node->data->link_id}">
+            {$node->data->title}
+        </a>
+        {if $node->children AND $breadcrumb->has($node->data->id)}
+            {include unordered.latte,tree=>$node->children}
+        {/if}
+    </div>
+</div>

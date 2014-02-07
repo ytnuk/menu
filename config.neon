@@ -1,0 +1,8 @@
+parameters:
+    webedit:
+        menu:
+            directory: %webedit.core.directory%/Menu
+            locale:
+                directory: %webedit.menu.directory%/locale
+    locale:
+        - %webedit.menu.locale.directory%
