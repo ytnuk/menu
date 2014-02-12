@@ -1,0 +1,22 @@
+<div class="panel panel-default" n:foreach="$groups as $menu">
+    <div class="panel-heading clearfix">
+        <span class="panel-title">{$menu->data->title}</span>
+    </div>
+    <div class="list-group" n:inner-foreach="$menu->children as $menu">
+        <a n:class="$breadcrumb->has($menu->data->id)?active,list-group-item" href="{plink $menu->data->link,id=>$menu->data->link_id}">
+            {$menu->data->title}
+        </a>
+        {if $menu->children AND $breadcrumb->has($menu->data->id)}
+            <ul n:inner-foreach="$menu->children as $menu" n:block="sidebar">
+                <li n:class="$breadcrumb->has($menu->data->id)?active">
+                    <a href="{plink $menu->data->link,id=>$menu->data->link_id}">
+                        {$menu->data->title}
+                    </a>
+                    {if $menu->children AND $breadcrumb->has($menu->data->id)}
+                        {include sidebar,menu=>$menu}
+                    {/if}
+                </li>
+            </ul>
+        {/if}
+    </div>
+</div>

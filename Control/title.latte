@@ -1,1 +1,1 @@
-{if $custom}{$custom->title} | {/if}{$node->title} | {_site.title}
+{if $last->id!=$menu->id}{$last->title} | {/if}{$menu->title} | {_site.title}

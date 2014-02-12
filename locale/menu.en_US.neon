@@ -1,7 +1,7 @@
 admin:
-    node:
+    menu:
         form:
             title:
                 label: Title
             parent:
-                label: Parent node
+                label: Parent menu

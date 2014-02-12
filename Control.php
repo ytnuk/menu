@@ -3,78 +3,72 @@
 namespace WebEdit\Menu;
 
 use WebEdit,
-    WebEdit\Menu\Node,
+    WebEdit\Menu,
     WebEdit\Menu\Group,
     WebEdit\Menu\Breadcrumb;
 
 class Control extends WebEdit\Control {
 
-    private $nodeFacade;
+    private $menuFacade;
     private $groupFacade;
     private $breadcrumbFactory;
     public $breadcrumb;
+    private $navbar;
     private $groups = array();
-    private $sidebar = array();
     private $showHeader = TRUE;
 
-    public function __construct(Node\Model\Facade $nodeFacade, Group\Model\Facade $groupFacade, Breadcrumb\Control\Factory $breadcrumbFactory) {
-        $this->nodeFacade = $nodeFacade;
+    public function __construct($groupKey, Menu\Model\Facade $menuFacade, Group\Model\Facade $groupFacade, Breadcrumb\Control\Factory $breadcrumbFactory) {
+        $this->menuFacade = $menuFacade;
         $this->groupFacade = $groupFacade;
         $this->breadcrumbFactory = $breadcrumbFactory;
         $this->breadcrumb = $this->getComponent('breadcrumb');
-        $this->groups = array_keys($this->nodeFacade->repository->getNodesInTable('menu_group')->fetchAll());
+        $group = $this->groupFacade->repository->getGroupByKey($groupKey);
+        $groups = $this->groupFacade->repository->getAllGroups()->fetchPairs('menu_id', 'id');
+        $this->navbar = $this->getData($group->menu, $groups);
     }
 
-    public function renderNavbar($key) {
-        $group = $this->groupFacade->repository->getGroupByKey($key);
-        $root = $group->node;
+    public function renderNavbar() {
         $template = $this->template;
-        $template->menu = $this->getMenu($root);
+        $template->menu = $this->navbar;
         $template->breadcrumb = $this->breadcrumb;
-        $template->root = $root;
         $template->setFile(__DIR__ . '/Control/navbar.latte');
         $template->render();
     }
 
-    public function renderSidebar() {
+    public function renderGroups() {
         $template = $this->template;
-        $template->sidebar = $this->sidebar;
+        $template->groups = $this->groups;
         $template->breadcrumb = $this->breadcrumb;
-        $template->setFile(__DIR__ . '/Control/sidebar.latte');
+        $template->setFile(__DIR__ . '/Control/groups.latte');
         $template->render();
     }
 
     public function renderHeader() {
         $template = $this->template;
         $template->showHeader = $this->showHeader;
-        $template->node = $this->breadcrumb->getLast();
+        $template->last = $this->breadcrumb->getLast();
         $template->setFile(__DIR__ . '/Control/header.latte');
         $template->render();
     }
 
     public function renderTitle() {
-        $last = $this->breadcrumb->getLast();
         $template = $this->template;
-        $template->node = $node = $this->breadcrumb->getNode();
-        $template->custom = ($node->id != $last->id) ? $last : NULL;
+        $template->menu = $this->breadcrumb->getMenu();
+        $template->last = $this->breadcrumb->getLast();
         $template->setFile(__DIR__ . '/Control/title.latte');
         $template->render();
     }
 
-    public function getMenu($node) {
-        $menu = array();
-        foreach ($node->related('node') as $node) {
-            $data = (object) array(
-                        'data' => $node,
-                        'children' => $this->getMenu($node)
-            );
-            if (array_search($node->id, $this->groups)) {
-                $this->sidebar[] = $data;
+    public function getData($menu, &$groups) {
+        $data = array('data' => $menu, 'children' => array());
+        foreach ($menu->related('menu') as $menu) {
+            if (isset($groups[$menu->id])) {
+                $this->groups[] = $this->getData($menu, $groups);
             } else {
-                $menu[] = $data;
+                $data['children'][] = $this->getData($menu, $groups);
             }
         }
-        return $menu;
+        return (object) $data;
     }
 
     public function showHeader($option = TRUE) {

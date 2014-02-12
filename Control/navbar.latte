@@ -1,18 +1,18 @@
 <ul n:class="nav,navbar-nav">
-    <li{ifCurrent $root->link,id=>$root->link_id} class="active"{/ifCurrent}>
-        <a href="{plink $root->link,id=>$root->link_id}">
+    <li{ifCurrent $menu->data->link,id=>$menu->data->link_id} class="active"{/ifCurrent}>
+        <a href="{plink $menu->data->link,id=>$menu->data->link_id}">
             <span class="glyphicon glyphicon-home"></span>
-            {$root->title}
+            {$menu->data->title}
         </a>
     </li>
-    <li n:foreach="$menu as $node" n:class="$breadcrumb->has($node->data->id)?active,count($node->children)?dropdown">
-        <a href="{plink $node->data->link,id=>$node->data->link_id}"{if count($node->children)} class="dropdown-toggle" data-toggle="dropdown"{/if}>
-            {$node->data->title} <b class="caret" n:tag-if="count($node->children)"></b>
+    <li n:foreach="$menu->children as $menu" n:class="$breadcrumb->has($menu->data->id)?active,$menu->children?dropdown">
+        <a href="{plink $menu->data->link,id=>$menu->data->link_id}"{if $menu->children} class="dropdown-toggle" data-toggle="dropdown"{/if}>
+            {$menu->data->title} <b class="caret" n:tag-if="$menu->children"></b>
         </a>
-        <ul n:if="count($node->children)" class="dropdown-menu" n:inner-foreach="$node->children as $node">
-            <li n:class="$breadcrumb->has($node->data->id)?active">
-                <a href="{plink $node->data->link,id=>$node->data->link_id}">
-                    {$node->data->title}
+        <ul n:if="$menu->children" class="dropdown-menu" n:inner-foreach="$menu->children as $menu">
+            <li n:class="$breadcrumb->has($menu->data->id)?active">
+                <a href="{plink $menu->data->link,id=>$menu->data->link_id}">
+                    {$menu->data->title}
                 </a>
             </li>
         </ul>

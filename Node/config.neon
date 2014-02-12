@@ -1,3 +1,0 @@
-services:
-    - WebEdit\Menu\Node\Model\Facade
-    - WebEdit\Menu\Node\Model\Repository

@@ -1,8 +1,8 @@
 <aside>
     <nav>
-        <ol class="breadcrumb" n:inner-foreach="$nodes as $node">
-            <li n:class="$iterator->last?active,!$node->link?text-muted">
-                <a n:tag-if="!$iterator->last && $node->link" href="{plink $node->link, id=>$node->link_id}">{$node->title}</a>
+        <ol class="breadcrumb" n:inner-foreach="$breadcrumb as $menu">
+            <li n:class="$iterator->last?active,!$menu->link?text-muted">
+                <a n:tag-if="!$iterator->last && $menu->link" href="{plink $menu->link, id=>$menu->link_id}">{$menu->title}</a>
             </li>
         </ol>
     </nav>
