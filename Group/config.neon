@@ -1,3 +1,4 @@
 services:
     - WebEdit\Menu\Group\Model\Facade
     - WebEdit\Menu\Group\Model\Repository
+    - WebEdit\Menu\Group\Form\Factory

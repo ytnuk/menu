@@ -9,11 +9,11 @@ use WebEdit\Model,
 class Facade extends Model\Facade {
 
     public $repository;
-    private $groupFacade;
+    private $groupRepository;
 
-    public function __construct(Menu\Model\Repository $repository, Group\Model\Facade $groupFacade) {
+    public function __construct(Menu\Model\Repository $repository, Group\Model\Repository $groupRepository) {
         $this->repository = $repository;
-        $this->groupFacade = $groupFacade;
+        $this->groupRepository = $groupRepository;
     }
 
     public function getFormContainer($menu = NULL, $table = NULL) {
@@ -22,7 +22,7 @@ class Facade extends Model\Facade {
         if ($table) {
             $children = $this->repository->getMenuFromTable($table);
         } else {
-            $front = $this->groupFacade->repository->getGroupByKey('front');
+            $front = $this->groupRepository->getGroupByKey('front');
             $children = $this->repository->getChildren($front->menu, $menu);
         }
         $data+=$children->fetchPairs('id', 'title');
