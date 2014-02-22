@@ -1,17 +1,21 @@
 <?php
 
-namespace WebEdit\Menu\Model;
+namespace WebEdit\Menu;
 
 use WebEdit\Database;
 
 final class Repository extends Database\Repository {
 
     public function getMenu($id) {
-        return $this->table()->get($id);
+        return $this->storage()->get($id);
+    }
+
+    public function getMenuBy($params) {
+        return $this->storage()->where($params)->fetch();
     }
 
     public function getMenuByLink($link, $link_id = NULL) {
-        return $this->table()->where('link', $link)->where('link_id', $link_id)->fetch();
+        return $this->storage()->where('link', $link)->where('link_id', $link_id)->fetch();
     }
 
     public function getParents($menu) {
@@ -23,7 +27,7 @@ final class Repository extends Database\Repository {
     }
 
     public function getChildren($menu, $active = NULL) {
-        return $this->table()->where('id', $this->getIdsOfChildren($menu, $active));
+        return $this->storage()->where('id', $this->getIdsOfChildren($menu, $active));
     }
 
     private function getIdsOfChildren($menu, $active) {
@@ -39,8 +43,8 @@ final class Repository extends Database\Repository {
     }
 
     public function getMenuFromTable($name) {
-        $data = $this->table($name)->fetchPairs(NULL, 'menu_id');
-        return $this->table()->where('id', $data);
+        $data = $this->storage($name)->fetchPairs(NULL, 'menu_id');
+        return $this->storage()->where('id', $data);
     }
 
 }

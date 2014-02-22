@@ -5,66 +5,86 @@ namespace WebEdit\Menu\Breadcrumb;
 use WebEdit;
 use WebEdit\Menu;
 
-class Control extends WebEdit\Control {
+class Control extends WebEdit\Control implements \Iterator, \ArrayAccess {
 
-    private $menuFacade;
-    private $breadcrumb = array();
-    private $append = array();
-    private $menu;
+    private $menuRepository;
+    private $data = array();
+    private $root;
 
-    public function __construct(Menu\Model\Facade $menuFacade) {
-        $this->menuFacade = $menuFacade;
+    public function __construct(Menu\Repository $menuRepository) {
+        $this->menuRepository = $menuRepository;
     }
 
     public function render() {
         $template = $this->template;
-        $template->breadcrumb = $this->getBreadcrumb();
         $template->setFile(__DIR__ . '/Control/breadcrumb.latte');
         $template->render();
     }
 
-    public function fromMenu($menu) {
-        $this->menu = $menu;
+    public function getRoot() {
+        return $this->root;
     }
 
-    public function fromLink($link, $link_id = NULL) {
-        $this->menu = array('link' => $link, 'link_id' => $link_id);
+    public function last() {
+        $value = end($this->data);
+        $this->rewind();
+        return $value;
     }
 
-    public function append($title, $link = NULL, $link_id = NULL) {
-        $this->append[uniqid()] = (object) array(
-                    'id' => NULL,
-                    'title' => $title,
-                    'link' => $link,
-                    'link_id' => $link_id,
-        );
+    private function fromMenu($menu) {
+        $this->root = $menu;
+        $this->data = $this->menuRepository->getParents($menu);
     }
 
-    private function getBreadcrumb() {
-        if (!$this->breadcrumb) {
-            $menu = $this->getMenu();
-            $this->breadcrumb = $this->menuFacade->repository->getParents($menu);
-            $this->breadcrumb+=$this->append;
+    private function fromArray($array) {
+        $menu = $this->menuRepository->getMenuBy($array);
+        if ($menu) {
+            $this->fromMenu($menu);
         }
-        return $this->breadcrumb;
     }
 
-    public function getMenu() {
-        if (is_array($this->menu)) {
-            $this->menu = $this->menuFacade->repository->getMenuByLink($this->menu['link'], $this->menu['link_id']);
+    public function offsetSet($offset, $value) {
+        if (is_object($value)) {
+            $this->fromMenu($value);
+        } elseif (is_array($value)) {
+            $this->fromArray($value);
+        } elseif (is_string($value)) {
+            $value = (object) array('title' => $value);
+            $this->data[] = $value;
         }
-        return $this->menu;
     }
 
-    public function getLast() {
-        $breadcrumb = $this->getBreadcrumb();
-        $values = array_values($breadcrumb);
-        return end($values);
+    public function offsetExists($offset) {
+        return isset($this->data[$offset]);
     }
 
-    public function has($id) {
-        $breadcrumb = $this->getBreadcrumb();
-        return isset($breadcrumb[$id]);
+    public function offsetUnset($offset) {
+        unset($this->data[$offset]);
+    }
+
+    public function offsetGet($offset) {
+        return $this->offsetExists($offset) ? $this->data[$offset] : NULL;
+    }
+
+    public function rewind() {
+        reset($this->data);
+    }
+
+    public function current() {
+        return current($this->data);
+    }
+
+    public function key() {
+        return key($this->data);
+    }
+
+    public function next() {
+        return next($this->data);
+    }
+
+    public function valid() {
+        $key = key($this->data);
+        return ($key !== NULL && $key !== FALSE);
     }
 
 }

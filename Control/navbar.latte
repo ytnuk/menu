@@ -5,12 +5,12 @@
             {$menu->data->title}
         </a>
     </li>
-    <li n:foreach="$menu->children as $menu" n:class="$breadcrumb->has($menu->data->id)?active,$menu->children?dropdown">
+    <li n:foreach="$menu->children as $menu" n:class="isset($breadcrumb[$menu->data->id])?active,$menu->children?dropdown">
         <a href="{plink $menu->data->link,id=>$menu->data->link_id}"{if $menu->children} class="dropdown-toggle" data-toggle="dropdown"{/if}>
             {$menu->data->title} <b class="caret" n:tag-if="$menu->children"></b>
         </a>
         <ul n:if="$menu->children" class="dropdown-menu" n:inner-foreach="$menu->children as $menu">
-            <li n:class="$breadcrumb->has($menu->data->id)?active">
+            <li n:class="isset($breadcrumb[$menu->data->id])?active">
                 <a href="{plink $menu->data->link,id=>$menu->data->link_id}">
                     {$menu->data->title}
                 </a>

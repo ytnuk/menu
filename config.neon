@@ -5,9 +5,9 @@ parameters:
     locale:
         - %webedit.menu.directory%/locale
 services:
-    - WebEdit\Menu\Model\Facade
-    - WebEdit\Menu\Model\Repository
+    - WebEdit\Menu\Facade
+    - WebEdit\Menu\Repository
     -
-        create: WebEdit\Menu\Control(%groupKey%)
         implement: WebEdit\Menu\Control\Factory
         parameters: [groupKey]
+        arguments: [%groupKey%]

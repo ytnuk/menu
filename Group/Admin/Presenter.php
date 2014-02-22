@@ -10,39 +10,37 @@ final class Presenter extends Admin\Presenter {
      * @inject
      * @var \WebEdit\Menu\Group\Form\Factory
      */
-    public $groupFormFactory;
+    public $formFactory;
 
     /**
      * @inject
-     * @var \WebEdit\Menu\Group\Model\Repository
+     * @var \WebEdit\Menu\Group\Repository
      */
-    public $groupRepository;
+    public $repository;
     private $group;
 
     public function renderAdd() {
-        $title = $this->translator->translate('menu.group.admin.add');
-        $this->menu->breadcrumb->append($title);
+        $this['menu']['breadcrumb'][] = $this->translator->translate('menu.group.admin.add');
     }
 
     public function actionEdit($id) {
-        $this->group = $this->groupRepository->getGroup($id);
+        $this->group = $this->repository->getGroup($id);
         if (!$this->group) {
             $this->error();
         }
     }
 
     public function renderEdit() {
-        $title = $this->translator->translate('menu.group.admin.edit', NULL, ['group' => $this->group->menu->title]);
-        $this->menu->breadcrumb->append($title);
+        $this['menu']['breadcrumb'][] = $this->translator->translate('menu.group.admin.edit', NULL, ['group' => $this->group->menu->title]);
         $this->template->group = $this->group;
     }
 
     protected function createComponentGroupFormAdd() {
-        return $this->groupFormFactory->create();
+        return $this->formFactory->create();
     }
 
     protected function createComponentGroupFormEdit() {
-        return $this->groupFormFactory->create($this->group);
+        return $this->formFactory->create($this->group);
     }
 
 }

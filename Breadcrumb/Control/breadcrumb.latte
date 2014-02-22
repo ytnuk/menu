@@ -1,7 +1,7 @@
 <aside>
     <nav>
-        <ol class="breadcrumb" n:inner-foreach="$breadcrumb as $menu">
-            <li n:class="$iterator->last?active,!$menu->link?text-muted">
+        <ol class="breadcrumb" n:inner-foreach="$control as $menu">
+            <li n:class="$iterator->last || !$menu->link?active">
                 <a n:tag-if="!$iterator->last && $menu->link" href="{plink $menu->link, id=>$menu->link_id}">{$menu->title}</a>
             </li>
         </ol>

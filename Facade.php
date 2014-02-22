@@ -1,17 +1,17 @@
 <?php
 
-namespace WebEdit\Menu\Model;
+namespace WebEdit\Menu;
 
-use WebEdit\Model,
+use WebEdit,
     WebEdit\Menu,
     WebEdit\Menu\Group;
 
-class Facade extends Model\Facade {
+class Facade extends WebEdit\Facade {
 
     public $repository;
     private $groupRepository;
 
-    public function __construct(Menu\Model\Repository $repository, Group\Model\Repository $groupRepository) {
+    public function __construct(Menu\Repository $repository, Group\Repository $groupRepository) {
         $this->repository = $repository;
         $this->groupRepository = $groupRepository;
     }
@@ -24,6 +24,9 @@ class Facade extends Model\Facade {
         } else {
             $front = $this->groupRepository->getGroupByKey('front');
             $children = $this->repository->getChildren($front->menu, $menu);
+            if (!$menu) {
+                $menu = $front;
+            }
         }
         $data+=$children->fetchPairs('id', 'title');
         return new Menu\Form\Container($data, $menu);

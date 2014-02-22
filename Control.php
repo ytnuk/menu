@@ -3,34 +3,27 @@
 namespace WebEdit\Menu;
 
 use WebEdit,
-    WebEdit\Menu,
     WebEdit\Menu\Group,
     WebEdit\Menu\Breadcrumb;
 
 class Control extends WebEdit\Control {
 
-    private $menuFacade;
-    private $groupFacade;
     private $breadcrumbFactory;
-    public $breadcrumb;
     private $navbar;
     private $groups = array();
     private $showHeader = TRUE;
 
-    public function __construct($groupKey, Menu\Model\Facade $menuFacade, Group\Model\Facade $groupFacade, Breadcrumb\Control\Factory $breadcrumbFactory) {
-        $this->menuFacade = $menuFacade;
-        $this->groupFacade = $groupFacade;
-        $this->breadcrumbFactory = $breadcrumbFactory;
-        $this->breadcrumb = $this->getComponent('breadcrumb');
-        $group = $this->groupFacade->repository->getGroupByKey($groupKey);
-        $groups = $this->groupFacade->repository->getAllGroups()->fetchPairs('menu_id', 'id');
+    public function __construct($groupKey, Group\Repository $groupRepository, Breadcrumb\Control\Factory $breadcrumbFactory) {
+        $group = $groupRepository->getGroupByKey($groupKey);
+        $groups = $groupRepository->getAllGroups()->fetchPairs('menu_id', 'id');
         $this->navbar = $this->getData($group->menu, $groups);
+        $this->breadcrumbFactory = $breadcrumbFactory;
     }
 
     public function renderNavbar() {
         $template = $this->template;
         $template->menu = $this->navbar;
-        $template->breadcrumb = $this->breadcrumb;
+        $template->breadcrumb = $this['breadcrumb'];
         $template->setFile(__DIR__ . '/Control/navbar.latte');
         $template->render();
     }
@@ -38,7 +31,7 @@ class Control extends WebEdit\Control {
     public function renderGroups() {
         $template = $this->template;
         $template->groups = $this->groups;
-        $template->breadcrumb = $this->breadcrumb;
+        $template->breadcrumb = $this['breadcrumb'];
         $template->setFile(__DIR__ . '/Control/groups.latte');
         $template->render();
     }
@@ -46,15 +39,15 @@ class Control extends WebEdit\Control {
     public function renderHeader() {
         $template = $this->template;
         $template->showHeader = $this->showHeader;
-        $template->last = $this->breadcrumb->getLast();
+        $template->last = $this['breadcrumb']->last();
         $template->setFile(__DIR__ . '/Control/header.latte');
         $template->render();
     }
 
     public function renderTitle() {
         $template = $this->template;
-        $template->menu = $this->breadcrumb->getMenu();
-        $template->last = $this->breadcrumb->getLast();
+        $template->root = $this['breadcrumb']->getRoot();
+        $template->last = $this['breadcrumb']->last();
         $template->setFile(__DIR__ . '/Control/title.latte');
         $template->render();
     }
