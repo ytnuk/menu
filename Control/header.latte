@@ -1,4 +1,4 @@
 {control breadcrumb}
-<header class="page-header" n:if="$showHeader">
-    <h2>{$last->title}</h2>
+<header n:class="!$showHeader?hidden,page-header">
+    <h2>{_$last->title}</h2>
 </header>

@@ -16,35 +16,29 @@ class Facade extends WebEdit\Facade {
         $this->groupRepository = $groupRepository;
     }
 
-    public function getFormContainer($menu = NULL, $table = NULL) {
-        $data = array();
-        $data[NULL] = 'form.select.empty';
-        if ($table) {
-            $children = $this->repository->getMenuFromTable($table);
-        } else {
-            $front = $this->groupRepository->getGroupByKey('front');
-            $children = $this->repository->getChildren($front->menu, $menu);
-            if (!$menu) {
-                $menu = $front;
-            }
-        }
-        $data+=$children->fetchPairs('id', 'title');
-        return new Menu\Form\Container($data, $menu);
+    public function getChildren($menu = NULL) {
+        $front = $this->groupRepository->getGroupByKey('front');
+        $children = $this->repository->getChildren($front->menu, $menu);
+        return $children->fetchPairs('id', 'title');
+    }
+
+    public function getMenuFromTable($table) {
+        $menu = $this->repository->getMenuFromTable($table);
+        return $menu->fetchPairs('id', 'title');
     }
 
     public function addMenu($data) {
-        return $this->repository->insert($data);
+        return $this->repository->insert($data['menu']);
     }
 
     public function editMenu($menu, $data) {
-        return $this->repository->update($menu, $data);
+        $this->repository->update($menu, $data['menu']);
     }
 
     public function deleteMenu($menu) {
         $selection = $menu->related('menu');
-        $data = array('menu_id' => $menu->menu_id);
-        $this->repository->update($selection, $data);
-        return $this->repository->remove($menu);
+        $this->repository->update($selection, ['menu_id' => $menu->menu_id]);
+        $this->repository->remove($menu);
     }
 
 }

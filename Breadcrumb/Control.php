@@ -8,7 +8,7 @@ use WebEdit\Menu;
 class Control extends WebEdit\Control implements \Iterator, \ArrayAccess {
 
     private $menuRepository;
-    private $data = array();
+    private $data = [];
     private $root;
 
     public function __construct(Menu\Repository $menuRepository) {
@@ -49,8 +49,8 @@ class Control extends WebEdit\Control implements \Iterator, \ArrayAccess {
         } elseif (is_array($value)) {
             $this->fromArray($value);
         } elseif (is_string($value)) {
-            $value = (object) array('title' => $value);
-            $this->data[] = $value;
+            $value = (object) ['title' => $value];
+            $this->data[uniqid('breadcrumb_')] = $value;
         }
     }
 

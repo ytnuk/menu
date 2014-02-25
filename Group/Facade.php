@@ -17,21 +17,18 @@ class Facade extends WebEdit\Facade {
     }
 
     public function addGroup(array $data) {
-        $menu = $this->menuFacade->addMenu($data['menu']);
-        $group = array(
-            'menu_id' => $menu->id
-        );
-        return $this->repository->insert($group);
+        $menu = $this->menuFacade->addMenu($data);
+        $data['group']['menu_id'] = $menu->id;
+        return $this->repository->insert($data['group']);
     }
 
     public function editGroup($group, array $data) {
-        $this->menuFacade->editMenu($group->menu, $data['menu']);
-        return $group;
+        $this->menuFacade->editMenu($group->menu, $data);
     }
 
     public function deleteGroup($group) {
         $this->menuFacade->deleteMenu($group->menu);
-        return $this->repository->remove($group);
+        $this->repository->remove($group);
     }
 
 }

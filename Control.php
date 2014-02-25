@@ -10,7 +10,7 @@ class Control extends WebEdit\Control {
 
     private $breadcrumbFactory;
     private $navbar;
-    private $groups = array();
+    private $groups = [];
     private $showHeader = TRUE;
 
     public function __construct($groupKey, Group\Repository $groupRepository, Breadcrumb\Control\Factory $breadcrumbFactory) {
@@ -53,7 +53,7 @@ class Control extends WebEdit\Control {
     }
 
     public function getData($menu, &$groups) {
-        $data = array('data' => $menu, 'children' => array());
+        $data = ['data' => $menu, 'children' => []];
         foreach ($menu->related('menu') as $menu) {
             if (isset($groups[$menu->id])) {
                 $this->groups[] = $this->getData($menu, $groups);

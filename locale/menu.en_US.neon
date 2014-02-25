@@ -1,10 +1,9 @@
-admin:
-    menu:
-        form:
-            title:
-                label: Title
-            parent:
-                label: Parent menu
+form:
+    group: Menu
+    title:
+        label: Title
+    parent:
+        label: Parent menu
 group:
     admin:
         add: Add new group

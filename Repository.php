@@ -19,7 +19,7 @@ final class Repository extends Database\Repository {
     }
 
     public function getParents($menu) {
-        $data = array($menu->id => $menu);
+        $data = [$menu->id => $menu];
         while ($menu->menu_id) {
             $menu = $data[$menu->menu_id] = $menu->menu;
         }
@@ -31,7 +31,7 @@ final class Repository extends Database\Repository {
     }
 
     private function getIdsOfChildren($menu, $active) {
-        $data = array();
+        $data = [];
         if ($active && $menu->id == $active->id) {
             return $data;
         }
