@@ -2,11 +2,10 @@
 
 namespace WebEdit\Menu\Group;
 
-use WebEdit,
-    WebEdit\Menu,
-    WebEdit\Menu\Group;
+use WebEdit\Menu;
+use WebEdit\Menu\Group;
 
-class Facade extends WebEdit\Facade {
+final class Facade {
 
     public $repository;
     private $menuFacade;

@@ -30,7 +30,7 @@ final class Presenter extends Admin\Presenter {
     }
 
     public function handleAdd($form) {
-        $group = $this->facade->addGroup($form->getValues(TRUE));
+        $group = $this->facade->addGroup($form->getValues());
         $this->redirect('Presenter:edit', ['id' => $group->id]);
     }
 
@@ -52,7 +52,7 @@ final class Presenter extends Admin\Presenter {
             $this->facade->deleteGroup($this->group);
             $this->redirect('Presenter:view');
         } else {
-            $this->facade->editGroup($this->group, $form->getValues(TRUE));
+            $this->facade->editGroup($this->group, $form->getValues());
             $this->redirect('this');
         }
     }

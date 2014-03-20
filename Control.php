@@ -2,11 +2,11 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit,
-    WebEdit\Menu\Group,
-    WebEdit\Menu\Breadcrumb;
+use WebEdit;
+use WebEdit\Menu\Group;
+use WebEdit\Menu\Breadcrumb;
 
-class Control extends WebEdit\Control {
+final class Control extends WebEdit\Control {
 
     private $breadcrumbFactory;
     private $navbar;

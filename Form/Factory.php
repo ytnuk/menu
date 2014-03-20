@@ -5,7 +5,7 @@ namespace WebEdit\Menu\Form;
 use WebEdit\Form;
 use WebEdit\Menu;
 
-class Factory {
+final class Factory {
 
     private $formFactory;
     private $facade;

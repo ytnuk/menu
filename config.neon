@@ -1,9 +1,8 @@
 parameters:
-    webedit:
-        menu:
-            directory: %vendor.webedit.directory%/menu
+    menu:
+        directory: %vendor.webedit.directory%/menu
     locale:
-        - %webedit.menu.directory%/locale
+        - %menu.directory%/locale
 services:
     - WebEdit\Menu\Facade
     - WebEdit\Menu\Repository
