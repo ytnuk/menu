@@ -1,8 +1,8 @@
-<div class="panel panel-default" n:foreach="$groups as $menu" n:if="$menu->children">
-    <div class="panel-heading clearfix">
+<section class="panel panel-default" n:foreach="$groups as $menu" n:if="$menu->children">
+    <header class="panel-heading clearfix">
         <span class="panel-title">{_$menu->data->title}</span>
-    </div>
-    <div class="list-group" n:inner-foreach="$menu->children as $menu">
+    </header>
+    <nav class="list-group" n:inner-foreach="$menu->children as $menu">
         <a n:class="isset($breadcrumb[$menu->data->id])?active,list-group-item" href="{plink $menu->data->link,id=>$menu->data->link_id}">
             {_$menu->data->title}
         </a>
@@ -18,5 +18,5 @@
                 </li>
             </ul>
         {/if}
-    </div>
-</div>
+    </nav>
+</section>

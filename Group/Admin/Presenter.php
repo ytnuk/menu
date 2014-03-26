@@ -2,9 +2,9 @@
 
 namespace WebEdit\Menu\Group\Admin;
 
-use WebEdit\Admin;
+use WebEdit\Menu;
 
-final class Presenter extends Admin\Presenter {
+final class Presenter extends Menu\Admin\Presenter {
 
     /**
      * @inject

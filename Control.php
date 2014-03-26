@@ -24,7 +24,7 @@ final class Control extends WebEdit\Control {
         $template = $this->template;
         $template->menu = $this->navbar;
         $template->breadcrumb = $this['breadcrumb'];
-        $template->setFile(__DIR__ . '/Control/navbar.latte');
+        $template->setFile($this->getTemplateFiles('navbar'));
         $template->render();
     }
 
@@ -32,7 +32,7 @@ final class Control extends WebEdit\Control {
         $template = $this->template;
         $template->groups = $this->groups;
         $template->breadcrumb = $this['breadcrumb'];
-        $template->setFile(__DIR__ . '/Control/groups.latte');
+        $template->setFile($this->getTemplateFiles('groups'));
         $template->render();
     }
 
@@ -40,7 +40,7 @@ final class Control extends WebEdit\Control {
         $template = $this->template;
         $template->showHeader = $this->showHeader;
         $template->last = $this['breadcrumb']->last();
-        $template->setFile(__DIR__ . '/Control/header.latte');
+        $template->setFile($this->getTemplateFiles('header'));
         $template->render();
     }
 
@@ -48,7 +48,7 @@ final class Control extends WebEdit\Control {
         $template = $this->template;
         $template->root = $this['breadcrumb']->getRoot();
         $template->last = $this['breadcrumb']->last();
-        $template->setFile(__DIR__ . '/Control/title.latte');
+        $template->setFile($this->getTemplateFiles('title'));
         $template->render();
     }
 

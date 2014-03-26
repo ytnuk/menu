@@ -1,5 +1,5 @@
 <ul n:class="nav,navbar-nav">
-    <li{ifCurrent $menu->data->link,id=>$menu->data->link_id} class="active"{/ifCurrent}>
+    <li n:class="$presenter->isLinkCurrent($menu->data->link,[id=>$menu->data->link_id]) ? active">
         <a href="{plink $menu->data->link,id=>$menu->data->link_id}">
             <span class="glyphicon glyphicon-home"></span>
             {_$menu->data->title}
