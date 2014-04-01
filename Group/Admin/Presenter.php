@@ -8,12 +8,6 @@ final class Presenter extends Menu\Admin\Presenter {
 
     /**
      * @inject
-     * @var \WebEdit\Menu\Group\Form\Factory
-     */
-    public $formFactory;
-
-    /**
-     * @inject
      * @var \WebEdit\Menu\Group\Repository
      */
     public $repository;
@@ -23,15 +17,16 @@ final class Presenter extends Menu\Admin\Presenter {
      * @var \WebEdit\Menu\Group\Facade
      */
     public $facade;
-    private $group;
+
+    /**
+     * @inject
+     * @var \WebEdit\Menu\Facade
+     */
+    public $menuFacade;
+    protected $entity;
 
     public function actionAdd() {
-        $this['form']->onSuccess[] = [$this, 'handleAdd'];
-    }
-
-    public function handleAdd($form) {
-        $group = $this->facade->addGroup($form->getValues());
-        $this->redirect('Presenter:edit', ['id' => $group->id]);
+        $this['form']['menu']['menu_id']->setItems($this->menuFacade->getChildren());
     }
 
     public function renderAdd() {
@@ -39,30 +34,22 @@ final class Presenter extends Menu\Admin\Presenter {
     }
 
     public function actionEdit($id) {
-        $this->group = $this->repository->getGroup($id);
-        if (!$this->group) {
+        $this->entity = $this->repository->getGroup($id);
+        if (!$this->entity) {
             $this->error();
         }
-        $this['form']['menu']->setDefaults($this->group->menu);
-        $this['form']->onSuccess[] = [$this, 'handleEdit'];
-    }
-
-    public function handleEdit($form) {
-        if ($form->submitted->name == 'delete') {
-            $this->facade->deleteGroup($this->group);
-            $this->redirect('Presenter:view');
-        } else {
-            $this->facade->editGroup($this->group, $form->getValues());
-            $this->redirect('this');
-        }
+        $this['form']['menu']['menu_id']->setItems($this->menuFacade->getChildren($this->entity->menu));
+        $this['form']['menu']->setDefaults($this->entity->menu);
     }
 
     public function renderEdit() {
-        $this['menu']['breadcrumb'][] = $this->translator->translate('menu.group.admin.edit', NULL, ['group' => $this->group->menu->title]);
+        $this['menu']['breadcrumb'][] = $this->translator->translate('menu.group.admin.edit', NULL, ['group' => $this->entity->menu->title]);
     }
 
     protected function createComponentForm() {
-        return $this->formFactory->create($this->group);
+        $form = $this->formFactory->create($this->entity);
+        $form['menu'] = new Menu\Form\Container;
+        return $form;
     }
 
 }

@@ -21,12 +21,12 @@ final class Facade {
         return $children->fetchPairs('id', 'title');
     }
 
-    public function getMenuFromTable($table) {
-        $menu = $this->repository->getMenuFromTable($table);
+    public function getMenuByType($type) {
+        $menu = $this->repository->getMenuByType($type);
         return $menu->fetchPairs('id', 'title');
     }
 
-    public function addMenu($data) {
+    public function add($data) {
         return $this->repository->insert($data['menu']);
     }
 

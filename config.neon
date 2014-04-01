@@ -6,7 +6,6 @@ parameters:
 services:
     - WebEdit\Menu\Facade
     - WebEdit\Menu\Repository
-    - WebEdit\Menu\Form\Factory
     -
         implement: WebEdit\Menu\Control\Factory
         parameters: [groupKey]

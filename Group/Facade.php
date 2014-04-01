@@ -15,17 +15,17 @@ final class Facade {
         $this->menuFacade = $menuFacade;
     }
 
-    public function addGroup(array $data) {
-        $menu = $this->menuFacade->addMenu($data);
+    public function add(array $data) {
+        $menu = $this->menuFacade->add($data);
         $data['group']['menu_id'] = $menu->id;
         return $this->repository->insert($data['group']);
     }
 
-    public function editGroup($group, array $data) {
+    public function edit($group, array $data) {
         $this->menuFacade->editMenu($group->menu, $data);
     }
 
-    public function deleteGroup($group) {
+    public function delete($group) {
         $this->menuFacade->deleteMenu($group->menu);
         $this->repository->remove($group);
     }

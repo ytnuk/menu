@@ -52,7 +52,7 @@ final class Control extends WebEdit\Control {
         $template->render();
     }
 
-    public function getData($menu, &$groups) {
+    public function getData($menu, $groups) {
         $data = ['data' => $menu, 'children' => []];
         foreach ($menu->related('menu') as $menu) {
             if (isset($groups[$menu->id])) {

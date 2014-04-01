@@ -42,8 +42,8 @@ final class Repository extends Database\Repository {
         return $data;
     }
 
-    public function getMenuFromTable($name) {
-        $data = $this->storage($name)->fetchPairs(NULL, 'menu_id');
+    public function getMenuByType($type) {
+        $data = $this->storage($type)->fetchPairs(NULL, 'menu_id');
         return $this->storage()->where('id', $data);
     }
 
