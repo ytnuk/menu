@@ -17,8 +17,8 @@ final class Facade {
 
     public function add(array $data) {
         $menu = $this->menuFacade->add($data);
-        $data['group']['menu_id'] = $menu->id;
-        return $this->repository->insert($data['group']);
+        $data['menu']['group']['menu_id'] = $menu->id;
+        return $this->repository->insert($data['menu']['group']);
     }
 
     public function edit($group, array $data) {
