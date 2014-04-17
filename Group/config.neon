@@ -1,3 +1,0 @@
-services:
-    - WebEdit\Menu\Group\Facade
-    - WebEdit\Menu\Group\Repository

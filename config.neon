@@ -10,3 +10,8 @@ services:
         implement: WebEdit\Menu\Control\Factory
         parameters: [groupKey]
         arguments: [%groupKey%]
+
+    - WebEdit\Menu\Breadcrumb\Control\Factory
+
+    - WebEdit\Menu\Group\Facade
+    - WebEdit\Menu\Group\Repository
