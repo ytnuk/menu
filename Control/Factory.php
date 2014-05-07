@@ -2,12 +2,12 @@
 
 namespace WebEdit\Menu\Control;
 
-use WebEdit\Menu\Control;
+use WebEdit\Menu;
 
 interface Factory {
 
     /**
-     * @return Control
+     * @return Menu\Control
      */
     public function create($groupKey);
 }

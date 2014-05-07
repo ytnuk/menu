@@ -3,11 +3,9 @@
 namespace WebEdit\Menu\Breadcrumb;
 
 use WebEdit;
-use Iterator;
-use ArrayAccess;
 use WebEdit\Menu;
 
-final class Control extends WebEdit\Control implements Iterator, ArrayAccess {
+final class Control extends WebEdit\Control implements \Iterator, \ArrayAccess {
 
     private $menuRepository;
     private $data = [];

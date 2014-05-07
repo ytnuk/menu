@@ -3,24 +3,25 @@
 namespace WebEdit\Menu\Group\Admin;
 
 use WebEdit\Menu;
+use WebEdit\Menu\Group;
 
 final class Presenter extends Menu\Admin\Presenter {
 
     /**
      * @inject
-     * @var \WebEdit\Menu\Group\Repository
+     * @var Group\Repository
      */
     public $repository;
 
     /**
      * @inject
-     * @var \WebEdit\Menu\Group\Facade
+     * @var Group\Facade
      */
     public $facade;
 
     /**
      * @inject
-     * @var \WebEdit\Menu\Facade
+     * @var Menu\Facade
      */
     public $menuFacade;
     protected $entity;

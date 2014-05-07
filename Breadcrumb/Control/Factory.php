@@ -2,12 +2,12 @@
 
 namespace WebEdit\Menu\Breadcrumb\Control;
 
-use WebEdit\Menu\Breadcrumb\Control;
+use WebEdit\Menu\Breadcrumb;
 
 interface Factory {
 
     /**
-     * @return Control
+     * @return Breadcrumb\Control
      */
     public function create();
 }
