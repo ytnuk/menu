@@ -7,4 +7,4 @@ form:
 group:
     admin:
         add: Přidat skupinu
-        edit: 'Upravit skupinu: %group%'
+        edit: Upravit skupinu

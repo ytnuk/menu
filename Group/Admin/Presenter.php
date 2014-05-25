@@ -15,42 +15,29 @@ final class Presenter extends Menu\Admin\Presenter {
 
     /**
      * @inject
-     * @var Group\Facade
+     * @var Group\Control\Factory
      */
-    public $facade;
-
-    /**
-     * @inject
-     * @var Menu\Facade
-     */
-    public $menuFacade;
-    protected $entity;
-
-    public function actionAdd() {
-        $this['form']['menu']['menu_id']->setItems($this->menuFacade->getChildren());
-    }
+    public $control;
+    private $group;
 
     public function renderAdd() {
-        $this['menu']['breadcrumb'][] = $this->translator->translate('menu.group.admin.add');
+        $this['menu']['breadcrumb'][] = 'menu.group.admin.add';
     }
 
     public function actionEdit($id) {
-        $this->entity = $this->repository->getGroup($id);
-        if (!$this->entity) {
+        $this->group = $this->repository->getGroup($id);
+        if (!$this->group) {
             $this->error();
         }
-        $this['form']['menu']['menu_id']->setItems($this->menuFacade->getChildren($this->entity->menu));
-        $this['form']['menu']->setDefaults($this->entity->menu);
+        $this['group']->setEntity($this->group);
     }
 
     public function renderEdit() {
-        $this['menu']['breadcrumb'][] = $this->translator->translate('menu.group.admin.edit', NULL, ['group' => $this->entity->menu->title]);
+        $this['menu']['breadcrumb'][] = 'menu.group.admin.edit';
     }
 
-    protected function createComponentForm() {
-        $form = $this->formFactory->create($this->entity);
-        $form['menu'] = new Menu\Form\Container;
-        return $form;
+    protected function createComponentGroup() {
+        return $this->control->create();
     }
 
 }

@@ -7,4 +7,4 @@ form:
 group:
     admin:
         add: Add new group
-        edit: 'Edit group: %group%'
+        edit: Edit group
