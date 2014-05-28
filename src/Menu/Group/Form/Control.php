@@ -2,11 +2,12 @@
 
 namespace WebEdit\Menu\Group\Form;
 
+use WebEdit\Entity;
 use WebEdit\Form;
 use WebEdit\Menu;
 use WebEdit\Menu\Group;
 
-final class Control extends Form\Control {
+final class Control extends Entity\Form\Control {
 
     private $menuFacade;
 
