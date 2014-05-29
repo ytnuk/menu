@@ -2,10 +2,10 @@
 
 namespace WebEdit\Menu\Group;
 
-use WebEdit;
+use WebEdit\Entity;
 use WebEdit\Menu\Group\Form;
 
-final class Control extends WebEdit\Control {
+final class Control extends Entity\Control {
 
     public function __construct(Form\Control\Factory $formControl) {
         $this->form = $formControl;
