@@ -8,20 +8,18 @@ use WebEdit\Menu\Breadcrumb;
 
 final class Control extends WebEdit\Control {
 
-    private $groupControl;
     private $breadcrumbControl;
     private $groupRepository;
     private $navbar;
     private $groups = [];
     private $showHeader = TRUE;
 
-    public function __construct($groupKey, Group\Repository $groupRepository, Breadcrumb\Control\Factory $breadcrumbControl, Group\Control\Factory $groupControl) {
+    public function __construct($groupKey, Group\Repository $groupRepository, Breadcrumb\Control\Factory $breadcrumbControl) {
         $group = $groupRepository->getGroupByKey($groupKey);
         $groups = $groupRepository->getAllGroups()->fetchPairs('menu_id', 'id');
         $this->navbar = $this->getData($group->menu, $groups);
         $this->groupRepository = $groupRepository;
         $this->breadcrumbControl = $breadcrumbControl;
-        $this->groupControl = $groupControl;
     }
 
     public function renderNavbar() {
@@ -74,13 +72,6 @@ final class Control extends WebEdit\Control {
 
     protected function createComponentBreadcrumb() {
         return $this->breadcrumbControl->create();
-    }
-
-    protected function createComponentGroup() {
-        return new WebEdit\Control\Multiplier(function($id) {
-            $group = $this->groupRepository->getGroup($id);
-            return $this->groupControl->create($group);
-        });
     }
 
 }

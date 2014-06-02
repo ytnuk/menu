@@ -50,7 +50,7 @@ final class Control extends WebEdit\Control implements \Iterator, \ArrayAccess {
             $this->fromArray($value);
         } elseif (is_string($value)) {
             $value = (object) ['title' => $value];
-            $this->data[uniqid('breadcrumb_')] = $value;
+            $this->data[$offset ? : uniqid('breadcrumb_')] = $value;
         }
     }
 
