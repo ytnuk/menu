@@ -1,9 +1,12 @@
 <aside>
     <nav>
-        <ol class="breadcrumb" n:inner-foreach="$control as $menu">
+        <ol class="breadcrumb" n:inner-foreach="$data as $menu">
             <li n:class="$iterator->last || !$menu->link?active">
                 <a n:tag-if="!$iterator->last && $menu->link" href="{plink $menu->link, id=>$menu->link_id}">{_$menu->title}</a>
             </li>
         </ol>
     </nav>
 </aside>
+<header class="page-header">
+    <h2>{_$entity->title}</h2>
+</header>

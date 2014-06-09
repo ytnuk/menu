@@ -9,5 +9,5 @@ interface Factory {
     /**
      * @return Menu\Control
      */
-    public function create($groupKey);
+    public function create();
 }

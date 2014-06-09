@@ -21,7 +21,7 @@ final class Presenter extends Menu\Admin\Presenter {
     private $group;
 
     public function renderAdd() {
-        $this['menu']['breadcrumb'][] = 'menu.group.admin.add';
+        $this['menu'][] = 'menu.group.admin.add';
     }
 
     public function actionEdit($id) {
@@ -33,7 +33,7 @@ final class Presenter extends Menu\Admin\Presenter {
     }
 
     public function renderEdit() {
-        $this['menu']['breadcrumb'][] = 'menu.group.admin.edit';
+        $this['menu'][] = 'menu.group.admin.edit';
     }
 
     protected function createComponentGroup() {

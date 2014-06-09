@@ -1,0 +1,18 @@
+<section class="panel panel-default">
+    <header class="panel-heading clearfix">
+        <span class="panel-title">{_$entity->menu->title}</span>
+    </header>
+    <nav class="list-group" n:inner-foreach="$entity->menu->related('menu') as $menu">
+        <a n:class="isset($breadcrumb[$menu->id])?active,list-group-item" href="{plink $menu->link,id=>$menu->link_id}" n:if="$menu->link">
+            {_$menu->title}
+        </a>
+        <ul n:inner-foreach="$menu->related('menu') as $menu" n:block="sidebar" n:if="isset($breadcrumb[$menu->id]) && $menu->link && $menu->related('menu')->count()">
+            <li n:class="isset($breadcrumb[$menu->id])?active">
+                <a href="{plink $menu->link,id=>$menu->link_id}">
+                    {_$menu->title}
+                </a>
+                {include sidebar,menu=>$menu}
+            </li>
+        </ul>
+    </nav>
+</section>
