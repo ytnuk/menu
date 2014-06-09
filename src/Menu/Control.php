@@ -24,7 +24,9 @@ final class Control extends Entity\Control {
         if (is_array($menu)) {
             $menu = $this->repository->getMenuBy($menu);
         }
-        $this->data = $this->repository->getParents($menu);
+        if ($menu) {
+            $this->data = $this->repository->getParents($menu);
+        }
         parent::setEntity($menu);
     }
 
