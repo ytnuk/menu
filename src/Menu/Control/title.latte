@@ -1,1 +1,1 @@
-{_$entity->title} | {_cms.title}
+{if $last->title!=$entity->title}{_$last->title} | {/if}{_$entity->title} | {_cms.title}

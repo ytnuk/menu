@@ -12,7 +12,7 @@ final class Control extends Entity\Control {
     private $repository;
     private $groupRepository;
     private $groupControl;
-    private $append = [];
+    private $data = [];
 
     public function __construct(Menu\Repository $repository, Group\Repository $groupRepository, Group\Control\Factory $groupControl) {
         $this->repository = $repository;
@@ -20,20 +20,21 @@ final class Control extends Entity\Control {
         $this->groupControl = $groupControl;
     }
 
-    public function render($type = 'menu') {
-        if (is_array($this->entity)) {
-            $this->entity = $this->repository->getMenuBy($this->entity);
+    public function setEntity($menu) {
+        if (is_array($menu)) {
+            $menu = $this->repository->getMenuBy($menu);
         }
-        $this->template->parents = []; //TODO
-        $this->template->data = array_merge([$this->entity], $this->append);
-        parent::render($type);
+        $this->data = $this->repository->getParents($menu);
+        parent::setEntity($menu);
     }
 
     public function renderTitle() {
+        $this->template->last = end($this->data);
         $this->render('title');
     }
 
     public function renderBreadcrumb() {
+        $this->template->data = $this->data;
         $this->render('breadcrumb');
     }
 
@@ -47,9 +48,13 @@ final class Control extends Entity\Control {
     }
 
     public function offsetSet($offset, $value) {
-        $menu = new Menu;
+        $menu = new Menu\Entity;
         $menu->title = $value;
-        $this->append[] = $menu;
+        $this->data[$offset ? : uniqid('append-')] = $menu;
+    }
+
+    public function offsetExists($offset) {
+        return isset($this->data[$offset]);
     }
 
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace WebEdit;
+namespace WebEdit\Menu;
 
-final class Menu {
+final class Entity {
 
     public $title;
     public $link = NULL;
