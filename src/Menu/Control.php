@@ -30,9 +30,9 @@ final class Control extends Entity\Control {
         parent::setEntity($menu);
     }
 
-    public function render($type) {
+    public function render() {
         $this->template->data = $this->data;
-        parent::render($type);
+        parent::render();
     }
 
     protected function createComponentGroup() {

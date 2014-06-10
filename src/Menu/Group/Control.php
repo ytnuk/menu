@@ -11,9 +11,9 @@ final class Control extends Entity\Control {
         $this->formControl = $formControl;
     }
 
-    public function render($type) {
+    public function render() {
         $this->template->breadcrumb = $this->presenter['menu'];
-        parent::render($type);
+        parent::render();
     }
 
 }
