@@ -30,14 +30,9 @@ final class Control extends Entity\Control {
         parent::setEntity($menu);
     }
 
-    public function renderTitle() {
-        $this->template->last = end($this->data);
-        $this->render('title');
-    }
-
-    public function renderBreadcrumb() {
+    public function render($type) {
         $this->template->data = $this->data;
-        $this->render('breadcrumb');
+        parent::render($type);
     }
 
     protected function createComponentGroup() {

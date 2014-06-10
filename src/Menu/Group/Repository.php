@@ -7,7 +7,7 @@ use WebEdit\Database;
 final class Repository extends Database\Repository {
 
     public function getGroup($id) {
-        return $this->storage()->where('id', $id)->where('key', NULL)->fetch();
+        return $this->storage()->where('id', $id)->fetch();
     }
 
     public function getGroupByKey($key) {

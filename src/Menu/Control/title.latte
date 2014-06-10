@@ -1,1 +1,4 @@
-{if $last->title!=$entity->title}{_$last->title} | {/if}{_$entity->title} | {_cms.title}
+{var last = end($data)}
+<title>
+    {if $last->title!=$entity->title}{_$last->title} | {/if}{_$entity->title} | {_cms.title}
+</title>

@@ -20,6 +20,8 @@ final class Extension extends WebEdit\Extension {
                 ->setClass('WebEdit\Menu\Group\Facade');
         $builder->addDefinition($this->prefix('group.control'))
                 ->setImplement('WebEdit\Menu\Group\Control\Factory');
+        $builder->addDefinition($this->prefix('group.form.control'))
+                ->setImplement('WebEdit\Menu\Group\Form\Control\Factory');
     }
 
 }

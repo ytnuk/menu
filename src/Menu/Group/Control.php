@@ -3,20 +3,17 @@
 namespace WebEdit\Menu\Group;
 
 use WebEdit\Entity;
+use WebEdit\Menu\Group\Form;
 
 final class Control extends Entity\Control {
 
-    public function render($type = 'group') {
+    public function __construct(Form\Control\Factory $formControl) {
+        $this->formControl = $formControl;
+    }
+
+    public function render($type) {
         $this->template->breadcrumb = $this->presenter['menu'];
         parent::render($type);
-    }
-
-    public function renderNavbar() {
-        $this->render('navbar');
-    }
-
-    public function renderPanel() {
-        $this->render('panel');
     }
 
 }
