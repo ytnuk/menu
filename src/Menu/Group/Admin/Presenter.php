@@ -7,18 +7,14 @@ use WebEdit\Menu\Group;
 
 final class Presenter extends Menu\Admin\Presenter {
 
-    /**
-     * @inject
-     * @var Group\Repository
-     */
-    public $repository;
-
-    /**
-     * @inject
-     * @var Group\Control\Factory
-     */
-    public $control;
+    private $repository;
+    private $control;
     private $group;
+
+    public function __construct(Group\Repository $repository, Group\Control\Factory $control) {
+        $this->repository = $repository;
+        $this->control = $control;
+    }
 
     public function renderAdd() {
         $this['menu'][] = 'menu.group.admin.add';
