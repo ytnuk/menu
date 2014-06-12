@@ -22,13 +22,14 @@ final class Control extends Entity\Control {
     }
 
     public function render() {
-        if (is_array($this->entity)) {
-            $this->entity = $this->repository->getMenuBy($this->entity);
+        if (!$this->entity) {
+            $this->entity = $this->repository->getMenuByLink(':' . $this->presenter->getName() . ':view');
         }
         if (!$this->data) {
             $this->data = $this->repository->getParents($this->entity) + $this->append;
         }
         $this->template->data = $this->data;
+        $this->template->last = end($this->data);
         parent::render();
     }
 

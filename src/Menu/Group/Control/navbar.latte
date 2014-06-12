@@ -9,7 +9,7 @@
         </header>
         <div class="collapse navbar-collapse navbar-{$entity->key}-collapse">
             <ul n:class="nav,navbar-nav">
-                <li n:class="$presenter->isLinkCurrent($entity->menu->link,[id=>$entity->menu->link_id]) ? active">
+                <li n:class="$presenter->isLinkCurrent($entity->menu->link,[id=>$entity->menu->link_id]) ? active" n:if="$entity->menu->link">
                     <a href="{plink $entity->menu->link,id=>$entity->menu->link_id}">
                         <span class="glyphicon glyphicon-home"></span>
                         {_$entity->menu->title}
