@@ -21,7 +21,7 @@ final class Control extends Entity\Control {
         $this->groupControl = $groupControl;
     }
 
-    public function render() {
+    protected function render() {
         if (!$this->entity) {
             $this->entity = $this->repository->getMenuByLink(':' . $this->presenter->getName() . ':view');
         }
