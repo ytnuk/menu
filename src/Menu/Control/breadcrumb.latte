@@ -1,12 +1,10 @@
-<aside>
+<header>
     <nav>
-        <ol class="breadcrumb" n:inner-foreach="$data as $menu">
-            <li n:class="$iterator->last || !$menu->link?active">
+        <ol n:inner-foreach="$data as $menu">
+            <li>
                 <a n:tag-if="!$iterator->last && $menu->link" href="{plink $menu->link, id=>$menu->link_id}">{_$menu->title}</a>
             </li>
         </ol>
     </nav>
-</aside>
-<header class="page-header">
     <h2>{_$last->title}</h2>
 </header>

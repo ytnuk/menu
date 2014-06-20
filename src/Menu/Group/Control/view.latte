@@ -1,0 +1,22 @@
+<nav>
+    <ol>
+        <li>
+            <a href="{plink $entity->menu->link,id=>$entity->menu->link_id}" n:tag-if="$entity->menu->link">
+                {_$entity->menu->title}
+            </a>
+        </li>
+        <li n:foreach="$entity->menu->related('menu') as $menu" n:if="$menu->link">
+            <a href="{plink $menu->link,id=>$menu->link_id}">
+                {_$menu->title}
+            </a>
+            <ol n:if="$menu->related('menu')->count()" n:inner-foreach="$menu->related('menu') as $menu" n:block="list">
+                <li>
+                    <a href="{plink $menu->link,id=>$menu->link_id}">
+                        {_$menu->title}
+                    </a>
+                    {include list}
+                </li>
+            </ol>
+        </li>
+    </ol>
+</nav>

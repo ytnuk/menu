@@ -30,11 +30,11 @@ final class Facade {
         return $this->repository->insert($data['menu']);
     }
 
-    public function editMenu($menu, $data) {
+    public function edit($menu, $data) {
         $this->repository->update($menu, $data['menu']);
     }
 
-    public function deleteMenu($menu) {
+    public function delete($menu) {
         $selection = $menu->related('menu');
         $this->repository->update($selection, ['menu_id' => $menu->menu_id]);
         $this->repository->remove($menu);
