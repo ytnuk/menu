@@ -1,7 +1,7 @@
 {
     "name": "webedit/menu",
     "require": {
-        "webedit/core": "dev-master",
+        "webedit/application": "dev-master",
         "webedit/form": "dev-master"
 
     },

@@ -2,7 +2,7 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit;
+use WebEdit\Application;
 use WebEdit\Entity;
 use WebEdit\Menu;
 use WebEdit\Menu\Group;
@@ -34,7 +34,7 @@ final class Control extends Entity\Control {
     }
 
     protected function createComponentGroup() {
-        return new WebEdit\Control\Multiplier(function($key) {
+        return new Application\Control\Multiplier(function($key) {
             $group = $this->groupRepository->getGroupByKey($key);
             $control = $this->groupControl->create();
             $control->setEntity($group);
