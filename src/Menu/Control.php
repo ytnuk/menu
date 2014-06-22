@@ -29,6 +29,7 @@ final class Control extends Entity\Control {
             $this->data = $this->repository->getParents($this->entity) + $this->append;
         }
         $this->template->data = $this->data;
+        $this->template->first = reset($this->data);
         $this->template->last = end($this->data);
         parent::render();
     }
