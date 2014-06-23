@@ -3,8 +3,9 @@
 namespace WebEdit\Menu;
 
 use WebEdit\Application;
+use WebEdit\Translation;
 
-final class Extension extends Application\Extension {
+final class Extension extends Application\Extension implements Translation\Provider {
 
     public function loadConfiguration() {
         $builder = $this->getContainerBuilder();
