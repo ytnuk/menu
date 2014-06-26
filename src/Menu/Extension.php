@@ -2,10 +2,10 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit\Application;
+use WebEdit\DI;
 use WebEdit\Translation;
 
-final class Extension extends Application\Extension implements Translation\Provider {
+final class Extension extends DI\Extension implements Translation\Provider {
 
     public function loadConfiguration() {
         $builder = $this->getContainerBuilder();
