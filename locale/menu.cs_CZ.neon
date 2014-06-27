@@ -4,7 +4,3 @@ form:
         label: Název
     parent:
         label: Zatřídit do
-group:
-    admin:
-        add: Přidat skupinu
-        edit: Upravit skupinu

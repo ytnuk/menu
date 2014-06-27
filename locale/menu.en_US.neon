@@ -4,7 +4,3 @@ form:
         label: Title
     parent:
         label: Parent menu
-group:
-    admin:
-        add: Add new group
-        edit: Edit group
