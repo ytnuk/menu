@@ -22,15 +22,11 @@ final class Control extends Entity\Control {
     }
 
     protected function render() {
-        if (!$this->entity) {
-            $this->entity = $this->repository->getMenuByLink(':' . $this->presenter->getName() . ':view');
-        }
-        if (!$this->data) {
-            $this->data = $this->repository->getParents($this->entity) + $this->append;
-        }
+        $this->entity = $this->entity ? : $this->repository->getMenuByLink(':' . $this->presenter->getName() . ':view');
+        $this->data = $this->data ? : $this->repository->getParents($this->entity) + $this->append;
         $this->template->data = $this->data;
-        $this->template->first = reset($this->data);
         $this->template->last = end($this->data);
+        $this->template->first = reset($this->data);
         parent::render();
     }
 
