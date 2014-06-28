@@ -1,6 +1,7 @@
 {
     "name": "webedit/menu",
     "require": {
+        "webedit/bootstrap": "dev-master",
         "webedit/application": "dev-master",
         "webedit/form": "dev-master",
         "webedit/translation": "dev-master"
