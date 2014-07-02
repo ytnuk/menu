@@ -2,7 +2,8 @@
     "name": "webedit/menu",
     "require": {
         "webedit/bootstrap": "dev-master",
-        "webedit/application": "dev-master"
+        "webedit/application": "dev-master",
+        "webedit/translation": "dev-master"
     },
     "autoload": {
         "psr-4": {
