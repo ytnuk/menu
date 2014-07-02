@@ -1,3 +1,1 @@
-<title>
-    {if $last->title!=$entity->title}{_$last->title} | {/if}{_$entity->title} | {_site.title}
-</title>
+<title>{if $last->title!=$entity->title}{$last->title|translate} | {/if}{$entity->title|translate} | {='site.title'|translate}</title>

@@ -2,9 +2,9 @@
     <nav>
         <ol n:inner-foreach="$data as $menu">
             <li>
-                <a n:tag-if="!$iterator->last && $menu->link" href="{plink $menu->link, id=>$menu->link_id}">{_$menu->title}</a>
+                <a n:tag-if="!$iterator->last && $menu->link" href="{plink $menu->link, id=>$menu->link_id}">{$menu->title|translate}</a>
             </li>
         </ol>
     </nav>
-    <h2>{_$last->title}</h2>
+    <h2>{$last->title|translate}</h2>
 </header>
