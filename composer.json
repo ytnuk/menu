@@ -3,7 +3,8 @@
     "require": {
         "webedit/bootstrap": "dev-master",
         "webedit/application": "dev-master",
-        "webedit/translation": "dev-master"
+        "webedit/translation": "dev-master",
+        "webedit/database": "dev-master"
     },
     "autoload": {
         "psr-4": {
