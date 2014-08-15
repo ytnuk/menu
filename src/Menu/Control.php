@@ -12,7 +12,7 @@ final class Control extends Entity\Control {
     private $repository;
     private $groupRepository;
     private $groupControl;
-    private $data = [];
+    private $menu = [];
     private $append = [];
 
     public function __construct(Menu\Repository $repository, Group\Repository $groupRepository, Group\Control\Factory $groupControl) {
@@ -22,17 +22,21 @@ final class Control extends Entity\Control {
     }
 
     protected function render() {
-        $this->entity = $this->entity ? : $this->repository->getMenuByLink(':' . $this->presenter->getName() . ':view');
-        $this->data = $this->data ? : $this->repository->getParents($this->entity) + $this->append;
-        $this->template->data = $this->data;
-        $this->template->last = end($this->data);
-        $this->template->first = reset($this->data);
+        $this->entity = $this->entity ? : $this->repository->getByLink(':' . $this->presenter->getName() . ':view');
+        dump($this->entity->groups->get()->fetchPairs('id', 'key'));
+        dump($this->entity->children->get()->fetchAll());
+        //dump($this->entity->menu);
+        exit;
+        $this->menu = $this->menu ? : $this->entity->parents + $this->append;
+        $this->template->menu = $this->menu;
+        $this->template->last = end($this->menu);
+        $this->template->first = reset($this->menu);
         parent::render();
     }
 
     protected function createComponentGroup() {
         return new Application\Control\Multiplier(function($key) {
-            $group = $this->groupRepository->getGroupByKey($key);
+            $group = $this->groupRepository->getByKey($key);
             $control = $this->groupControl->create();
             $control->setEntity($group);
             return $control;
@@ -46,7 +50,7 @@ final class Control extends Entity\Control {
     }
 
     public function offsetExists($offset) {
-        return isset($this->data[$offset]);
+        return isset($this->menu[$offset]);
     }
 
 }
