@@ -2,13 +2,23 @@
 
 namespace WebEdit\Menu\Group;
 
-use WebEdit\Entity;
+use WebEdit\Application;
+use WebEdit\Menu\Group;
+use WebEdit\Menu;
 
-final class Control extends Entity\Control {
+final class Control extends Application\Control {
 
-    protected function render() {
-        $this->template->breadcrumb = $this->presenter['menu'];
-        parent::render();
+    private $group;
+    private $breadcrumb;
+
+    public function __construct(Group\Entity $group, Menu\Control $breadcrumb) {
+        $this->group = $group;
+        $this->breadcrumb = $breadcrumb;
+    }
+
+    protected function startup() {
+        $this->template->breadcrumb = $this->breadcrumb;
+        $this->template->group = $this->group;
     }
 
 }

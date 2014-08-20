@@ -1,7 +1,7 @@
 <nav>
-    <ol n:inner-foreach="$menu as $menu">
+    <ol n:inner-foreach="$breadcrumb as $menu">
         <li>
-            <a n:tag-if="!$iterator->last" href="{plink $menu->link id=>$menu->link_id}">
+            <a n:tag-if="!$iterator->last" href="{plink $menu->link id=>$menu->linkId}">
                 {$menu->title|translate}
             </a>
         </li>

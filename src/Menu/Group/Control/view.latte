@@ -1,17 +1,17 @@
 <nav>
     <ol>
         <li>
-            <a href="{plink $entity->menu->link id=>$entity->menu->link_id}">
-                {$entity->menu->title|translate}
+            <a href="{plink $group->menu->link id=>$group->menu->linkId}">
+                {$group->menu->title|translate}
             </a>
         </li>
-        <li n:foreach="$entity->menu->related('menu') as $menu">
-            <a href="{plink $menu->link id=>$menu->link_id}">
+        <li n:foreach="$group->menu->children as $menu">
+            <a href="{plink $menu->link id=>$menu->linkId}">
                 {$menu->title|translate}
             </a>
-            <ol n:if="$menu->related('menu')->count()" n:inner-foreach="$menu->related('menu') as $menu" n:block="list">
+            <ol n:if="$menu->children->count()" n:inner-foreach="$menu->children as $menu" n:block="list">
                 <li>
-                    <a href="{plink $menu->link id=>$menu->link_id}">
+                    <a href="{plink $menu->link id=>$menu->linkId}">
                         {$menu->title|translate}
                     </a>
                     {include list}

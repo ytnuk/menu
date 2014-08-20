@@ -3,17 +3,17 @@
 namespace WebEdit\Menu;
 
 use WebEdit\Application;
-use WebEdit\Entity;
 use WebEdit\Menu;
 use WebEdit\Menu\Group;
 
-final class Control extends Entity\Control {
+final class Control extends Application\Control {
 
     private $repository;
     private $groupRepository;
     private $groupControl;
-    private $menu = [];
+    private $breadcrumb;
     private $append = [];
+    private $menu;
 
     public function __construct(Menu\Repository $repository, Group\Repository $groupRepository, Group\Control\Factory $groupControl) {
         $this->repository = $repository;
@@ -21,25 +21,22 @@ final class Control extends Entity\Control {
         $this->groupControl = $groupControl;
     }
 
-    protected function render() {
-        $this->entity = $this->entity ? : $this->repository->getByLink(':' . $this->presenter->getName() . ':view');
-        dump($this->entity->groups->get()->fetchPairs('id', 'key'));
-        dump($this->entity->children->get()->fetchAll());
-        //dump($this->entity->menu);
-        exit;
-        $this->menu = $this->menu ? : $this->entity->parents + $this->append;
+    protected function startup() {
+        $this->menu = $this->menu ? : $this->repository->getByLink(':' . $this->presenter->getName() . ':view');
+        $this->template->breadcrumb = $this->breadcrumb = $this->repository->getParents($this->menu) + $this->append; //TODO: $this->entity->parents
+        $this->template->last = end($this->breadcrumb);
+        $this->template->first = reset($this->breadcrumb);
         $this->template->menu = $this->menu;
-        $this->template->last = end($this->menu);
-        $this->template->first = reset($this->menu);
-        parent::render();
+    }
+
+    public function setMenu(Menu\Entity $menu) {
+        $this->menu = $menu;
     }
 
     protected function createComponentGroup() {
         return new Application\Control\Multiplier(function($key) {
             $group = $this->groupRepository->getByKey($key);
-            $control = $this->groupControl->create();
-            $control->setEntity($group);
-            return $control;
+            return $this->groupControl->create($group, $this);
         });
     }
 
@@ -50,7 +47,7 @@ final class Control extends Entity\Control {
     }
 
     public function offsetExists($offset) {
-        return isset($this->menu[$offset]);
+        return isset($this->breadcrumb[$offset]);
     }
 
 }

@@ -22,13 +22,14 @@ final class Repository extends Database\Repository {
 //        return $this->storage()->where('link', $link)->where('link_id', $link_id)->fetch();
 //    }
 //
-//    public function getParents($menu) {
-//        $data = [$menu->id => $menu];
-//        while ($menu->menu_id) {
-//            $menu = $data[$menu->menu_id] = $menu->menu;
-//        }
-//        return array_reverse($data, TRUE);
-//    }
+    public function getParents($menu) {
+        $data = [$menu->id => $menu];
+        while ($menu->menu) {
+            $menu = $data[$menu->menu->id] = $menu->menu;
+        }
+        return array_reverse($data, TRUE);
+    }
+
 //
 //    public function getChildren($menu, $active = NULL) {
 //        return $this->storage()->where('id', $this->getIdsOfChildren($menu, $active));

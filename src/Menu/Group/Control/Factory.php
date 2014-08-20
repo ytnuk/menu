@@ -9,5 +9,5 @@ interface Factory {
     /**
      * @return Group\Control
      */
-    public function create();
+    public function create($group, $breadcrumb);
 }
