@@ -11,7 +11,7 @@ final class Control extends Application\Control {
     private $repository;
     private $groupRepository;
     private $groupControl;
-    private $breadcrumb;
+    private $breadcrumb = [];
     private $append = [];
     private $menu;
 
@@ -23,7 +23,7 @@ final class Control extends Application\Control {
 
     protected function startup() {
         $this->menu = $this->menu ? : $this->repository->getByLink(':' . $this->presenter->getName() . ':view');
-        $this->template->breadcrumb = $this->breadcrumb = $this->repository->getParents($this->menu) + $this->append; //TODO: $this->entity->parents
+        $this->template->breadcrumb = $this->breadcrumb = $this->menu->parents + [$this->menu] + $this->append;
         $this->template->last = end($this->breadcrumb);
         $this->template->first = reset($this->breadcrumb);
         $this->template->menu = $this->menu;
