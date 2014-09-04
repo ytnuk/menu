@@ -2,7 +2,9 @@
     "name": "webedit/menu",
     "type": "webedit-module",
     "extra": {
-        "extension": "WebEdit\\Menu\\Extension"
+        "extensions": {
+            "menu": "WebEdit\\Menu\\Extension"
+        }
     },
     "require": {
         "webedit/bootstrap": "dev-master",
