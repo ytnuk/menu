@@ -7,7 +7,7 @@
         }
     },
     "require": {
-        "webedit/bootstrap": "dev-master",
+        "webedit/module": "dev-master",
         "webedit/application": "dev-master",
         "webedit/translation": "dev-master",
         "webedit/database": "dev-master"
