@@ -4,13 +4,15 @@ namespace WebEdit\Menu\Form;
 
 use WebEdit\Form;
 
-final class Container extends Form\Container {
+final class Container extends Form\Container
+{
 
-    protected function configure() {
+    protected function configure()
+    {
         $this->addText('title', 'menu.form.title.label')->setRequired();
         $this->addSelect('menu_id', 'menu.form.parent.label')
-                ->setRequired()
-                ->setPrompt('form.select.prompt');
+            ->setRequired()
+            ->setPrompt('form.select.prompt');
     }
 
 }

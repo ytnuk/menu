@@ -4,9 +4,11 @@ namespace WebEdit\Menu\Group;
 
 use WebEdit\Database;
 
-final class Repository extends Database\Repository {
+final class Repository extends Database\Repository
+{
 
-    public function getByKey($key) {
+    public function getByKey($key)
+    {
         return $this->findBy(['key' => $key])->fetch();
     }
 

@@ -4,7 +4,8 @@ namespace WebEdit\Menu\Control;
 
 use WebEdit\Menu;
 
-interface Factory {
+interface Factory
+{
 
     /**
      * @return Menu\Control

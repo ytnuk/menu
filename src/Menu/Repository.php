@@ -4,10 +4,12 @@ namespace WebEdit\Menu;
 
 use WebEdit\Database;
 
-final class Repository extends Database\Repository {
+final class Repository extends Database\Repository
+{
 
-    public function getByLink($link, $linkId = NULL) {
-        return $this->findBy(['link' => $link, 'linkId' => $linkId])->fetch();
+    public function getByLink($link, $linkId = NULL)
+    {
+        return $this->getBy(['link' => $link, 'linkId' => $linkId]);
     }
 
 //    public function getMenuByType($type) {

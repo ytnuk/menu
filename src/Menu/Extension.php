@@ -2,20 +2,25 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit\Module;
 use WebEdit\Application;
 use WebEdit\Database;
-use WebEdit\Translation;
 use WebEdit\Menu;
 use WebEdit\Menu\Group;
+use WebEdit\Module;
+use WebEdit\Translation;
 
-final class Extension extends Module\Extension implements Application\Provider, Database\Provider, Translation\Provider {
+final class Extension extends Module\Extension implements Application\Provider, Database\Provider, Translation\Provider
+{
 
-    public function getApplicationResources() {
+    public function getApplicationResources()
+    {
         return [
             'services' => [
                 Menu\Facade::class,
-                Group\Control\Factory::class => ['group', 'breadcrumb']
+                [
+                    'class' => Group\Control\Factory::class,
+                    'parameters' => ['group', 'breadcrumb']
+                ]
             ],
             'presenter' => [
                 'components' => [
@@ -25,7 +30,8 @@ final class Extension extends Module\Extension implements Application\Provider, 
         ];
     }
 
-    public function getDatabaseResources() {
+    public function getDatabaseResources()
+    {
         return [
             'repositories' => [
                 Menu\Repository::class,
