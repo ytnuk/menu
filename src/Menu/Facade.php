@@ -19,7 +19,7 @@ final class Facade
 
     public function getChildren($menu = NULL)
     {
-        $front = $this->groupRepository->getGroupByKey('front');
+        $front = $this->groupRepository->getByKey('front');
         $children = $this->repository->getChildren($front->menu, $menu);
         return $children->fetchPairs('id', 'title');
     }
@@ -28,23 +28,6 @@ final class Facade
     {
         $menu = $this->repository->getMenuByType($type);
         return $menu->fetchPairs('id', 'title');
-    }
-
-    public function add($data)
-    {
-        return $this->repository->insert($data['menu']);
-    }
-
-    public function edit($menu, $data)
-    {
-        $this->repository->update($menu, $data['menu']);
-    }
-
-    public function delete($menu)
-    {
-        $selection = $menu->related('menu');
-        $this->repository->update($selection, ['menu_id' => $menu->menu_id]);
-        $this->repository->remove($menu);
     }
 
 }

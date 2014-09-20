@@ -5,8 +5,10 @@ namespace WebEdit\Menu;
 use WebEdit\Database;
 use WebEdit\Menu;
 use WebEdit\Menu\Group;
+use WebEdit\Page;
 
 /**
+ * @property-read Menu\Entity $top {virtual}
  * @property-read Menu\Entity[] $parents {virtual}
  * @property Menu\Entity|NULL $parent {m:1 Menu\Repository $children}
  * @property Menu\Entity[] $children {1:m Menu\Repository $parent}
@@ -15,6 +17,7 @@ use WebEdit\Menu\Group;
  * @property int|NULL $linkId
  * @property int|NULL $hidden
  * @property Group\Entity[] $groups {1:m Group\Repository $menu}
+ * @property Page\Entity $page {1:1d Page\Repository $menu}
  */
 final class Entity extends Database\Entity
 {
@@ -32,6 +35,11 @@ final class Entity extends Database\Entity
             $parents[$menu->id] = $menu;
         }
         return array_reverse($parents, TRUE);
+    }
+
+    public function getTop()
+    {
+        return array_shift($this->parents);
     }
 
 }

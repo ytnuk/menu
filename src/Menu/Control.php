@@ -48,7 +48,7 @@ final class Control extends Application\Control
     protected function startup()
     {
         $this->menu = $this->menu ?: $this->repository->getByLink(':' . $this->presenter->getName() . ':view');
-        $this->template->breadcrumb = $this->breadcrumb = $this->menu->parents + [$this->menu] + $this->append;
+        $this->template->breadcrumb = $this->breadcrumb = array_merge($this->menu->parents, [$this->menu], $this->append);
         $this->template->last = end($this->breadcrumb);
         $this->template->first = reset($this->breadcrumb);
         $this->template->menu = $this->menu;
