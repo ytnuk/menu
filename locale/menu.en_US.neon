@@ -3,4 +3,4 @@ form:
     title:
         label: Title
     parent:
-        label: Parent menu
+        label: Parent
