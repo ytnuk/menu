@@ -1,26 +1,26 @@
 <nav class="navbar navbar-default">
     <div class="container">
         <header class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-{$group->key}-collapse">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-{$menu->uid}-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
         </header>
-        <div class="collapse navbar-collapse navbar-{$group->key}-collapse">
+        <div class="collapse navbar-collapse navbar-{$menu->uid}-collapse">
             <ul n:class="nav,navbar-nav">
-                <li n:class="$presenter->isLinkCurrent($group->menu->link,[id=>$group->menu->linkId]) ? active">
-                    <a href="{plink $group->menu->link id=>$group->menu->linkId}">
+                <li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId]) ? active">
+                    <a href="{plink $menu->link id=>$menu->linkId}">
                         <span class="glyphicon glyphicon-home"></span>
-                        {$group->menu->title|translate}
+                        {$menu->title|translate}
                     </a>
                 </li>
-                <li n:foreach="$group->menu->children as $menu" n:class="isset($breadcrumb[$menu->id])?active,$menu->children->count()?dropdown">
+                <li n:foreach="$menu->children as $menu" n:class="isset($control[$menu->id])?active,$menu->children->count()?dropdown">
                     <a href="{plink $menu->link id=>$menu->linkId}"{if $menu->children->count()} class="dropdown-toggle" data-toggle="dropdown"{/if}>
                         {$menu->title|translate} <b class="caret" n:if="$menu->children->count()"></b>
                     </a>
                     <ul n:if="$menu->children->count()" class="dropdown-menu" n:inner-foreach="$menu->children as $menu">
-                        <li n:class="isset($breadcrumb[$menu->id])?active">
+                        <li n:class="isset($control[$menu->id])?active">
                             <a href="{plink $menu->link id=>$menu->linkId}">
                                 {$menu->title|translate}
                             </a>
