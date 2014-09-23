@@ -54,8 +54,7 @@ final class Control extends Application\Control
     protected function createComponentUid()
     {
         return new Application\Control\Multiplier(function ($uid) {
-            $menu = $this->repository->getByUid($uid);
-            return $this->control->create()->setMenu($menu);
+            return $this->control->create()->setMenu($this->repository->getByUid($uid));
         });
     }
 
