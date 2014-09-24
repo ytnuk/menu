@@ -4,3 +4,10 @@ form:
         label: Název
     parent:
         label: Zatřídit do
+        prompt: vyberte položku
+    link:
+        label: Odkaz
+    hidden:
+        label: Skrýt v navigaci
+    uid:
+        label: Unikátní ID

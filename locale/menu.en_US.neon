@@ -4,3 +4,10 @@ form:
         label: Title
     parent:
         label: Parent
+        prompt: select item
+    link:
+        label: Link
+    hidden:
+        label: Hide in navigation
+    uid:
+        label: Unique ID

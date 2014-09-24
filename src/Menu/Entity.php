@@ -7,16 +7,15 @@ use WebEdit\Menu;
 use WebEdit\Page;
 
 /**
- * @property-read Menu\Entity[] $tree {virtual}
  * @property-read Menu\Entity[] $parents {virtual}
  * @property Menu\Entity|NULL $parent {m:1 Menu\Repository $children}
  * @property Menu\Entity[] $children {1:m Menu\Repository $parent}
  * @property string $title
  * @property string $link
  * @property int|NULL $linkId
- * @property int|NULL $hidden
+ * @property bool|NULL $hidden
  * @property string|NULL $uid
- * @property Page\Entity $page {1:1d Page\Repository $menu}
+ * @property Page\Entity|NULL $page {1:1d Page\Repository $menu}
  */
 final class Entity extends Database\Entity
 {
