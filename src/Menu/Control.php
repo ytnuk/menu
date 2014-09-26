@@ -10,14 +10,17 @@ final class Control extends Application\Control
 
     private $repository;
     private $control;
+    private $formControl;
     private $breadcrumb = [];
     private $append = [];
     private $menu;
+    private $active;
 
-    public function __construct(Menu\Repository $repository, Menu\Control\Factory $control)
+    public function __construct(Menu\Repository $repository, Menu\Control\Factory $control, Menu\Form\Control\Factory $formControl)
     {
         $this->repository = $repository;
         $this->control = $control;
+        $this->formControl = $formControl;
     }
 
     public function offsetSet($offset, $title)
@@ -40,15 +43,27 @@ final class Control extends Application\Control
         return FALSE;
     }
 
+    public function setActive(Menu\Entity $active)
+    {
+        $this->active = $active;
+        return $this;
+    }
+
     protected function startup()
     {
-        $this->menu = $this->menu ?:
+        $this->active = $this->active ?:
             $this->repository->getByLink(':' . $this->presenter->getName() . ':' . $this->presenter->getView()) ?:
                 $this->repository->getByLink(':' . $this->presenter->getName() . ':view');
-        $this->template->breadcrumb = $this->breadcrumb = array_merge($this->menu->parents, [$this->menu], $this->append);
+        $this->template->breadcrumb = $this->breadcrumb = array_merge($this->active ? $this->active->parents : [], [$this->active], $this->append);
         $this->template->last = end($this->breadcrumb);
         $this->template->first = reset($this->breadcrumb);
+        $this->template->active = $this->active;
         $this->template->menu = $this->menu;
+    }
+
+    protected function createComponentForm()
+    {
+        return $this->formControl->create($this->menu);
     }
 
     protected function createComponentUid()

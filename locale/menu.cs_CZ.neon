@@ -1,3 +1,7 @@
+admin:
+    view: Menu
+    add: Přidat menu
+    edit: Upravit menu
 form:
     group: Menu
     title:
@@ -7,6 +11,8 @@ form:
         prompt: vyberte položku
     link:
         label: Odkaz
+    linkId:
+        label: ID odkazu
     hidden:
         label: Skrýt v navigaci
     uid:

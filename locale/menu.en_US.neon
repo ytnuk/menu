@@ -1,3 +1,7 @@
+admin:
+    view: Menu
+    add: Add menu
+    edit: SystemContainer_WebEdit_Menu_Control_FactoryImpl_menu
 form:
     group: Menu
     title:
@@ -7,6 +11,8 @@ form:
         prompt: select item
     link:
         label: Link
+    linkId:
+        label: Link ID
     hidden:
         label: Hide in navigation
     uid:

@@ -18,6 +18,12 @@ final class Extension extends Module\Extension implements Application\Provider, 
                 'components' => [
                     'menu' => Menu\Control\Factory::class
                 ]
+            ],
+            'services' => [
+                [
+                    'class' => Menu\Form\Control\Factory::class,
+                    'parameters' => ['menu']
+                ]
             ]
         ];
     }
