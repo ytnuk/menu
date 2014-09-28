@@ -20,8 +20,13 @@
                     <a href="{plink $menu->link id=>$menu->linkId}"{if $menu->children->count()} class="dropdown-toggle" data-toggle="dropdown"{/if}>
                         {$menu->title|translate} <b class="caret" n:if="$menu->children->count()"></b>
                     </a>
-                    <ul n:if="$menu->children->count()" class="dropdown-menu" n:inner-foreach="$menu->children as $menu">
-                        <li n:class="isset($control[$menu->id])?active">
+                    <ul n:if="$menu->children->count()" class="dropdown-menu">
+                        <li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId])?active">
+                            <a href="{plink $menu->link id=>$menu->linkId}">
+                                <b class="caret-down"></b> {$menu->title|translate}
+                            </a>
+                        </li>
+                        <li n:class="isset($control[$menu->id])?active" n:foreach="$menu->children as $menu">
                             <a href="{plink $menu->link id=>$menu->linkId}">
                                 {$menu->title|translate}
                             </a>
