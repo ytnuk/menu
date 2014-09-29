@@ -8,8 +8,9 @@ use WebEdit\Page;
 
 /**
  * @property-read Menu\Entity[] $parents {virtual}
- * @property Menu\Entity|NULL $parent {m:1 Menu\Repository $children}
- * @property Menu\Entity[] $children {1:m Menu\Repository $parent}
+ * @property-read Menu\Entity[] $children {virtual}
+ * @property Menu\Entity|NULL $parent {m:1 Menu\Repository $allChildren}
+ * @property Menu\Entity[] $allChildren {1:m Menu\Repository $parent}
  * @property string $title
  * @property string $link
  * @property int|NULL $linkId
@@ -22,7 +23,7 @@ final class Entity extends Database\Entity
 
     public function getChildren()
     {
-        return $this->getValue('children')->get()->findBy(['hidden' => NULL]);
+        return $this->getValue('allChildren')->get()->findBy(['hidden' => NULL]);
     }
 
     public function getParents()
