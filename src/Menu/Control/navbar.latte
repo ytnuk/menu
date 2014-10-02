@@ -10,7 +10,7 @@
         </header>
         <div class="collapse navbar-collapse navbar-{$menu->uid}-collapse">
             <ul n:class="nav,navbar-nav">
-                <li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId]) ? active">
+                <li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId]) ? active" n:if="!$menu->hidden">
                     <a href="{plink $menu->link id=>$menu->linkId}">
                         <span class="glyphicon glyphicon-home"></span>
                         {$menu->title|translate}

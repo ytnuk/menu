@@ -3,7 +3,11 @@ admin:
     add: Add menu
     edit: SystemContainer_WebEdit_Menu_Control_FactoryImpl_menu
 form:
-    group: Menu
+    container:
+        group: Menu
+entity:
+    id:
+        label: ID
     title:
         label: Title
     parent:

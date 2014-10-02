@@ -3,7 +3,11 @@ admin:
     add: Přidat menu
     edit: Upravit menu
 form:
-    group: Menu
+    container:
+        group: Menu
+entity:
+    id:
+        label: ID
     title:
         label: Název
     parent:
