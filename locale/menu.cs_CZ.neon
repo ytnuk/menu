@@ -1,6 +1,6 @@
 admin:
+    module: Menu
     presenter:
-        module: Menu
         action:
             add: Přidat menu
             edit: Upravit menu
