@@ -32,7 +32,7 @@ final class Presenter extends Admin\Presenter
 
     public function renderEdit()
     {
-        $this['menu'][] = 'menu.admin.edit';
+        $this['menu'][] = 'menu.admin.presenter.action.edit';
     }
 
     protected function createComponentDatabaseGrid()

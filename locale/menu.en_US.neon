@@ -1,7 +1,9 @@
 admin:
-    view: Menu
-    add: Add menu
-    edit: SystemContainer_WebEdit_Menu_Control_FactoryImpl_menu
+    presenter:
+        module: Menu
+        action:
+            add: Add menu
+            edit: Edit menu
 form:
     container:
         group: Menu
