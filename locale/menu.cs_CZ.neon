@@ -1,5 +1,5 @@
+module: Menu
 admin:
-    module: Menu
     presenter:
         action:
             add: Přidat menu
