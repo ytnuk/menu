@@ -10,15 +10,11 @@ final class Presenter extends Admin\Presenter
 {
 
     private $repository;
-    private $control;
-    private $databaseGridControl;
     private $menu;
 
-    public function __construct(Menu\Repository $repository, Menu\Control\Factory $control, Database\Grid\Control\Factory $databaseGridControl)
+    public function __construct(Menu\Repository $repository)
     {
         $this->repository = $repository;
-        $this->control = $control;
-        $this->databaseGridControl = $databaseGridControl;
     }
 
     public function actionEdit($id)
@@ -33,11 +29,6 @@ final class Presenter extends Admin\Presenter
     public function renderEdit()
     {
         $this['menu'][] = 'menu.admin.presenter.action.edit';
-    }
-
-    protected function createComponentDatabaseGrid()
-    {
-        return $this->databaseGridControl->create($this->repository);
     }
 
 }

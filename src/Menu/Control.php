@@ -3,6 +3,7 @@
 namespace WebEdit\Menu;
 
 use WebEdit\Application;
+use WebEdit\Database;
 use WebEdit\Menu;
 
 final class Control extends Application\Control
@@ -11,16 +12,18 @@ final class Control extends Application\Control
     private $repository;
     private $control;
     private $formControl;
+    private $gridControl;
     private $breadcrumb = [];
     private $append = [];
     private $menu;
     private $active;
 
-    public function __construct(Menu\Repository $repository, Menu\Control\Factory $control, Menu\Form\Control\Factory $formControl)
+    public function __construct(Menu\Repository $repository, Menu\Control\Factory $control, Menu\Form\Control\Factory $formControl, Database\Grid\Control\Factory $gridControl)
     {
         $this->repository = $repository;
         $this->control = $control;
         $this->formControl = $formControl;
+        $this->gridControl = $gridControl;
     }
 
     public function offsetSet($offset, $title)
@@ -64,6 +67,11 @@ final class Control extends Application\Control
     protected function createComponentForm()
     {
         return $this->formControl->create($this->menu);
+    }
+
+    protected function createComponentGrid()
+    {
+        return $this->gridControl->create($this->repository);
     }
 
     protected function createComponentUid()

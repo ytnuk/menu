@@ -8,18 +8,20 @@ form:
     container:
         group: Menu
 entity:
-    id:
-        label: ID
     title:
         label: Název
+        placeholder: Vyplňte název
     parent:
         label: Zatřídit do
-        prompt: vyberte položku
+        placeholder: Vyberte položku
     link:
         label: Odkaz
+        placeholder: Vyplňte odkaz
     linkId:
         label: ID odkazu
+        placeholder: Vyplňte ID odkazu
     hidden:
         label: Skrýt v navigaci
     uid:
         label: Unikátní ID
+        placeholder: Vyplňte unikátní ID

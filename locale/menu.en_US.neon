@@ -8,18 +8,20 @@ form:
     container:
         group: Menu
 entity:
-    id:
-        label: ID
     title:
         label: Title
+        placeholder: Fill title
     parent:
         label: Parent
-        prompt: select item
+        placeholder: Select item
     link:
         label: Link
+        placeholder: Fill link
     linkId:
         label: Link ID
+        placeholder: Fill link ID
     hidden:
         label: Hide in navigation
     uid:
         label: Unique ID
+        placeholder: Fill unique ID
