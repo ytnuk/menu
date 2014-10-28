@@ -21,19 +21,19 @@ use WebEdit\Page;
 final class Entity extends Database\Entity
 {
 
-    public function getChildren()
-    {
-        return $this->getValue('allChildren')->get()->findBy(['hidden' => NULL]);
-    }
+	public function getChildren()
+	{
+		return $this->getValue('allChildren')->get()->findBy(['hidden' => NULL]);
+	}
 
-    public function getParents()
-    {
-        $menu = $this;
-        $parents = [];
-        while ($menu = $menu->parent) {
-            $parents[$menu->id] = $menu;
-        }
-        return array_reverse($parents, TRUE);
-    }
+	public function getParents()
+	{
+		$menu = $this;
+		$parents = [];
+		while ($menu = $menu->parent) {
+			$parents[$menu->id] = $menu;
+		}
+		return array_reverse($parents, TRUE);
+	}
 
 }

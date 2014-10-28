@@ -7,8 +7,8 @@ use WebEdit\Menu\Form;
 interface Factory
 {
 
-    /**
-     * @return Form\Control
-     */
-    public function create($menu);
+	/**
+	 * @return Form\Control
+	 */
+	public function create($menu);
 }

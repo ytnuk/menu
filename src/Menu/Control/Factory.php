@@ -7,8 +7,8 @@ use WebEdit\Menu;
 interface Factory
 {
 
-    /**
-     * @return Menu\Control
-     */
-    public function create();
+	/**
+	 * @return Menu\Control
+	 */
+	public function create();
 }
