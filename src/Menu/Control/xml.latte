@@ -2,7 +2,5 @@
 	<url>
 		<loc>{plink //$menu->link,id=>$menu->linkId}</loc>
 	</url>
-	{foreach $menu->children as $menu}
-		{include url menu=>$menu}
-	{/foreach}
+	{foreach $menu->children as $menu} {include url menu=>$menu} {/foreach}
 </urlset>

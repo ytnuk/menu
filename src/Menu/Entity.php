@@ -21,11 +21,17 @@ use WebEdit\Page;
 final class Entity extends Database\Entity
 {
 
+	/**
+	 * @return array
+	 */
 	public function getChildren()
 	{
 		return $this->getValue('allChildren')->get()->findBy(['hidden' => NULL]);
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getParents()
 	{
 		$menu = $this;

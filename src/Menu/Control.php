@@ -4,21 +4,55 @@ namespace WebEdit\Menu;
 
 use WebEdit\Application;
 use WebEdit\Database;
-use WebEdit\Menu;
 
+/**
+ * Class Control
+ *
+ * @package WebEdit\Menu
+ */
 final class Control extends Application\Control
 {
 
+	/**
+	 * @var Repository
+	 */
 	private $repository;
+	/**
+	 * @var Control\Factory
+	 */
 	private $control;
+	/**
+	 * @var Form\Control\Factory
+	 */
 	private $formControl;
+	/**
+	 * @var Database\Grid\Control\Factory
+	 */
 	private $gridControl;
+	/**
+	 * @var array
+	 */
 	private $breadcrumb = [];
+	/**
+	 * @var array
+	 */
 	private $append = [];
+	/**
+	 * @var Entity
+	 */
 	private $menu;
+	/**
+	 * @var Entity
+	 */
 	private $active;
 
-	public function __construct(Menu\Repository $repository, Menu\Control\Factory $control, Menu\Form\Control\Factory $formControl, Database\Grid\Control\Factory $gridControl)
+	/**
+	 * @param Repository $repository
+	 * @param Control\Factory $control
+	 * @param Form\Control\Factory $formControl
+	 * @param Database\Grid\Control\Factory $gridControl
+	 */
+	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Database\Grid\Control\Factory $gridControl)
 	{
 		$this->repository = $repository;
 		$this->control = $control;
@@ -26,13 +60,21 @@ final class Control extends Application\Control
 		$this->gridControl = $gridControl;
 	}
 
+	/**
+	 * @param string $offset
+	 * @param string $title
+	 */
 	public function offsetSet($offset, $title)
 	{
-		$menu = new Menu\Entity;
+		$menu = new Entity;
 		$menu->title = $title;
 		$this->append[] = $menu;
 	}
 
+	/**
+	 * @param int $id
+	 * @return bool
+	 */
 	public function offsetExists($id)
 	{
 		if ($this->presenter['menu'] !== $this) {
@@ -47,7 +89,11 @@ final class Control extends Application\Control
 		return FALSE;
 	}
 
-	public function setActive(Menu\Entity $active)
+	/**
+	 * @param Entity $active
+	 * @return $this
+	 */
+	public function setActive(Entity $active)
 	{
 		$this->active = $active;
 
@@ -64,16 +110,25 @@ final class Control extends Application\Control
 		$this->template->menu = $this->menu;
 	}
 
+	/**
+	 * @return Form\Control
+	 */
 	protected function createComponentForm()
 	{
-		return $this->formControl->create($this->menu);
+		return $this->formControl->create($this->menu ? : new Entity);
 	}
 
+	/**
+	 * @return Database\Grid\Control
+	 */
 	protected function createComponentGrid()
 	{
 		return $this->gridControl->create($this->repository);
 	}
 
+	/**
+	 * @return Application\Control\Multiplier
+	 */
 	protected function createComponentUid()
 	{
 		return new Application\Control\Multiplier(function ($uid) {
@@ -81,7 +136,11 @@ final class Control extends Application\Control
 		});
 	}
 
-	public function setMenu(Menu\Entity $menu)
+	/**
+	 * @param Entity $menu
+	 * @return $this
+	 */
+	public function setMenu(Entity $menu)
 	{
 		$this->menu = $menu;
 

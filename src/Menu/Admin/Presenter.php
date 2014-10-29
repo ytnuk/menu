@@ -6,17 +6,35 @@ use WebEdit\Admin;
 use WebEdit\Database;
 use WebEdit\Menu;
 
+/**
+ * Class Presenter
+ *
+ * @package WebEdit\Menu
+ */
 final class Presenter extends Admin\Presenter
 {
 
+	/**
+	 * @var Menu\Repository
+	 */
 	private $repository;
+	/**
+	 * @var Menu\Entity
+	 */
 	private $menu;
 
+	/**
+	 * @param Menu\Repository $repository
+	 */
 	public function __construct(Menu\Repository $repository)
 	{
 		$this->repository = $repository;
 	}
 
+	/**
+	 * @param $id
+	 * @throws \Nette\Application\BadRequestException
+	 */
 	public function actionEdit($id)
 	{
 		$this->menu = $this->repository->getById($id);

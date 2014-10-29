@@ -3,27 +3,48 @@
 namespace WebEdit\Menu;
 
 use WebEdit\Database;
-use WebEdit\Menu;
 
+/**
+ * Class Repository
+ *
+ * @package WebEdit\Menu
+ */
 final class Repository extends Database\Repository
 {
 
+	/**
+	 * @param string $link
+	 * @param null $linkId
+	 * @return Entity
+	 */
 	public function getByLink($link, $linkId = NULL)
 	{
 		return $this->getBy(['link' => $link, 'linkId' => $linkId]);
 	}
 
+	/**
+	 * @param string $uid
+	 * @return Entity
+	 */
 	public function getByUid($uid)
 	{
 		return $this->findBy(['uid' => $uid])->fetch();
 	}
 
-	public function findChildren(Menu\Entity $menu)
+	/**
+	 * @param Entity $menu
+	 * @return Entity[]
+	 */
+	public function findChildren(Entity $menu)
 	{
 		return $this->findById($this->findChildrenIds($menu));
 	}
 
-	public function findChildrenIds(Menu\Entity $menu)
+	/**
+	 * @param Entity $menu
+	 * @return array
+	 */
+	public function findChildrenIds(Entity $menu)
 	{
 		$tree = [$menu->id];
 		foreach ($menu->children as $menu) {

@@ -2,13 +2,19 @@
 
 namespace WebEdit\Menu\Form\Control;
 
-use WebEdit\Menu\Form;
+use WebEdit\Menu;
 
+/**
+ * Interface Factory
+ *
+ * @package WebEdit\Menu
+ */
 interface Factory
 {
 
 	/**
-	 * @return Form\Control
+	 * @param Menu\Entity
+	 * @return Menu\Form\Control
 	 */
 	public function create($menu);
 }
