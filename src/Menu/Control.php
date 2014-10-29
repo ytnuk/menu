@@ -43,20 +43,20 @@ final class Control extends Application\Control
 				return $menu;
 			}
 		}
+
 		return FALSE;
 	}
 
 	public function setActive(Menu\Entity $active)
 	{
 		$this->active = $active;
+
 		return $this;
 	}
 
 	protected function startup()
 	{
-		$this->active = $this->active ?:
-			$this->repository->getByLink(':' . $this->presenter->getName() . ':' . $this->presenter->getView()) ?:
-				$this->repository->getByLink(':' . $this->presenter->getName() . ':view');
+		$this->active = $this->active ? : $this->repository->getByLink(':' . $this->presenter->getName() . ':' . $this->presenter->getView()) ? : $this->repository->getByLink(':' . $this->presenter->getName() . ':view');
 		$this->template->breadcrumb = $this->breadcrumb = array_merge($this->active ? $this->active->parents : [], [$this->active], $this->append);
 		$this->template->last = end($this->breadcrumb);
 		$this->template->first = reset($this->breadcrumb);
@@ -84,7 +84,7 @@ final class Control extends Application\Control
 	public function setMenu(Menu\Entity $menu)
 	{
 		$this->menu = $menu;
+
 		return $this;
 	}
-
 }

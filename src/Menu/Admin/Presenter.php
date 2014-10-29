@@ -20,7 +20,7 @@ final class Presenter extends Admin\Presenter
 	public function actionEdit($id)
 	{
 		$this->menu = $this->repository->getById($id);
-		if (!$this->menu) {
+		if ( ! $this->menu) {
 			$this->error();
 		}
 		$this['menu']->setMenu($this->menu);
@@ -30,5 +30,4 @@ final class Presenter extends Admin\Presenter
 	{
 		$this['menu'][] = 'menu.admin.presenter.action.edit';
 	}
-
 }

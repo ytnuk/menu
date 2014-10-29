@@ -33,7 +33,7 @@ final class Entity extends Database\Entity
 		while ($menu = $menu->parent) {
 			$parents[$menu->id] = $menu;
 		}
+
 		return array_reverse($parents, TRUE);
 	}
-
 }
