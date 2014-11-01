@@ -26,7 +26,9 @@ final class Entity extends Database\Entity
 	 */
 	public function getChildren()
 	{
-		return $this->getValue('allChildren')->get()->findBy(['hidden' => NULL]);
+		return $this->getValue('allChildren')
+			->get()
+			->findBy(['hidden' => NULL]);
 	}
 
 	/**

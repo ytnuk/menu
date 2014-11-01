@@ -19,7 +19,10 @@ final class Repository extends Database\Repository
 	 */
 	public function getByLink($link, $linkId = NULL)
 	{
-		return $this->getBy(['link' => $link, 'linkId' => $linkId]);
+		return $this->getBy([
+			'link' => $link,
+			'linkId' => $linkId
+		]);
 	}
 
 	/**
@@ -28,7 +31,8 @@ final class Repository extends Database\Repository
 	 */
 	public function getByUid($uid)
 	{
-		return $this->findBy(['uid' => $uid])->fetch();
+		return $this->findBy(['uid' => $uid])
+			->fetch();
 	}
 
 	/**

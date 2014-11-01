@@ -2,33 +2,48 @@
 
 namespace WebEdit\Menu;
 
+use Kdyby\Translation;
+use Nette\DI;
 use WebEdit\Application;
-use WebEdit\Database;
+use WebEdit\Config;
 use WebEdit\Menu;
-use WebEdit\Module;
-use WebEdit\Translation;
+use WebEdit\Orm;
 
 /**
  * Class Extension
  *
  * @package WebEdit\Menu
  */
-final class Extension extends Module\Extension implements Application\Provider, Database\Provider, Translation\Provider
+final class Extension extends DI\CompilerExtension implements Config\Provider
 {
 
 	/**
 	 * @return array
 	 */
-	public function getApplicationResources()
+	public function getConfigResources()
 	{
-		return ['presenter' => ['components' => ['menu' => Menu\Control\Factory::class]], 'services' => [['class' => Menu\Form\Control\Factory::class, 'parameters' => ['menu']]]];
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getDatabaseResources()
-	{
-		return ['repositories' => [Menu\Repository::class]];
+		return [
+			Orm\Extension::class => [
+				'repositories' => [
+					$this->prefix('repository') => Menu\Repository::class
+				]
+			],
+			Translation\DI\TranslationExtension::class => [
+				'dirs' => [
+					__DIR__ . '/../../locale'
+				]
+			],
+			'services' => [
+				[
+					'implement' => Menu\Form\Control\Factory::class,
+					'parameters' => ['menu'],
+					'arguments' => ['%menu%']
+				],
+				'menu' => [
+					'implement' => Menu\Control\Factory::class,
+					'tags' => [Application\Extension::COMPONENT_TAG]
+				]
+			]
+		];
 	}
 }
