@@ -15,6 +15,7 @@ final class Repository extends Database\Repository
 	/**
 	 * @param string $link
 	 * @param null $linkId
+	 *
 	 * @return Entity
 	 */
 	public function getByLink($link, $linkId = NULL)
@@ -27,6 +28,7 @@ final class Repository extends Database\Repository
 
 	/**
 	 * @param string $uid
+	 *
 	 * @return Entity
 	 */
 	public function getByUid($uid)
@@ -37,6 +39,7 @@ final class Repository extends Database\Repository
 
 	/**
 	 * @param Entity $menu
+	 *
 	 * @return Entity[]
 	 */
 	public function findChildren(Entity $menu)
@@ -46,6 +49,7 @@ final class Repository extends Database\Repository
 
 	/**
 	 * @param Entity $menu
+	 *
 	 * @return array
 	 */
 	public function findChildrenIds(Entity $menu)

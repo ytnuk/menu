@@ -18,6 +18,7 @@ final class Control extends Form\Control
 	 * @var Menu\Entity
 	 */
 	private $menu;
+
 	/**
 	 * @var Database\Form\Factory
 	 */

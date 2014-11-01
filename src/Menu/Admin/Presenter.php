@@ -18,6 +18,7 @@ final class Presenter extends Admin\Presenter
 	 * @var Menu\Repository
 	 */
 	private $repository;
+
 	/**
 	 * @var Menu\Entity
 	 */
@@ -33,6 +34,7 @@ final class Presenter extends Admin\Presenter
 
 	/**
 	 * @param $id
+	 *
 	 * @throws \Nette\Application\BadRequestException
 	 */
 	public function actionEdit($id)

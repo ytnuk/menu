@@ -14,6 +14,7 @@ interface Factory
 
 	/**
 	 * @param Menu\Entity
+	 *
 	 * @return Menu\Form\Control
 	 */
 	public function create($menu);

@@ -17,30 +17,37 @@ final class Control extends Application\Control
 	 * @var Repository
 	 */
 	private $repository;
+
 	/**
 	 * @var Control\Factory
 	 */
 	private $control;
+
 	/**
 	 * @var Form\Control\Factory
 	 */
 	private $formControl;
+
 	/**
 	 * @var Database\Grid\Control\Factory
 	 */
 	private $gridControl;
+
 	/**
 	 * @var array
 	 */
 	private $breadcrumb = [];
+
 	/**
 	 * @var array
 	 */
 	private $append = [];
+
 	/**
 	 * @var Entity
 	 */
 	private $menu;
+
 	/**
 	 * @var Entity
 	 */
@@ -73,6 +80,7 @@ final class Control extends Application\Control
 
 	/**
 	 * @param int $id
+	 *
 	 * @return bool
 	 */
 	public function offsetExists($id)
@@ -91,6 +99,7 @@ final class Control extends Application\Control
 
 	/**
 	 * @param Entity $active
+	 *
 	 * @return $this
 	 */
 	public function setActive(Entity $active)
@@ -139,6 +148,7 @@ final class Control extends Application\Control
 
 	/**
 	 * @param Entity $menu
+	 *
 	 * @return $this
 	 */
 	public function setMenu(Entity $menu)
