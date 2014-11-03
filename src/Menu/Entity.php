@@ -3,14 +3,13 @@
 namespace WebEdit\Menu;
 
 use WebEdit\Database;
-use WebEdit\Menu;
 use WebEdit\Page;
 
 /**
- * @property-read Menu\Entity[] $parents {virtual}
- * @property-read Menu\Entity[] $children {virtual}
- * @property Menu\Entity|NULL $parent {m:1 Menu\Repository $allChildren}
- * @property Menu\Entity[] $allChildren {1:m Menu\Repository $parent}
+ * @property-read Entity[] $parents {virtual}
+ * @property-read Entity[] $children {virtual}
+ * @property Entity|NULL $parent {m:1 Repository $allChildren}
+ * @property Entity[] $allChildren {1:m Repository $parent}
  * @property string $title
  * @property string $link
  * @property int|NULL $linkId
