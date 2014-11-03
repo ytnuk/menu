@@ -2,9 +2,9 @@
 
 namespace WebEdit\Menu\Form;
 
-use WebEdit\Database;
 use WebEdit\Form;
 use WebEdit\Menu;
+use WebEdit\Orm;
 
 /**
  * Class Control
@@ -20,22 +20,22 @@ final class Control extends Form\Control
 	private $menu;
 
 	/**
-	 * @var Database\Form\Factory
+	 * @var Orm\Form\Factory
 	 */
 	private $form;
 
 	/**
 	 * @param Menu\Entity $menu
-	 * @param Database\Form\Factory $form
+	 * @param Orm\Form\Factory $form
 	 */
-	public function __construct(Menu\Entity $menu, Database\Form\Factory $form)
+	public function __construct(Menu\Entity $menu, Orm\Form\Factory $form)
 	{
 		$this->menu = $menu;
 		$this->form = $form;
 	}
 
 	/**
-	 * @return Database\Form
+	 * @return Orm\Form
 	 */
 	protected function createComponentForm()
 	{

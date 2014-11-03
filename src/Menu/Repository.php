@@ -2,14 +2,14 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit\Database;
+use WebEdit\Orm;
 
 /**
  * Class Repository
  *
  * @package WebEdit\Menu
  */
-final class Repository extends Database\Repository
+final class Repository extends Orm\Repository
 {
 
 	/**

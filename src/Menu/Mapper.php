@@ -2,14 +2,14 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit\Database;
+use WebEdit\Orm;
 
 /**
  * Class Mapper
  *
  * @package WebEdit\Menu
  */
-final class Mapper extends Database\Mapper
+final class Mapper extends Orm\Mapper
 {
 
 }

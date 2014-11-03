@@ -2,7 +2,7 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit\Database;
+use WebEdit\Orm;
 use WebEdit\Page;
 
 /**
@@ -17,7 +17,7 @@ use WebEdit\Page;
  * @property string|NULL $uid
  * @property Page\Entity|NULL $page {1:1d Page\Repository $menu}
  */
-final class Entity extends Database\Entity
+final class Entity extends Orm\Entity
 {
 
 	/**

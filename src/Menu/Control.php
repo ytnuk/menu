@@ -3,7 +3,7 @@
 namespace WebEdit\Menu;
 
 use WebEdit\Application;
-use WebEdit\Database;
+use WebEdit\Orm;
 
 /**
  * Class Control
@@ -29,7 +29,7 @@ final class Control extends Application\Control
 	private $formControl;
 
 	/**
-	 * @var Database\Grid\Control\Factory
+	 * @var Orm\Grid\Control\Factory
 	 */
 	private $gridControl;
 
@@ -57,9 +57,9 @@ final class Control extends Application\Control
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
-	 * @param Database\Grid\Control\Factory $gridControl
+	 * @param Orm\Grid\Control\Factory $gridControl
 	 */
-	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Database\Grid\Control\Factory $gridControl)
+	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Orm\Grid\Control\Factory $gridControl)
 	{
 		$this->repository = $repository;
 		$this->control = $control;
@@ -128,7 +128,7 @@ final class Control extends Application\Control
 	}
 
 	/**
-	 * @return Database\Grid\Control
+	 * @return Orm\Grid\Control
 	 */
 	protected function createComponentGrid()
 	{

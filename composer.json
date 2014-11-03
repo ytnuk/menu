@@ -3,7 +3,7 @@
 	"require": {
 		"webedit/application": "dev-master",
 		"kdyby/translation": "dev-master",
-		"webedit/database": "dev-master",
+		"webedit/orm": "dev-master",
 		"webedit/form": "dev-master"
 	},
 	"autoload": {
