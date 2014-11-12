@@ -1,9 +1,8 @@
-admin:
-	presenter:
-		module: Administrace menu
-		action:
-			add: Přidat menu
-			edit: Upravit menu
+presenter:
+	module: Menu
+	action:
+		add: Přidat menu
+		edit: Upravit menu
 form:
 	container:
 		group: Menu

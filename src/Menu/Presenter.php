@@ -1,6 +1,6 @@
 <?php
 
-namespace WebEdit\Menu\Admin;
+namespace WebEdit\Menu;
 
 use WebEdit\Admin;
 use WebEdit\Database;
@@ -11,7 +11,7 @@ use WebEdit\Menu;
  *
  * @package WebEdit\Menu
  */
-final class Presenter extends Admin\Presenter
+final class Presenter extends Admin\Presenter //TODO: move to admin web
 {
 
 	/**
@@ -48,6 +48,6 @@ final class Presenter extends Admin\Presenter
 
 	public function renderEdit()
 	{
-		$this['menu'][] = 'menu.admin.presenter.action.edit';
+		$this['menu'][] = 'menu.presenter.action.edit';
 	}
 }
