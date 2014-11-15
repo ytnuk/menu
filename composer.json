@@ -7,9 +7,8 @@
 		"webedit/form": "dev-master"
 	},
 	"autoload": {
-		"psr-0": {
-			"WebEdit\\": "src/",
-			"Admin\\": "src/"
+		"psr-4": {
+			"WebEdit\\": "src/"
 		}
 	}
 }
