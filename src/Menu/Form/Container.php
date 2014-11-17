@@ -2,14 +2,14 @@
 
 namespace WebEdit\Menu\Form;
 
-use WebEdit\Orm;
+use WebEdit;
 
 /**
  * Class Container
  *
  * @package WebEdit\Menu
  */
-final class Container extends Orm\Form\Container
+final class Container extends WebEdit\Orm\Form\Container
 {
 
 }

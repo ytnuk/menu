@@ -3,15 +3,14 @@
 namespace WebEdit\Menu;
 
 use Nette;
-use WebEdit\Application;
-use WebEdit\Orm;
+use WebEdit;
 
 /**
  * Class Control
  *
  * @package WebEdit\Menu
  */
-final class Control extends Application\Control
+final class Control extends WebEdit\Application\Control
 {
 
 	/**
@@ -30,7 +29,7 @@ final class Control extends Application\Control
 	private $formControl;
 
 	/**
-	 * @var Orm\Grid\Control\Factory
+	 * @var WebEdit\Orm\Grid\Control\Factory
 	 */
 	private $gridControl;
 
@@ -58,9 +57,9 @@ final class Control extends Application\Control
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
-	 * @param Orm\Grid\Control\Factory $gridControl
+	 * @param WebEdit\Orm\Grid\Control\Factory $gridControl
 	 */
-	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Orm\Grid\Control\Factory $gridControl)
+	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, WebEdit\Orm\Grid\Control\Factory $gridControl)
 	{
 		$this->repository = $repository;
 		$this->control = $control;
@@ -141,7 +140,7 @@ final class Control extends Application\Control
 	}
 
 	/**
-	 * @return Orm\Grid\Control
+	 * @return WebEdit\Orm\Grid\Control
 	 */
 	protected function createComponentGrid()
 	{

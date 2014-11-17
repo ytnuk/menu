@@ -2,8 +2,7 @@
 
 namespace WebEdit\Menu;
 
-use WebEdit\Orm;
-use WebEdit\Page;
+use WebEdit;
 
 /**
  * @property-read Entity[] $parents {virtual}
@@ -15,9 +14,9 @@ use WebEdit\Page;
  * @property int|NULL $linkId
  * @property bool|NULL $hidden
  * @property string|NULL $uid
- * @property Page\Entity|NULL $page {1:1d Page\Repository $menu}
+ * @property WebEdit\Page\Entity|NULL $page {1:1d WebEdit\Page\Repository $menu}
  */
-final class Entity extends Orm\Entity
+final class Entity extends WebEdit\Orm\Entity
 {
 
 	/**

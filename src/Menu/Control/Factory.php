@@ -2,7 +2,7 @@
 
 namespace WebEdit\Menu\Control;
 
-use WebEdit\Menu;
+use WebEdit;
 
 /**
  * Interface Factory
@@ -13,7 +13,7 @@ interface Factory
 {
 
 	/**
-	 * @return Menu\Control
+	 * @return WebEdit\Menu\Control
 	 */
 	public function create();
 }

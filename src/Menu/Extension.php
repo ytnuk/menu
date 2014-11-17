@@ -2,18 +2,16 @@
 
 namespace WebEdit\Menu;
 
-use Kdyby\Translation;
-use Nette\DI;
-use WebEdit\Application;
-use WebEdit\Config;
-use WebEdit\Orm;
+use Kdyby;
+use Nette;
+use WebEdit;
 
 /**
  * Class Extension
  *
  * @package WebEdit\Menu
  */
-final class Extension extends DI\CompilerExtension implements Config\Provider
+final class Extension extends Nette\DI\CompilerExtension implements WebEdit\Config\Provider
 {
 
 	/**
@@ -22,12 +20,12 @@ final class Extension extends DI\CompilerExtension implements Config\Provider
 	public function getConfigResources()
 	{
 		return [
-			Orm\Extension::class => [
+			WebEdit\Orm\Extension::class => [
 				'repositories' => [
 					$this->prefix('repository') => Repository::class
 				]
 			],
-			Translation\DI\TranslationExtension::class => [
+			Kdyby\Translation\DI\TranslationExtension::class => [
 				'dirs' => [
 					__DIR__ . '/../../locale'
 				]
@@ -40,7 +38,7 @@ final class Extension extends DI\CompilerExtension implements Config\Provider
 				],
 				'menu' => [
 					'implement' => Control\Factory::class,
-					'tags' => [Application\Extension::COMPONENT_TAG]
+					'tags' => [WebEdit\Application\Extension::COMPONENT_TAG]
 				]
 			]
 		];
