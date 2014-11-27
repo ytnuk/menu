@@ -19,6 +19,8 @@ use WebEdit;
 final class Entity extends WebEdit\Orm\Entity
 {
 
+	const PROPERTY_NAME = 'title';
+
 	/**
 	 * @return array
 	 */
