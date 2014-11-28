@@ -1,16 +1,16 @@
 <?php
 
-namespace WebEdit\Menu;
+namespace Kutny\Menu;
 
 use Nette;
-use WebEdit;
+use Kutny;
 
 /**
  * Class Control
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
-final class Control extends WebEdit\Application\Control
+final class Control extends Kutny\Application\Control
 {
 
 	/**
@@ -29,7 +29,7 @@ final class Control extends WebEdit\Application\Control
 	private $formControl;
 
 	/**
-	 * @var WebEdit\Orm\Grid\Control\Factory
+	 * @var Kutny\Orm\Grid\Control\Factory
 	 */
 	private $gridControl;
 
@@ -57,9 +57,9 @@ final class Control extends WebEdit\Application\Control
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
-	 * @param WebEdit\Orm\Grid\Control\Factory $gridControl
+	 * @param Kutny\Orm\Grid\Control\Factory $gridControl
 	 */
-	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, WebEdit\Orm\Grid\Control\Factory $gridControl)
+	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Kutny\Orm\Grid\Control\Factory $gridControl)
 	{
 		$this->repository = $repository;
 		$this->control = $control;
@@ -140,7 +140,7 @@ final class Control extends WebEdit\Application\Control
 	}
 
 	/**
-	 * @return WebEdit\Orm\Grid\Control
+	 * @return Kutny\Orm\Grid\Control
 	 */
 	protected function createComponentGrid()
 	{

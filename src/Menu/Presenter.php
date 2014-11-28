@@ -1,16 +1,16 @@
 <?php
 
-namespace WebEdit\Menu;
+namespace Kutny\Menu;
 
 use Nette;
-use WebEdit;
+use Kutny;
 
 /**
  * Class Presenter
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
-final class Presenter extends WebEdit\Web\Presenter
+final class Presenter extends Kutny\Web\Presenter
 {
 
 	/**

@@ -1,15 +1,15 @@
 <?php
 
-namespace WebEdit\Menu\Form;
+namespace Kutny\Menu\Form;
 
-use WebEdit;
+use Kutny;
 
 /**
  * Class Container
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
-final class Container extends WebEdit\Orm\Form\Container
+final class Container extends Kutny\Orm\Form\Container
 {
 
 }

@@ -1,17 +1,17 @@
 <?php
 
-namespace WebEdit\Menu;
+namespace Kutny\Menu;
 
 use Kdyby;
 use Nette;
-use WebEdit;
+use Kutny;
 
 /**
  * Class Extension
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
-final class Extension extends Nette\DI\CompilerExtension implements WebEdit\Config\Provider
+final class Extension extends Nette\DI\CompilerExtension implements Kutny\Config\Provider
 {
 
 	/**
@@ -20,7 +20,7 @@ final class Extension extends Nette\DI\CompilerExtension implements WebEdit\Conf
 	public function getConfigResources()
 	{
 		return [
-			WebEdit\Orm\Extension::class => [
+			Kutny\Orm\Extension::class => [
 				'repositories' => [
 					$this->prefix('repository') => Repository::class
 				]
@@ -38,7 +38,7 @@ final class Extension extends Nette\DI\CompilerExtension implements WebEdit\Conf
 				],
 				'menu' => [
 					'implement' => Control\Factory::class,
-					'tags' => [WebEdit\Application\Extension::COMPONENT_TAG]
+					'tags' => [Kutny\Application\Extension::COMPONENT_TAG]
 				]
 			]
 		];

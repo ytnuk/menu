@@ -1,19 +1,19 @@
 <?php
 
-namespace WebEdit\Menu\Control;
+namespace Kutny\Menu\Control;
 
-use WebEdit;
+use Kutny;
 
 /**
  * Interface Factory
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
 interface Factory
 {
 
 	/**
-	 * @return WebEdit\Menu\Control
+	 * @return Kutny\Menu\Control
 	 */
 	public function create();
 }

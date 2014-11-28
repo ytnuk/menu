@@ -1,15 +1,15 @@
 <?php
 
-namespace WebEdit\Menu;
+namespace Kutny\Menu;
 
-use WebEdit;
+use Kutny;
 
 /**
  * Class Repository
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
-final class Repository extends WebEdit\Orm\Repository
+final class Repository extends Kutny\Orm\Repository
 {
 
 	/**

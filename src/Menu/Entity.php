@@ -1,8 +1,8 @@
 <?php
 
-namespace WebEdit\Menu;
+namespace Kutny\Menu;
 
-use WebEdit;
+use Kutny;
 
 /**
  * @property-read Entity[] $parents {virtual}
@@ -14,9 +14,9 @@ use WebEdit;
  * @property int|NULL $linkId
  * @property bool|NULL $hidden
  * @property string|NULL $uid
- * @property WebEdit\Page\Entity|NULL $page {1:1d WebEdit\Page\Repository $menu}
+ * @property Kutny\Page\Entity|NULL $page {1:1d Kutny\Page\Repository $menu}
  */
-final class Entity extends WebEdit\Orm\Entity
+final class Entity extends Kutny\Orm\Entity
 {
 
 	const PROPERTY_NAME = 'title';

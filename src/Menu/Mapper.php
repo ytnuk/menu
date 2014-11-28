@@ -1,15 +1,15 @@
 <?php
 
-namespace WebEdit\Menu;
+namespace Kutny\Menu;
 
-use WebEdit;
+use Kutny;
 
 /**
  * Class Mapper
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
-final class Mapper extends WebEdit\Orm\Mapper
+final class Mapper extends Kutny\Orm\Mapper
 {
 
 }

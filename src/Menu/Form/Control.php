@@ -1,39 +1,39 @@
 <?php
 
-namespace WebEdit\Menu\Form;
+namespace Kutny\Menu\Form;
 
-use WebEdit;
+use Kutny;
 
 /**
  * Class Control
  *
- * @package WebEdit\Menu
+ * @package Kutny\Menu
  */
-final class Control extends WebEdit\Form\Control
+final class Control extends Kutny\Form\Control
 {
 
 	/**
-	 * @var WebEdit\Menu\Entity
+	 * @var Kutny\Menu\Entity
 	 */
 	private $menu;
 
 	/**
-	 * @var WebEdit\Orm\Form\Factory
+	 * @var Kutny\Orm\Form\Factory
 	 */
 	private $form;
 
 	/**
-	 * @param WebEdit\Menu\Entity $menu
-	 * @param WebEdit\Orm\Form\Factory $form
+	 * @param Kutny\Menu\Entity $menu
+	 * @param Kutny\Orm\Form\Factory $form
 	 */
-	public function __construct(WebEdit\Menu\Entity $menu, WebEdit\Orm\Form\Factory $form)
+	public function __construct(Kutny\Menu\Entity $menu, Kutny\Orm\Form\Factory $form)
 	{
 		$this->menu = $menu;
 		$this->form = $form;
 	}
 
 	/**
-	 * @return WebEdit\Orm\Form
+	 * @return Kutny\Orm\Form
 	 */
 	protected function createComponentForm()
 	{
