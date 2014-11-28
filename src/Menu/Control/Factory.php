@@ -1,19 +1,19 @@
 <?php
 
-namespace Kutny\Menu\Control;
+namespace Ytnuk\Menu\Control;
 
-use Kutny;
+use Ytnuk;
 
 /**
  * Interface Factory
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
 interface Factory
 {
 
 	/**
-	 * @return Kutny\Menu\Control
+	 * @return Ytnuk\Menu\Control
 	 */
 	public function create();
 }

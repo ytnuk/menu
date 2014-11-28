@@ -1,15 +1,15 @@
 <?php
 
-namespace Kutny\Menu\Form;
+namespace Ytnuk\Menu\Form;
 
-use Kutny;
+use Ytnuk;
 
 /**
  * Class Container
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
-final class Container extends Kutny\Orm\Form\Container
+final class Container extends Ytnuk\Orm\Form\Container
 {
 
 }

@@ -1,14 +1,14 @@
 {
-	"name": "kutny/menu",
+	"name": "ytnuk/menu",
 	"require": {
-		"kutny/application": "dev-master",
+		"ytnuk/application": "dev-master",
 		"kdyby/translation": "dev-master",
-		"kutny/orm": "dev-master",
-		"kutny/form": "dev-master"
+		"ytnuk/orm": "dev-master",
+		"ytnuk/form": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
-			"Kutny\\": "src/"
+			"Ytnuk\\": "src/"
 		}
 	}
 }

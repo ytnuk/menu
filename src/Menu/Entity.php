@@ -1,8 +1,8 @@
 <?php
 
-namespace Kutny\Menu;
+namespace Ytnuk\Menu;
 
-use Kutny;
+use Ytnuk;
 
 /**
  * @property-read Entity[] $parents {virtual}
@@ -14,9 +14,9 @@ use Kutny;
  * @property int|NULL $linkId
  * @property bool|NULL $hidden
  * @property string|NULL $uid
- * @property Kutny\Page\Entity|NULL $page {1:1d Kutny\Page\Repository $menu}
+ * @property Ytnuk\Page\Entity|NULL $page {1:1d Ytnuk\Page\Repository $menu}
  */
-final class Entity extends Kutny\Orm\Entity
+final class Entity extends Ytnuk\Orm\Entity
 {
 
 	const PROPERTY_NAME = 'title';

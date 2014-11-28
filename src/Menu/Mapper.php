@@ -1,15 +1,15 @@
 <?php
 
-namespace Kutny\Menu;
+namespace Ytnuk\Menu;
 
-use Kutny;
+use Ytnuk;
 
 /**
  * Class Mapper
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
-final class Mapper extends Kutny\Orm\Mapper
+final class Mapper extends Ytnuk\Orm\Mapper
 {
 
 }

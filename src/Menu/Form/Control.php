@@ -1,39 +1,39 @@
 <?php
 
-namespace Kutny\Menu\Form;
+namespace Ytnuk\Menu\Form;
 
-use Kutny;
+use Ytnuk;
 
 /**
  * Class Control
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
-final class Control extends Kutny\Form\Control
+final class Control extends Ytnuk\Form\Control
 {
 
 	/**
-	 * @var Kutny\Menu\Entity
+	 * @var Ytnuk\Menu\Entity
 	 */
 	private $menu;
 
 	/**
-	 * @var Kutny\Orm\Form\Factory
+	 * @var Ytnuk\Orm\Form\Factory
 	 */
 	private $form;
 
 	/**
-	 * @param Kutny\Menu\Entity $menu
-	 * @param Kutny\Orm\Form\Factory $form
+	 * @param Ytnuk\Menu\Entity $menu
+	 * @param Ytnuk\Orm\Form\Factory $form
 	 */
-	public function __construct(Kutny\Menu\Entity $menu, Kutny\Orm\Form\Factory $form)
+	public function __construct(Ytnuk\Menu\Entity $menu, Ytnuk\Orm\Form\Factory $form)
 	{
 		$this->menu = $menu;
 		$this->form = $form;
 	}
 
 	/**
-	 * @return Kutny\Orm\Form
+	 * @return Ytnuk\Orm\Form
 	 */
 	protected function createComponentForm()
 	{

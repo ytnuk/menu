@@ -1,15 +1,15 @@
 <?php
 
-namespace Kutny\Menu;
+namespace Ytnuk\Menu;
 
-use Kutny;
+use Ytnuk;
 
 /**
  * Class Repository
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
-final class Repository extends Kutny\Orm\Repository
+final class Repository extends Ytnuk\Orm\Repository
 {
 
 	/**

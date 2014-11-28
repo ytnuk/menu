@@ -1,16 +1,16 @@
 <?php
 
-namespace Kutny\Menu;
+namespace Ytnuk\Menu;
 
 use Nette;
-use Kutny;
+use Ytnuk;
 
 /**
  * Class Control
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
-final class Control extends Kutny\Application\Control
+final class Control extends Ytnuk\Application\Control
 {
 
 	/**
@@ -29,7 +29,7 @@ final class Control extends Kutny\Application\Control
 	private $formControl;
 
 	/**
-	 * @var Kutny\Orm\Grid\Control\Factory
+	 * @var Ytnuk\Orm\Grid\Control\Factory
 	 */
 	private $gridControl;
 
@@ -57,9 +57,9 @@ final class Control extends Kutny\Application\Control
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
-	 * @param Kutny\Orm\Grid\Control\Factory $gridControl
+	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 */
-	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Kutny\Orm\Grid\Control\Factory $gridControl)
+	public function __construct(Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl)
 	{
 		$this->repository = $repository;
 		$this->control = $control;
@@ -140,7 +140,7 @@ final class Control extends Kutny\Application\Control
 	}
 
 	/**
-	 * @return Kutny\Orm\Grid\Control
+	 * @return Ytnuk\Orm\Grid\Control
 	 */
 	protected function createComponentGrid()
 	{

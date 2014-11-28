@@ -1,16 +1,16 @@
 <?php
 
-namespace Kutny\Menu;
+namespace Ytnuk\Menu;
 
 use Nette;
-use Kutny;
+use Ytnuk;
 
 /**
  * Class Presenter
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
-final class Presenter extends Kutny\Web\Presenter
+final class Presenter extends Ytnuk\Web\Presenter
 {
 
 	/**

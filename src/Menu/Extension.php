@@ -1,17 +1,17 @@
 <?php
 
-namespace Kutny\Menu;
+namespace Ytnuk\Menu;
 
 use Kdyby;
 use Nette;
-use Kutny;
+use Ytnuk;
 
 /**
  * Class Extension
  *
- * @package Kutny\Menu
+ * @package Ytnuk\Menu
  */
-final class Extension extends Nette\DI\CompilerExtension implements Kutny\Config\Provider
+final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config\Provider
 {
 
 	/**
@@ -20,7 +20,7 @@ final class Extension extends Nette\DI\CompilerExtension implements Kutny\Config
 	public function getConfigResources()
 	{
 		return [
-			Kutny\Orm\Extension::class => [
+			Ytnuk\Orm\Extension::class => [
 				'repositories' => [
 					$this->prefix('repository') => Repository::class
 				]
@@ -38,7 +38,7 @@ final class Extension extends Nette\DI\CompilerExtension implements Kutny\Config
 				],
 				'menu' => [
 					'implement' => Control\Factory::class,
-					'tags' => [Kutny\Application\Extension::COMPONENT_TAG]
+					'tags' => [Ytnuk\Application\Extension::COMPONENT_TAG]
 				]
 			]
 		];
