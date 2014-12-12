@@ -28,7 +28,8 @@ final class Entity extends Ytnuk\Orm\Entity
 	{
 		return $this->getValue('allChildren')
 			->get()
-			->findBy(['hidden' => FALSE]);
+			->findBy(['hidden' => FALSE])
+			->orderBy('position');
 	}
 
 	/**
