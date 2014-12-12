@@ -111,18 +111,16 @@ final class Control extends Ytnuk\Application\Control
 
 	protected function startup()
 	{
-		if ( ! $this->active) {
-			$views = [
-				$this->presenter->getView(),
-				'view',
-				'list'
-			];
-			foreach ($views as $view) {
-				$this->active = $this->repository->getByLink(':' . $this->presenter->getName() . ':' . $view);
-				if ($this->active) {
-					break;
-				}
+		$views = [
+			$this->presenter->getView(),
+			'view',
+			'list'
+		];
+		foreach ($views as $view) {
+			if ($this->active) {
+				break;
 			}
+			$this->active = $this->repository->getByLink(':' . $this->presenter->getName() . ':' . $view);
 		}
 		$this->template->breadcrumb = $this->breadcrumb = array_merge($this->active ? $this->active->parents : [], [$this->active], $this->append);
 		$this->template->last = end($this->breadcrumb);
