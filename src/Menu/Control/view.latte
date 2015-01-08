@@ -1,3 +1,6 @@
+<h1 n:inner-snippet="title">
+	{$last->title|translate}
+</h1>
 <ol class="breadcrumb" n:inner-foreach="$breadcrumb as $menu" n:snippet="breadcrumb">
 	<li n:class="$iterator->last?active">
 		<a n:tag-if="!$iterator->last" href="{plink $menu->link id=>$menu->linkId}">{$menu->title|translate}</a>
