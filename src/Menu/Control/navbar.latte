@@ -1,15 +1,15 @@
-<nav class="navbar navbar-default navbar-static-top" n:snippet="navbar">
+<nav class="navbar navbar-default navbar-static-top" n:inner-snippet="navbar">
 	<div class="container">
 		<header class="navbar-header">
-			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-{$menu->uid}-collapse">
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-{$menu->id}-collapse">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
 		</header>
-		<div class="collapse navbar-collapse navbar-{$menu->uid}-collapse">
+		<div class="collapse navbar-collapse navbar-{$menu->id}-collapse">
 			<ul n:class="nav,navbar-nav">
-				<li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId]) ? active" n:if="!$menu->hidden">
+				<li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId]) ? active">
 					<a href="{plink $menu->link id=>$menu->linkId}">
 						<span class="glyphicon glyphicon-home"></span>
 						{$menu->title|translate}

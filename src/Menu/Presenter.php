@@ -19,16 +19,23 @@ final class Presenter extends Ytnuk\Web\Presenter
 	private $repository;
 
 	/**
+	 * @var Control\Factory
+	 */
+	private $control;
+
+	/**
 	 * @var Entity
 	 */
 	private $menu;
 
 	/**
 	 * @param Repository $repository
+	 * @param Control\Factory $control
 	 */
-	public function __construct(Repository $repository)
+	public function __construct(Repository $repository, Control\Factory $control)
 	{
 		$this->repository = $repository;
+		$this->control = $control;
 	}
 
 	/**
@@ -42,11 +49,18 @@ final class Presenter extends Ytnuk\Web\Presenter
 		if ( ! $this->menu) {
 			$this->error();
 		}
-		$this['menu']->setMenu($this->menu);
 	}
 
 	public function renderView()
 	{
-		$this['menu'][] = 'menu.presenter.action.edit';
+		$this[Control::class][] = 'menu.presenter.action.edit';
+	}
+
+	/**
+	 * @return Control
+	 */
+	protected function createComponentYtnukMenuControl()
+	{
+		return $this->control->create($this->menu ? : new Entity);
 	}
 }

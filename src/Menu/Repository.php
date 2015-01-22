@@ -25,15 +25,4 @@ final class Repository extends Ytnuk\Orm\Repository
 			'linkId' => $linkId
 		]);
 	}
-
-	/**
-	 * @param string $uid
-	 *
-	 * @return Entity
-	 */
-	public function getByUid($uid)
-	{
-		return $this->findBy(['uid' => $uid])
-			->fetch();
-	}
 }

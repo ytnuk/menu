@@ -19,8 +19,3 @@ entity:
 	linkId:
 		label: ID odkazu
 		placeholder: Vyplňte ID odkazu
-	hidden:
-		label: Skrýt v navigaci
-	uid:
-		label: Unikátní ID
-		placeholder: Vyplňte unikátní ID

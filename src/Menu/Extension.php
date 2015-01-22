@@ -36,9 +36,10 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 					'parameters' => ['menu'],
 					'arguments' => ['%menu%']
 				],
-				'menu' => [
+				[
 					'implement' => Control\Factory::class,
-					'tags' => [Ytnuk\Application\Extension::COMPONENT_TAG]
+					'parameters' => ['menu'],
+					'arguments' => ['%menu%']
 				]
 			]
 		];

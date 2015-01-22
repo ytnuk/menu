@@ -13,7 +13,9 @@ interface Factory
 {
 
 	/**
+	 * @param Ytnuk\Menu\Entity
+	 *
 	 * @return Ytnuk\Menu\Control
 	 */
-	public function create();
+	public function create($menu);
 }

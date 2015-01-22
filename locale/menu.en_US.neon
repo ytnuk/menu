@@ -19,8 +19,3 @@ entity:
 	linkId:
 		label: Link ID
 		placeholder: Fill link ID
-	hidden:
-		label: Hide in navigation
-	uid:
-		label: Unique ID
-		placeholder: Fill unique ID
