@@ -21,7 +21,7 @@ final class Entity extends Ytnuk\Orm\Entity
 	/**
 	 * @return array
 	 */
-	public function getterParents()
+	protected function getterParents()
 	{
 		$menu = $this;
 		$parents = [];
