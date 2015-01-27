@@ -9,26 +9,26 @@
 		</header>
 		<div class="collapse navbar-collapse navbar-{$menu->id}-collapse">
 			<ul n:class="nav,navbar-nav">
-				<li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId]) ? active">
-					<a href="{plink $menu->link id=>$menu->linkId}">
+				<li n:class="$presenter->isLinkCurrent($menu->link) ? active">
+					<a n:href="$menu->link">
 						<span class="glyphicon glyphicon-home"></span>
 						{$menu->title|translate}
 					</a>
 				</li>
 				<li n:foreach="$menu->children as $menu" n:class="isset($control[$menu->id])?active,$menu->children->count()?dropdown">
-					<a href="{plink $menu->link id=>$menu->linkId}" n:attr="data-toggle=>$menu->children->count()?dropdown,class=>$menu->children->count()?dropdown-toggle">
+					<a n:href="$menu->link" n:attr="data-toggle=>$menu->children->count()?dropdown,class=>$menu->children->count()?dropdown-toggle">
 						{$menu->title|translate}
 						<b class="caret" n:if="$menu->children->count()"></b>
 					</a>
 					<ul n:if="$menu->children->count()" class="dropdown-menu">
-						<li n:class="$presenter->isLinkCurrent($menu->link,[id=>$menu->linkId])?active">
-							<a href="{plink $menu->link id=>$menu->linkId}">
+						<li n:class="$presenter->isLinkCurrent($menu->link)?active">
+							<a n:href="$menu->link">
 								<b class="caret-down"></b>
 								{$menu->title|translate}
 							</a>
 						</li>
 						<li n:class="isset($control[$menu->id])?active" n:foreach="$menu->children as $menu">
-							<a href="{plink $menu->link id=>$menu->linkId}"> {$menu->title|translate}</a>
+							<a n:href="$menu->link"> {$menu->title|translate}</a>
 						</li>
 					</ul>
 				</li>

@@ -18,11 +18,10 @@ final class Repository extends Ytnuk\Orm\Repository
 	 *
 	 * @return Entity
 	 */
-	public function getByLink($link, $linkId = NULL)
+	public function getByLink($link, $linkId = NULL) //TODO: refactor
 	{
 		return $this->getBy([
-			'link' => $link,
-			'linkId' => $linkId
+			'this->link->destination' => $link,
 		]);
 	}
 }

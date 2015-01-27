@@ -131,7 +131,7 @@ final class Control extends Ytnuk\Application\Control
 			'view',
 			'list'
 		];
-		foreach ($views as $view) {
+		foreach ($views as $view) { //TODO: refactor
 			if ($this->active) {
 				break;
 			}

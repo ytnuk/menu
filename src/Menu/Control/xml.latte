@@ -1,6 +1,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" n:inner-block="url">
 	<url>
-		<loc>{plink //$menu->link,id=>$menu->linkId}</loc>
+		<loc>{plink //$menu->link (expand) $menu->link->parameters}</loc>
 	</url>
 	{foreach $menu->children as $menu} {include url menu=>$menu} {/foreach}
 </urlset>
