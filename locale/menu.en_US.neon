@@ -13,9 +13,3 @@ entity:
 	parent:
 		label: Parent
 		placeholder: Select item
-	link:
-		label: Link
-		placeholder: Fill link
-	linkId:
-		label: Link ID
-		placeholder: Fill link ID

@@ -12,4 +12,5 @@ use Ytnuk;
 final class Entity extends Ytnuk\Orm\Entity
 {
 
+	const PROPERTY_NAME = 'value';
 }

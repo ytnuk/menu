@@ -13,9 +13,3 @@ entity:
 	parent:
 		label: Zatřídit do
 		placeholder: Vyberte položku
-	link:
-		label: Odkaz
-		placeholder: Vyplňte odkaz
-	linkId:
-		label: ID odkazu
-		placeholder: Vyplňte ID odkazu
