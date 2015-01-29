@@ -2,8 +2,8 @@
 
 namespace Ytnuk\Link\Form;
 
-use Ytnuk;
 use Nette;
+use Ytnuk;
 
 /**
  * Class Container
@@ -16,10 +16,6 @@ final class Container extends Ytnuk\Orm\Form\Container
 	public function setEntityValues(Nette\Utils\ArrayHash $values)
 	{
 		return parent::setEntityValues($values);
-		dump($entity);
-		exit;
-
-		return $entity;
 	}
 
 	/**
@@ -28,13 +24,11 @@ final class Container extends Ytnuk\Orm\Form\Container
 	protected function attached($form)
 	{
 		parent::attached($form);
-		unset($this['aliases']['link'], $this['parameters']['link']);
-		foreach ($this['aliases']->controls as $control) {
-			$control->setRequired(FALSE);
+		foreach ($this['aliases']->containers as $alias) {
+			unset($alias['link']);
 		}
-		foreach ($this['parameters']->controls as $control) {
-			$control->setRequired(FALSE);
+		foreach ($this['parameters']->containers as $parameter) {
+			unset($parameter['link']);
 		}
-		unset($this['aliases'], $this['parameters']); //TODO: need addDynamic to allow 0 to X items...there will be no need to setRequired(FALSE)
 	}
 }
