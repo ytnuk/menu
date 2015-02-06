@@ -23,6 +23,7 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 			Ytnuk\Orm\Extension::class => [
 				'repositories' => [
 					$this->prefix('repository') => Repository::class,
+					$this->prefix('nodeRepository') => Node\Repository::class,
 					$this->prefix('linkRepository') => Ytnuk\Link\Repository::class,
 					$this->prefix('linkAliasRepository') => Ytnuk\Link\Alias\Repository::class,
 					$this->prefix('linkParameterRepository') => Ytnuk\Link\Parameter\Repository::class

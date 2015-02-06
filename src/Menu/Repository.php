@@ -13,15 +13,27 @@ final class Repository extends Ytnuk\Orm\Repository
 {
 
 	/**
-	 * @param string $link
-	 * @param null $linkId
+	 * @param string $destination
+	 * @param array $parameters
 	 *
 	 * @return Entity
 	 */
-	public function getByLink($link, $linkId = NULL) //TODO: refactor
+	public function getByLink($destination, $parameters = [])
 	{
-		return $this->getBy([
-			'this->link->destination' => $link,
-		]);
+		//TODO: get menu with matching destination + most matching parameters
+		$parameters = array_filter($parameters, function ($value) {
+			return ! is_null($value);
+		});
+		$conditions = [
+			'this->link->destination' => $destination
+		];
+		if ($parameters) {
+			$conditions += [
+				'this->link->parameters->key' => array_keys($parameters),
+				'this->link->parameters->value' => array_values($parameters)
+			];
+		}
+
+		return $this->getBy($conditions);
 	}
 }

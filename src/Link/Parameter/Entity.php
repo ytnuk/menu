@@ -2,10 +2,11 @@
 
 namespace Ytnuk\Link\Parameter;
 
+use Nextras;
 use Ytnuk;
 
 /**
- * @property Ytnuk\Link\Entity $link {m:1 Ytnuk\Link\Repository $parameters}
+ * @property Nextras\Orm\Relationships\ManyHasOne|Ytnuk\Link\Entity $link {m:1 Ytnuk\Link\Repository $parameters}
  * @property string $key
  * @property string $value
  */

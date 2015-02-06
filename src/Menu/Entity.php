@@ -2,16 +2,20 @@
 
 namespace Ytnuk\Menu;
 
+use Nextras;
 use Ytnuk;
 
 /**
+ * @property-read Entity|NULL $parent {virtual}
  * @property-read Entity[] $parents {virtual}
- * @property Ytnuk\Link\Entity $link {1:1d Ytnuk\Link\Repository $menu primary}
- * @property Entity|NULL $parent {m:1 Repository $children}
- * @property Entity[] $children {1:m Repository $parent}
+ * @property-read Entity[] $children {virtual}
+ * @property-read Entity[] $tree {virtual}
+ * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $nodes {1:m Node\Repository $menu}
+ * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $childNodes {1:m Node\Repository $parent}
+ * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Link\Entity $link {1:1d Ytnuk\Link\Repository $menu primary}
  * @property string $title
  * TODO:
- * @property Ytnuk\Page\Entity|NULL $page {1:1d Ytnuk\Page\Repository $menu}
+ * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Page\Entity|NULL $page {1:1d Ytnuk\Page\Repository $menu}
  */
 final class Entity extends Ytnuk\Orm\Entity
 {
@@ -19,16 +23,49 @@ final class Entity extends Ytnuk\Orm\Entity
 	const PROPERTY_NAME = 'title';
 
 	/**
-	 * @return array
+	 * @return self[]
+	 */
+	protected function getterTree()
+	{
+		return array_merge([$this], $this->parent ? $this->parent->tree : []);
+	}
+
+	/**
+	 * @return self|NULL
+	 */
+	protected function getterParent()
+	{
+		$nodes = $this->nodes->get();
+		$node = $nodes->getBy([
+			'this->symlink' => FALSE,
+		]);
+
+		return $node ? $node->parent : NULL;
+	}
+
+	/**
+	 * @return self[]
 	 */
 	protected function getterParents()
 	{
-		$menu = $this;
 		$parents = [];
-		while ($menu = $menu->parent) {
-			$parents[$menu->id] = $menu;
+		foreach ($this->nodes as $node) {
+			$parents[] = $node->parent;
 		}
 
-		return array_reverse($parents, TRUE);
+		return $parents;
+	}
+
+	/**
+	 * @return self[]
+	 */
+	protected function getterChildren()
+	{
+		$children = [];
+		foreach ($this->childNodes as $node) {
+			$children[] = $node->menu;
+		}
+
+		return $children;
 	}
 }

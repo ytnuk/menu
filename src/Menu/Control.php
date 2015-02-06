@@ -42,6 +42,11 @@ final class Control extends Ytnuk\Application\Control
 	private $gridControl;
 
 	/**
+	 * @var Nette\Http\Request
+	 */
+	private $request;
+
+	/**
 	 * @var array
 	 */
 	private $breadcrumb = [];
@@ -57,19 +62,21 @@ final class Control extends Ytnuk\Application\Control
 	private $active;
 
 	/**
-	 * @param Entity $menu
+	 * @param Nette\ComponentModel\IContainer $menu
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
+	 * @param Nette\Http\Request $request
 	 */
-	public function __construct($menu, Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl)
+	public function __construct($menu, Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request)
 	{
 		$this->menu = $menu;
 		$this->repository = $repository;
 		$this->control = $control;
 		$this->formControl = $formControl;
 		$this->gridControl = $gridControl;
+		$this->request = $request;
 	}
 
 	/**
@@ -126,19 +133,11 @@ final class Control extends Ytnuk\Application\Control
 
 	protected function startup()
 	{
-		$views = [
-			$this->presenter->getView(),
-			'view',
-			'list'
-		];
-		foreach ($views as $view) { //TODO: refactor
-			if ($this->active) {
-				break;
-			}
-			$this->active = $this->repository->getByLink(':' . $this->presenter->getName() . ':' . $view);
+		if ( ! $this->active) {
+			//TODO: catch not found
+			$this->active = $this->repository->getByLink($this->presenter->getAction(TRUE), $this->presenter->getFilteredParameters() + $this->request->getQuery());
 		}
-		//TODO: set active under $this->menu and matching $presenter->parameters
-		$this->template->breadcrumb = $this->breadcrumb = array_merge($this->active ? $this->active->parents : [], [$this->active], $this->append);
+		$this->template->breadcrumb = $this->breadcrumb = array_merge($this->active ? array_reverse($this->active->tree) : [], $this->append);
 		$this->template->last = end($this->breadcrumb);
 		$this->template->first = reset($this->breadcrumb);
 		$this->template->menu = $this->menu;

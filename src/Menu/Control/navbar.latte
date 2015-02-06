@@ -15,13 +15,13 @@
 						{$menu->title|translate}
 					</a>
 				</li>
-				<li n:foreach="$menu->children as $menu" n:class="isset($control[$menu->id])?active,$menu->children->count()?dropdown">
-					<a n:href="$menu->link" n:attr="data-toggle=>$menu->children->count()?dropdown,class=>$menu->children->count()?dropdown-toggle">
+				<li n:foreach="$menu->children as $menu" n:class="isset($control[$menu->id])?active,count($menu->children)?dropdown">
+					<a n:href="$menu->link" n:attr="data-toggle=>count($menu->children)?dropdown" n:class="count($menu->children)?dropdown-toggle">
 						{$menu->title|translate}
-						<b class="caret" n:if="$menu->children->count()"></b>
+						<b class="caret" n:if="count($menu->children)"></b>
 					</a>
-					<ul n:if="$menu->children->count()" class="dropdown-menu">
-						<li n:class="$presenter->isLinkCurrent($menu->link)?active">
+					<ul n:if="count($menu->children)" class="dropdown-menu">
+						<li n:class="$presenter->isLinkCurrent($menu->link)"> {* TODO: why does not match? *}
 							<a n:href="$menu->link">
 								<b class="caret-down"></b>
 								{$menu->title|translate}
