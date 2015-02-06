@@ -35,13 +35,9 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 				]
 			],
 			'services' => [
-				$this->prefix('formControl') => [
+				Control\Factory::class,
+				$this->prefix('formControl') => [ //TODO: possible to remove args and params?
 					'implement' => Form\Control\Factory::class,
-					'parameters' => ['menu'],
-					'arguments' => ['%menu%']
-				],
-				[
-					'implement' => Control\Factory::class,
 					'parameters' => ['menu'],
 					'arguments' => ['%menu%']
 				]

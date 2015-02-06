@@ -62,14 +62,14 @@ final class Control extends Ytnuk\Application\Control
 	private $active;
 
 	/**
-	 * @param Nette\ComponentModel\IContainer $menu
+	 * @param Entity $menu
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 * @param Nette\Http\Request $request
 	 */
-	public function __construct($menu, Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request)
+	public function __construct(Entity $menu, Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request)
 	{
 		$this->menu = $menu;
 		$this->repository = $repository;

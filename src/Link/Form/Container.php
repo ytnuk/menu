@@ -13,11 +13,6 @@ use Ytnuk;
 final class Container extends Ytnuk\Orm\Form\Container
 {
 
-	public function setEntityValues(Nette\Utils\ArrayHash $values)
-	{
-		return parent::setEntityValues($values);
-	}
-
 	/**
 	 * @param Ytnuk\Form $form
 	 */
