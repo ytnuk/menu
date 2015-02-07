@@ -53,7 +53,7 @@ final class Presenter extends Ytnuk\Web\Presenter
 
 	public function renderView()
 	{
-		$this[Control::class][] = 'menu.presenter.action.edit';
+		$this[Ytnuk\Web\Control::class][Control::class][] = 'menu.presenter.action.edit';
 	}
 
 	/**

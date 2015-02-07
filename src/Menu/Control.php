@@ -81,13 +81,22 @@ final class Control extends Ytnuk\Application\Control
 
 	/**
 	 * @param string $offset
-	 * @param string $title
+	 * @param Entity|string $menu
 	 */
-	public function offsetSet($offset, $title)
+	public function offsetSet($offset, $menu)
 	{
-		$menu = new Entity;
-		$menu->title = $title;
-		$this->append[] = $menu;
+		if ($menu instanceof Entity) {
+			$this->active = $menu;
+		} else {
+			$append = new Entity;
+			$append->id = $offset;
+			$append->title = $menu;
+			if ($offset) {
+				$this->append[$offset] = $append;
+			} else {
+				$this->append[] = $append;
+			}
+		}
 	}
 
 	/**
@@ -97,7 +106,7 @@ final class Control extends Ytnuk\Application\Control
 	 */
 	public function offsetExists($id)
 	{
-		foreach ($this->breadcrumb as $menu) {
+		foreach ($this->getBreadcrumb() as $menu) {
 			if ($menu->id === $id) {
 				return $menu;
 			}
@@ -107,15 +116,41 @@ final class Control extends Ytnuk\Application\Control
 	}
 
 	/**
-	 * @param Entity $active
-	 *
-	 * @return $this
+	 * @return Entity[]
 	 */
-	public function setActive(Entity $active)
+	public function getBreadcrumb()
 	{
-		$this->active = $active;
+		if ( ! $this->breadcrumb) {
+			$this->breadcrumb = array_merge($this->getActive() ? array_reverse($this->getActive()->tree) : [], $this->append);
+		}
 
-		return $this;
+		return $this->breadcrumb;
+	}
+
+	/**
+	 * @return Entity|NULL
+	 */
+	public function getActive()
+	{
+		if ($this->active === NULL) {
+			$views = array_unique([
+				$this->presenter->getAction(),
+				'list'
+			]);
+			$parameters = array_diff_key($this->presenter->getFilteredParameters(), $this->request->getQuery());
+			foreach ($views as $view) {
+				$destination = implode(':', [
+					$this->presenter->getName(),
+					$view
+				]);
+				if ($this->active = $this->repository->getByLink(':' . $destination, $parameters)) {
+					break;
+				}
+				$parameters = [];
+			}
+		}
+
+		return $this->active;
 	}
 
 	/**
@@ -133,15 +168,11 @@ final class Control extends Ytnuk\Application\Control
 
 	protected function startup()
 	{
-		if ( ! $this->active) {
-			//TODO: catch not found
-			$this->active = $this->repository->getByLink($this->presenter->getAction(TRUE), $this->presenter->getFilteredParameters() + $this->request->getQuery());
-		}
-		$this->template->breadcrumb = $this->breadcrumb = array_merge($this->active ? array_reverse($this->active->tree) : [], $this->append);
-		$this->template->last = end($this->breadcrumb);
-		$this->template->first = reset($this->breadcrumb);
+		$this->template->breadcrumb = $breadcrumb = $this->getBreadcrumb();
+		$this->template->last = end($breadcrumb);
+		$this->template->first = reset($breadcrumb);
 		$this->template->menu = $this->menu;
-		$this->template->active = $this->active;
+		$this->template->active = $this->getActive();
 	}
 
 	/**

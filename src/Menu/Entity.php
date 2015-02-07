@@ -10,6 +10,7 @@ use Ytnuk;
  * @property-read Entity[] $parents {virtual}
  * @property-read Entity[] $children {virtual}
  * @property-read Entity[] $tree {virtual}
+ * @property Nextras\Orm\Relationships\OneHasOneDirected|Node\Entity|NULL $node {1:1d Node\Repository $main primary}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $nodes {1:m Node\Repository $menu}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $childNodes {1:m Node\Repository $parent}
  * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Link\Entity $link {1:1d Ytnuk\Link\Repository $menu primary}
@@ -35,12 +36,7 @@ final class Entity extends Ytnuk\Orm\Entity
 	 */
 	protected function getterParent()
 	{
-		$nodes = $this->nodes->get();
-		$node = $nodes->getBy([
-			'this->symlink' => FALSE,
-		]);
-
-		return $node ? $node->parent : NULL;
+		return $this->node ? $this->node->parent : NULL;
 	}
 
 	/**
