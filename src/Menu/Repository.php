@@ -21,14 +21,17 @@ final class Repository extends Ytnuk\Orm\Repository
 	 */
 	public function getByLink(Entity $menu, $destination, $parameters = [])
 	{
-		//TODO: must be under $menu in tree, using $menu->node->left and $menu->node->right indexes.. use indexes of all $menu->nodes?
-		//then web in link_parameters should be removed
 		$collection = $this->findBy([
 			'this->link->destination' => $destination,
+			'id' => array_keys([$menu->id => $menu] + $menu->getterChildren(TRUE))
 		]);
+		$links = [];
+		foreach ($collection->fetchPairs(NULL, 'link') as $link) {
+			$links[$link->id] = $link;
+		}
 
-		return $this->getBy([
-			'this->link' => $this->mapper->fetchByParameters($collection->fetchPairs('link', 'link'), $parameters)
-		]);
+		return $links ? $this->getBy([
+			'this->link' => $this->mapper->fetchByParameters($links, $parameters)
+		]) : NULL;
 	}
 }

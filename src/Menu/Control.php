@@ -119,7 +119,7 @@ final class Control extends Ytnuk\Application\Control
 	{
 		if ( ! $this->breadcrumb) {
 			$active = $this->getActive();
-			$this->breadcrumb = array_merge($active ? array_reverse($active->tree) : [], $this->append);
+			$this->breadcrumb = array_merge($active ? array_reverse($active->getterParents(TRUE)) + [$active->id => $active] : [], $this->append);
 		}
 
 		return $this->breadcrumb;

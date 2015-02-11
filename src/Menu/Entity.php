@@ -24,11 +24,51 @@ final class Entity extends Ytnuk\Orm\Entity
 	const PROPERTY_NAME = 'title';
 
 	/**
+	 * @param bool|int $deep
+	 *
 	 * @return self[]
 	 */
-	protected function getterTree()
+	public function getterParents($deep = FALSE)
 	{
-		return [$this->id => $this] + ($this->parent ? $this->parent->tree : []);
+		if (is_int($deep) || $deep) {
+			return $this->parent ? [$this->parent->id => $this->parent] + (! is_int($deep) || --$deep > 0 ? $this->parent->getterParents($deep) : []) : [];
+		}
+		$nodes = $this->nodes->get();
+		$parents = []; //TODO: refactor
+		foreach ($nodes->fetchPairs(NULL, 'parent') as $parent) {
+			$parents[$parent->id] = $parent;
+		}
+
+		return $parents;
+	}
+
+	/**
+	 * @param bool|int $deep
+	 *
+	 * @return self[]
+	 */
+	public function getterChildren($deep = FALSE)
+	{
+		if (is_int($deep) || $deep) {
+			$childNodes = $this->childNodes->get();
+			$children = $deep > 0 ? $childNodes->fetchPairs(NULL, 'menu') : [];
+			foreach ($children as $child) {
+				$children += $child->getterChildren(is_int($deep) ? --$deep : $deep);
+			}
+			$indexed = [];
+			foreach ($children as $child) {
+				$indexed[$child->id] = $child;
+			}
+
+			return $indexed;
+		}
+		$childNodes = $this->childNodes->get();
+		$children = []; //TODO: refactor
+		foreach ($childNodes->fetchPairs(NULL, 'menu') as $child) {
+			$children[$child->id] = $child;
+		}
+
+		return $children;
 	}
 
 	/**
@@ -37,23 +77,5 @@ final class Entity extends Ytnuk\Orm\Entity
 	protected function getterParent()
 	{
 		return $this->node ? $this->node->parent : NULL;
-	}
-
-	/**
-	 * @return self[]
-	 */
-	protected function getterParents()
-	{
-		return $this->nodes->get()
-			->fetchPairs('id', 'parent');
-	}
-
-	/**
-	 * @return self[]
-	 */
-	protected function getterChildren()
-	{
-		return $this->childNodes->get()
-			->fetchPairs('id', 'menu');
 	}
 }
