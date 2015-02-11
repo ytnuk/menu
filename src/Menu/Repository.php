@@ -13,27 +13,22 @@ final class Repository extends Ytnuk\Orm\Repository
 {
 
 	/**
+	 * @param Entity $menu
 	 * @param string $destination
 	 * @param array $parameters
 	 *
 	 * @return Entity
 	 */
-	public function getByLink($destination, $parameters = [])
+	public function getByLink(Entity $menu, $destination, $parameters = [])
 	{
-		//TODO: get menu with matching destination + most matching parameters
-		$parameters = array_filter($parameters, function ($value) {
-			return ! is_null($value);
-		});
-		$conditions = [
-			'this->link->destination' => $destination
-		];
-		if ($parameters) {
-			$conditions += [
-				'this->link->parameters->key' => array_keys($parameters),
-				'this->link->parameters->value' => array_values($parameters)
-			];
-		}
+		//TODO: must be under $menu in tree, using $menu->node->left and $menu->node->right indexes.. use indexes of all $menu->nodes?
+		//then web in link_parameters should be removed
+		$collection = $this->findBy([
+			'this->link->destination' => $destination,
+		]);
 
-		return $this->getBy($conditions);
+		return $this->getBy([
+			'this->link' => $this->mapper->fetchByParameters($collection->fetchPairs('link', 'link'), $parameters)
+		]);
 	}
 }

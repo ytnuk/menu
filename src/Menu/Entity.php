@@ -28,7 +28,7 @@ final class Entity extends Ytnuk\Orm\Entity
 	 */
 	protected function getterTree()
 	{
-		return array_merge([$this], $this->parent ? $this->parent->tree : []);
+		return [$this->id => $this] + ($this->parent ? $this->parent->tree : []);
 	}
 
 	/**
@@ -44,12 +44,8 @@ final class Entity extends Ytnuk\Orm\Entity
 	 */
 	protected function getterParents()
 	{
-		$parents = [];
-		foreach ($this->nodes as $node) {
-			$parents[] = $node->parent;
-		}
-
-		return $parents;
+		return $this->nodes->get()
+			->fetchPairs('id', 'parent');
 	}
 
 	/**
@@ -57,11 +53,7 @@ final class Entity extends Ytnuk\Orm\Entity
 	 */
 	protected function getterChildren()
 	{
-		$children = [];
-		foreach ($this->childNodes as $node) {
-			$children[] = $node->menu;
-		}
-
-		return $children;
+		return $this->childNodes->get()
+			->fetchPairs('id', 'menu');
 	}
 }

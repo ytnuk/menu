@@ -13,9 +13,6 @@ use Ytnuk;
 final class Control extends Ytnuk\Application\Control
 {
 
-	//TODO: menu can have only one parent, there should by a symlink entity with menu reference and own presenter and forward to target page/product/... and if possible the symlink still active in menu
-	//TODO: or menu with the same link reference and just redirect
-	//TODO: or menu with multiple parents.. one should be main - choosen while creating - on edit addDynamic others ... similiar logic should be used when creating products and attaching to category
 	/**
 	 * @var Entity
 	 */
@@ -121,7 +118,8 @@ final class Control extends Ytnuk\Application\Control
 	public function getBreadcrumb()
 	{
 		if ( ! $this->breadcrumb) {
-			$this->breadcrumb = array_merge($this->getActive() ? array_reverse($this->getActive()->tree) : [], $this->append);
+			$active = $this->getActive();
+			$this->breadcrumb = array_merge($active ? array_reverse($active->tree) : [], $this->append);
 		}
 
 		return $this->breadcrumb;
@@ -137,16 +135,14 @@ final class Control extends Ytnuk\Application\Control
 				$this->presenter->getAction(),
 				'list'
 			]);
-			$parameters = array_diff_key($this->presenter->getFilteredParameters(), $this->request->getQuery());
 			foreach ($views as $view) {
-				$destination = implode(':', [
-					$this->presenter->getName(),
-					$view
-				]);
-				if ($this->active = $this->repository->getByLink(':' . $destination, $parameters)) {
+				$destination = ':' . implode(':', [
+						$this->presenter->getName(),
+						$view
+					]);
+				if ($this->active = $this->repository->getByLink($this->menu, $destination, $this->presenter->request->parameters)) {
 					break;
 				}
-				$parameters = [];
 			}
 		}
 
