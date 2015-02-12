@@ -19,10 +19,10 @@ final class Container extends Ytnuk\Orm\Form\Container
 	protected function attached($form)
 	{
 		parent::attached($form);
-		foreach ($this['aliases']->containers as $alias) {
+		foreach ($this['aliases']->getContainers() as $alias) {
 			unset($alias['link']);
 		}
-		foreach ($this['parameters']->containers as $parameter) {
+		foreach ($this['parameters']->getContainers() as $parameter) {
 			unset($parameter['link']);
 		}
 	}

@@ -20,7 +20,6 @@ final class Mapper extends Ytnuk\Orm\Mapper
 	 */
 	public function fetchByParameters(array $links, array $parameters)
 	{
-		//TODO: refactor
 		$selection = $this->databaseContext->table('link');
 		$selection->where('link.id', array_keys($links));
 		foreach ($parameters as $key => $value) {
@@ -35,8 +34,8 @@ final class Mapper extends Ytnuk\Orm\Mapper
 					])
 				]) . ' DESC', $key, $value);
 		}
+		$link = $selection->fetch();
 
-		return $links[$selection->fetch()
-			->getPrimary()];
+		return $links[$link->getPrimary()];
 	}
 }

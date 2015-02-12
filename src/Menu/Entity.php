@@ -6,11 +6,10 @@ use Nextras;
 use Ytnuk;
 
 /**
+ * @property-read Entity|NULL $node {virtual}
  * @property-read Entity|NULL $parent {virtual}
  * @property-read Entity[] $parents {virtual}
  * @property-read Entity[] $children {virtual}
- * @property-read Entity[] $tree {virtual}
- * @property Nextras\Orm\Relationships\OneHasOneDirected|Node\Entity|NULL $node {1:1d Node\Repository $main primary}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $nodes {1:m Node\Repository $menu}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $childNodes {1:m Node\Repository $parent}
  * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Link\Entity $link {1:1d Ytnuk\Link\Repository $menu primary}
@@ -77,5 +76,19 @@ final class Entity extends Ytnuk\Orm\Entity
 	protected function getterParent()
 	{
 		return $this->node ? $this->node->parent : NULL;
+	}
+
+	/**
+	 * @return self|NULL
+	 */
+	protected function getterNode()
+	{
+		$nodes = $this->nodes->get();
+		$node = $nodes->getBy(['primary' => TRUE]);
+		if ($node) { //TODO: temp fix
+			$node->parent; //TODO: needs to be initialized inside this method, otherwise $this->node->parent->getValue('link') throws NullPointerException while ->getRawValue('link') still returns ID
+		}
+
+		return $node;
 	}
 }

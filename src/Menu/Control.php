@@ -132,15 +132,20 @@ final class Control extends Ytnuk\Application\Control
 	{
 		if ($this->active === NULL) {
 			$views = array_unique([
-				$this->presenter->getAction(),
+				$this->getPresenter()
+					->getAction(),
 				'list'
 			]);
 			foreach ($views as $view) {
 				$destination = ':' . implode(':', [
-						$this->presenter->getName(),
+						$this->getPresenter()
+							->getName(),
 						$view
 					]);
-				if ($this->active = $this->repository->getByLink($this->menu, $destination, $this->presenter->request->parameters)) {
+				if ($this->active = $this->repository->getByLink($this->menu, $destination, $this->getPresenter()
+					->getRequest()
+					->getParameters())
+				) {
 					break;
 				}
 			}
@@ -164,11 +169,13 @@ final class Control extends Ytnuk\Application\Control
 
 	protected function startup()
 	{
-		$this->template->breadcrumb = $breadcrumb = $this->getBreadcrumb();
-		$this->template->last = end($breadcrumb);
-		$this->template->first = reset($breadcrumb);
-		$this->template->menu = $this->menu;
-		$this->template->active = $this->getActive();
+		$breadcrumb = $this->getBreadcrumb();
+		$this->getTemplate()
+			->add('breadcrumb', $breadcrumb)
+			->add('last', end($breadcrumb))
+			->add('first', reset($breadcrumb))
+			->add('menu', $this->menu)
+			->add('active', $this->getActive());
 	}
 
 	/**
