@@ -21,7 +21,7 @@
 						<b class="caret" n:if="count($menu->children)"></b>
 					</a>
 					<ul n:if="count($menu->children)" class="dropdown-menu">
-						<li n:class="$presenter->isLinkCurrent($menu->link)"> {* TODO: why does not match? *}
+						<li n:class="$presenter->isLinkCurrent($menu->link) ? active">
 							<a n:href="$menu->link">
 								<b class="caret-down"></b>
 								{$menu->title|translate}

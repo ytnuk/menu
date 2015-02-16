@@ -16,6 +16,7 @@ use Ytnuk;
  * @property string $title
  * TODO:
  * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Page\Entity|NULL $page {1:1d Ytnuk\Page\Repository $menu}
+ * @property Nextras\Orm\Relationships\OneHasOneDirected|Node\Primary\Entity|NULL $primary {1:1d Node\Primary\Repository $menu}
  */
 final class Entity extends Ytnuk\Orm\Entity
 {
@@ -83,12 +84,6 @@ final class Entity extends Ytnuk\Orm\Entity
 	 */
 	protected function getterNode()
 	{
-		$nodes = $this->nodes->get();
-		$node = $nodes->getBy(['primary' => TRUE]);
-		if ($node) { //TODO: temp fix
-			$node->parent; //TODO: needs to be initialized inside this method, otherwise $this->node->parent->getValue('link') throws NullPointerException while ->getRawValue('link') still returns ID
-		}
-
-		return $node;
+		return $this->primary ? $this->primary->node : NULL;
 	}
 }
