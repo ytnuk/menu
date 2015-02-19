@@ -158,15 +158,13 @@ final class Control extends Ytnuk\Application\Control
 		return parent::getViews() + [
 			'breadcrumb' => TRUE,
 			'navbar' => TRUE,
-			'header' => TRUE,
-			'title' => TRUE
+			'header' => TRUE
 		];
 	}
 
 	protected function startup()
 	{
-		$breadcrumb = $this->getBreadcrumb();
-		$this->getTemplate()->add('breadcrumb', $breadcrumb)->add('last', end($breadcrumb))->add('first', reset($breadcrumb))->add('menu', $this->menu)->add('active', $this->getActive());
+		$this->getTemplate()->add('menu', $this->menu)->add('active', $this->getActive())->add('breadcrumb', $this->getBreadcrumb());
 	}
 
 	/**

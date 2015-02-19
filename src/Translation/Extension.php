@@ -1,15 +1,14 @@
 <?php
 
-namespace Ytnuk\Menu;
+namespace Ytnuk\Translation;
 
-use Kdyby;
 use Nette;
 use Ytnuk;
 
 /**
  * Class Extension
  *
- * @package Ytnuk\Menu
+ * @package Ytnuk\Translation
  */
 final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config\Provider
 {
@@ -23,13 +22,6 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 			Ytnuk\Orm\Extension::class => [
 				'repositories' => [
 					$this->prefix('repository') => Repository::class,
-					$this->prefix('nodeRepository') => Node\Repository::class,
-					$this->prefix('nodePrimaryRepository') => Node\Primary\Repository::class
-				]
-			],
-			Kdyby\Translation\DI\TranslationExtension::class => [
-				'dirs' => [
-					__DIR__ . '/../../locale'
 				]
 			],
 			'services' => [

@@ -34,7 +34,7 @@ final class Entity extends Ytnuk\Orm\Entity
 			return $this->parent ? [$this->parent->id => $this->parent] + (! is_int($deep) || --$deep > 0 ? $this->parent->getterParents($deep) : []) : [];
 		}
 		$nodes = $this->nodes->get();
-		$parents = []; //TODO: refactor
+		$parents = []; //TODO: $nodes->fetchPairs('parent->id', 'parent')?
 		foreach ($nodes->fetchPairs(NULL, 'parent') as $parent) {
 			$parents[$parent->id] = $parent;
 		}
@@ -51,7 +51,8 @@ final class Entity extends Ytnuk\Orm\Entity
 	{
 		if (is_int($deep) || $deep) {
 			$childNodes = $this->childNodes->get();
-			$children = $deep > 0 ? $childNodes->fetchPairs(NULL, 'menu') : [];
+			//TODO: //TODO: $childNodes->fetchPairs('menu->id', 'menu')?
+			$children = $deep > 0 ? $childNodes->fetchPairs('id', 'menu') : [];
 			foreach ($children as $child) {
 				$children += $child->getterChildren(is_int($deep) ? --$deep : $deep);
 			}
@@ -63,8 +64,8 @@ final class Entity extends Ytnuk\Orm\Entity
 			return $indexed;
 		}
 		$childNodes = $this->childNodes->get();
-		$children = []; //TODO: refactor
-		foreach ($childNodes->fetchPairs(NULL, 'menu') as $child) {
+		$children = []; //TODO: $childNodes->fetchPairs('menu->id', 'menu')?
+		foreach ($childNodes->fetchPairs('id', 'menu') as $child) {
 			$children[$child->id] = $child;
 		}
 
