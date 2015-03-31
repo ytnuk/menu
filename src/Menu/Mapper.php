@@ -20,7 +20,7 @@ final class Mapper extends Ytnuk\Orm\Mapper
 	 */
 	public function fetchByParameters(array $links, array $parameters)
 	{
-		$selection = $this->databaseContext->table('link');
+		$selection = $this->connection->table('link');
 		$selection->where('link.id', array_keys($links));
 		foreach ($parameters as $key => $value) {
 			$selection->order(implode(' AND ', [

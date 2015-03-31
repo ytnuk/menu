@@ -12,4 +12,8 @@ use Ytnuk;
 final class Repository extends Ytnuk\Orm\Repository
 {
 
+	public function orderByParameters(array $conds)
+	{
+		return parent::getBy($conds);
+	}
 }
