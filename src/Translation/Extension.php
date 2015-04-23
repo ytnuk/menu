@@ -22,6 +22,8 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 			Ytnuk\Orm\Extension::class => [
 				'repositories' => [
 					$this->prefix('repository') => Repository::class,
+					$this->prefix('translateRepository') => Translate\Repository::class,
+					$this->prefix('localeRepository') => Locale\Repository::class,
 				]
 			],
 			'services' => [

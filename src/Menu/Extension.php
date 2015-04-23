@@ -33,6 +33,7 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 				]
 			],
 			'services' => [
+				Service::class,
 				Control\Factory::class,
 				Form\Control\Factory::class,
 			]

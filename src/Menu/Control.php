@@ -19,9 +19,9 @@ final class Control extends Ytnuk\Application\Control
 	private $menu;
 
 	/**
-	 * @var Repository
+	 * @var Service
 	 */
-	private $repository;
+	private $service;
 
 	/**
 	 * @var Control\Factory
@@ -60,16 +60,16 @@ final class Control extends Ytnuk\Application\Control
 
 	/**
 	 * @param Entity $menu
-	 * @param Repository $repository
+	 * @param Service $service
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 * @param Nette\Http\Request $request
 	 */
-	public function __construct(Entity $menu, Repository $repository, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request)
+	public function __construct(Entity $menu, Service $service, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request)
 	{
 		$this->menu = $menu;
-		$this->repository = $repository;
+		$this->service = $service;
 		$this->control = $control;
 		$this->formControl = $formControl;
 		$this->gridControl = $gridControl;
@@ -82,17 +82,16 @@ final class Control extends Ytnuk\Application\Control
 	 */
 	public function offsetSet($offset, $menu)
 	{
-		if ($menu instanceof Entity) {
-			$this->active = $menu;
+		if ( ! $menu instanceof Entity) {
+			$entity = new Entity;
+			$entity->id = $offset;
+			$entity->title = $menu;
+			$menu = $entity;
+		}
+		if ($offset === NULL) {
+			$this->append[] = $menu;
 		} else {
-			$append = new Entity;
-			$append->id = $offset;
-			$append->title = $menu;
-			if ($offset) {
-				$this->append[$offset] = $append;
-			} else {
-				$this->append[] = $append;
-			}
+			$this->append[$offset] = $menu;
 		}
 	}
 
@@ -140,8 +139,8 @@ final class Control extends Ytnuk\Application\Control
 						$this->getPresenter()->getName(),
 						$view
 					]);
-				if ($this->active = $this->repository->getByLink($this->menu, $destination, $this->getPresenter()->getRequest()->getParameters())
-				) {
+				if ($menu = $this->service->getByLink($this->menu, $destination, $this->getPresenter()->getRequest()->getParameters())) {
+					$this->setActive($menu);
 					break;
 				}
 			}
@@ -151,15 +150,23 @@ final class Control extends Ytnuk\Application\Control
 	}
 
 	/**
+	 * @param Entity $entity
+	 */
+	public function setActive(Entity $entity)
+	{
+		$this->active = $entity;
+	}
+
+	/**
 	 * @return array
 	 */
 	protected function getViews()
 	{
-		return parent::getViews() + [
+		return [
 			'breadcrumb' => TRUE,
 			'navbar' => TRUE,
 			'header' => TRUE
-		];
+		] + parent::getViews();
 	}
 
 	protected function startup()
@@ -180,6 +187,6 @@ final class Control extends Ytnuk\Application\Control
 	 */
 	protected function createComponentYtnukGridControl()
 	{
-		return $this->gridControl->create($this->repository);
+		return $this->gridControl->create($this->service->getRepository());
 	}
 }

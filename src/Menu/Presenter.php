@@ -43,7 +43,7 @@ final class Presenter extends Ytnuk\Web\Presenter
 	 *
 	 * @throws Nette\Application\BadRequestException
 	 */
-	public function actionView($id)
+	public function actionEdit($id)
 	{
 		$this->menu = $this->repository->getById($id);
 		if ( ! $this->menu) {
@@ -51,7 +51,7 @@ final class Presenter extends Ytnuk\Web\Presenter
 		}
 	}
 
-	public function renderView()
+	public function renderEdit()
 	{
 		$this[Ytnuk\Web\Control::class][Control::class][] = 'menu.presenter.action.edit';
 	}
