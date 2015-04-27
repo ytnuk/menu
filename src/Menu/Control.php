@@ -166,7 +166,7 @@ final class Control extends Ytnuk\Application\Control
 			'breadcrumb' => TRUE,
 			'navbar' => TRUE,
 			'header' => TRUE
-		] + parent::getViews();
+		];
 	}
 
 	protected function startup()
