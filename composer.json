@@ -4,7 +4,9 @@
 		"ytnuk/application": "dev-master",
 		"kdyby/translation": "dev-master",
 		"ytnuk/orm": "dev-master",
-		"ytnuk/form": "dev-master"
+		"ytnuk/form": "dev-master",
+		"ytnuk/link": "dev-master",
+		"ytnuk/translation": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
