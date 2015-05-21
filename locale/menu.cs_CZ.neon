@@ -6,10 +6,31 @@ presenter:
 form:
 	container:
 		group: Menu
-entity:
-	title:
-		label: Název
-		placeholder: Vyplňte název
-	parent:
-		label: Zatřídit do
-		placeholder: Vyberte položku
+		property:
+			title:
+				label: Název
+				placeholder: Vyplňte název
+			parent:
+				label: Zatřídit do
+				placeholder: Vyberte položku
+			nodes:
+				group: Uzly
+				action:
+					add: Přidat uzel
+					delete: Odebrat uzel
+			childNodes:
+				group: Poduzly
+				action:
+					add: Přidat poduzel
+					delete: Odebrat poduzel
+node:
+	form:
+		container:
+			group: Uzel
+			property:
+				parent:
+					label: Rodič
+					placeholder: Vyberte rodiče
+				menu:
+					label: Menu
+					placeholder: Vyberte menu

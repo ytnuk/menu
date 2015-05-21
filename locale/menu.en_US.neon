@@ -6,10 +6,31 @@ presenter:
 form:
 	container:
 		group: Menu
-entity:
-	title:
-		label: Title
-		placeholder: Fill title
-	parent:
-		label: Parent
-		placeholder: Select item
+		property:
+			title:
+				label: Title
+				placeholder: Fill title
+			parent:
+				label: Parent
+				placeholder: Select item
+			nodes:
+				group: Nodes
+				action:
+					add: Add node
+					delete: Delete node
+			childNodes:
+				group: Child nodes
+				action:
+					add: Add child node
+					delete: Delete child node
+node:
+	form:
+		container:
+			group: Node
+			property:
+				parent:
+					label: Parent
+					placeholder: Select parent
+				menu:
+					label: Menu
+					placeholder: Select menu
