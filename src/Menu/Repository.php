@@ -2,8 +2,6 @@
 
 namespace Ytnuk\Menu;
 
-use Nextras\Orm\Mapper\IMapper;
-use Nextras\Orm\Repository\IDependencyProvider;
 use Nextras;
 use Ytnuk;
 
@@ -15,6 +13,9 @@ use Ytnuk;
 final class Repository extends Ytnuk\Orm\Repository
 {
 
+	/**
+	 * @inheritdoc
+	 */
 	public function remove($entity, $recursive = FALSE)
 	{
 		if ($link = $entity->getValue('link')) {

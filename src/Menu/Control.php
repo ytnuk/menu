@@ -96,9 +96,7 @@ final class Control extends Ytnuk\Application\Control
 	}
 
 	/**
-	 * @param int $id
-	 *
-	 * @return bool
+	 * @inheritdoc
 	 */
 	public function offsetExists($id)
 	{
@@ -158,7 +156,7 @@ final class Control extends Ytnuk\Application\Control
 	}
 
 	/**
-	 * @return array
+	 * @inheritdoc
 	 */
 	protected function getViews()
 	{
@@ -166,6 +164,7 @@ final class Control extends Ytnuk\Application\Control
 			'breadcrumb' => TRUE,
 			'navbar' => TRUE,
 			'header' => TRUE,
+			'xml' => FALSE
 		] + parent::getViews();
 	}
 
