@@ -12,23 +12,23 @@
 				<li n:class="$presenter->isLinkCurrent($menu->link) ? active">
 					<a n:href="$menu->link">
 						<span class="glyphicon glyphicon-home"></span>
-						{$menu->title|translate}
+						{$menu->title}
 					</a>
 				</li>
 				<li n:foreach="$menu->children as $menu" n:class="isset($control[$menu->id])?active,count($menu->children)?dropdown">
 					<a n:href="$menu->link" n:attr="data-toggle=>count($menu->children)?dropdown" n:class="count($menu->children)?dropdown-toggle">
-						{$menu->title|translate}
+						{$menu->title}
 						<b class="caret" n:if="count($menu->children)"></b>
 					</a>
 					<ul n:if="count($menu->children)" class="dropdown-menu">
 						<li n:class="$presenter->isLinkCurrent($menu->link) ? active">
 							<a n:href="$menu->link">
 								<b class="caret-down"></b>
-								{$menu->title|translate}
+								{$menu->title}
 							</a>
 						</li>
 						<li n:class="isset($control[$menu->id])?active" n:foreach="$menu->children as $menu">
-							<a n:href="$menu->link"> {$menu->title|translate}</a>
+							<a n:href="$menu->link"> {$menu->title}</a>
 						</li>
 					</ul>
 				</li>

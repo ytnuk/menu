@@ -1,5 +1,5 @@
 <ol class="breadcrumb" n:inner-foreach="$breadcrumb as $menu">
 	<li n:class="$iterator->last?active">
-		<a n:tag-if="!$iterator->last" n:href="$menu->link">{$menu->title|translate}</a>
+		<a n:tag-if="!$iterator->last" n:href="$menu->link">{$menu->title}</a>
 	</li>
 </ol>

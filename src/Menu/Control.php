@@ -83,9 +83,9 @@ final class Control extends Ytnuk\Application\Control
 	public function offsetSet($offset, $menu)
 	{
 		if ( ! $menu instanceof Entity) {
-			$entity = new Entity;
-			$entity->id = $offset;
-			$entity->title = $menu;
+			$this->service->getRepository()->attach($entity = new Entity);
+			$entity->title = new Ytnuk\Translation\Entity;
+			$entity->title->key = $menu;
 			$menu = $entity;
 		}
 		if ($offset === NULL) {
