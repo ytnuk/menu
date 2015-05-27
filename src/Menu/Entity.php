@@ -6,17 +6,15 @@ use Nextras;
 use Ytnuk;
 
 /**
- * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Translation\Entity $title {1:1d Ytnuk\Translation\Repository $menuTitle primary}
+ * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Translation\Entity $title {1:1d Ytnuk\Translation\Repository $menu primary}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $nodes {1:m Node\Repository $menu}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $childNodes {1:m Node\Repository $parent}
+ * @property Nextras\Orm\Relationships\OneHasOneDirected|Node\Primary\Entity|NULL $primary {1:1d Node\Primary\Repository $menu}
  * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Link\Entity $link {1:1d Ytnuk\Link\Repository $menu primary}
  * @property-read Entity|NULL $node {virtual}
  * @property-read Entity|NULL $parent {virtual}
  * @property-read Entity[] $parents {virtual}
  * @property-read Entity[] $children {virtual}
- * TODO:
- * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Page\Entity|NULL $page {1:1d Ytnuk\Page\Repository $menu}
- * @property Nextras\Orm\Relationships\OneHasOneDirected|Node\Primary\Entity|NULL $primary {1:1d Node\Primary\Repository $menu}
  */
 final class Entity extends Ytnuk\Orm\Entity
 {
