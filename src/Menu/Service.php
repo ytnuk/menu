@@ -47,13 +47,9 @@ final class Service
 			'this->link->aliases->value' => $alias,
 			'id' => array_keys([$menu->id => $menu] + $menu->getterChildren(TRUE))
 		])->fetchPairs('link', 'link');
-		$conditions = [
-			'this->id' => array_keys($links),
-			'this->parameters->id!=' => NULL,
-		];
 
 		return $this->repository->getBy([
-			'this->link' => $this->linkRepository->getByParameters($parameters, $conditions) ? : reset($links),
+			'this->link' => $this->linkRepository->getByParameters($parameters, ['this->id' => array_keys($links)]) ? : reset($links),
 		]);
 	}
 
