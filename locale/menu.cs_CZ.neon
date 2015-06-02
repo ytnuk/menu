@@ -34,3 +34,5 @@ node:
 				menu:
 					label: Menu
 					placeholder: Vyberte menu
+				primary:
+					label: Hlavní uzel

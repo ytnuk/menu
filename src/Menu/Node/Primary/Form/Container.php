@@ -9,7 +9,7 @@ use Ytnuk;
  *
  * @package Ytnuk\Menu
  */
-final class Container extends Ytnuk\Orm\Form\Container //TODO:
+final class Container extends Ytnuk\Orm\Form\Container
 {
 
 }

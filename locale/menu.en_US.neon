@@ -34,3 +34,5 @@ node:
 				menu:
 					label: Menu
 					placeholder: Select menu
+				primary:
+					label: Primary node
