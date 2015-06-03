@@ -44,8 +44,11 @@ final class Container extends Ytnuk\Orm\Form\Container
 		switch ($property->name) {
 			case 'menu':
 			case 'parent':
-			case 'primary':
 				$component->setOption('unique', TRUE);
+				break;
+			case 'primary':
+				$component->setOption('unique', 'menu');
+				break;
 		}
 
 		return $component;
