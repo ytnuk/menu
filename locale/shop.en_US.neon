@@ -1,0 +1,10 @@
+category:
+	presenter:
+		action:
+			edit: Edit category
+	form:
+		container:
+			property:
+				description:
+					label: Description
+					placeholder: Fil description

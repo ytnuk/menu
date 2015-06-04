@@ -1,0 +1,10 @@
+category:
+	presenter:
+		action:
+			edit: Upravit kategorii
+	form:
+		container:
+			property:
+				description:
+					label: Popis
+					placeholder: Vyplňte popis

@@ -2,7 +2,6 @@
 
 namespace Ytnuk\Menu;
 
-use Nextras;
 use Ytnuk;
 
 /**
@@ -13,4 +12,13 @@ use Ytnuk;
 final class Repository extends Ytnuk\Orm\Repository
 {
 
+	/**
+	 * @param Ytnuk\Link\Entity $link
+	 *
+	 * @return Entity|NULL
+	 */
+	public function getByLink(Ytnuk\Link\Entity $link)
+	{
+		return $this->getBy(['this->link' => $link]);
+	}
 }

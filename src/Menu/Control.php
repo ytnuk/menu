@@ -59,6 +59,11 @@ final class Control extends Ytnuk\Application\Control
 	private $active;
 
 	/**
+	 * @var Nette\Localization\ITranslator
+	 */
+	private $translator;
+
+	/**
 	 * @param Entity $menu
 	 * @param Service $service
 	 * @param Control\Factory $control
@@ -66,7 +71,7 @@ final class Control extends Ytnuk\Application\Control
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 * @param Nette\Http\Request $request
 	 */
-	public function __construct(Entity $menu, Service $service, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request)
+	public function __construct(Entity $menu, Service $service, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request, Nette\Localization\ITranslator $translator)
 	{
 		$this->menu = $menu;
 		$this->service = $service;
@@ -74,6 +79,7 @@ final class Control extends Ytnuk\Application\Control
 		$this->formControl = $formControl;
 		$this->gridControl = $gridControl;
 		$this->request = $request;
+		$this->translator = $translator;
 	}
 
 	/**
@@ -85,7 +91,9 @@ final class Control extends Ytnuk\Application\Control
 		if ( ! $menu instanceof Entity) {
 			$this->service->getRepository()->attach($entity = new Entity);
 			$entity->title = new Ytnuk\Translation\Entity;
-			$entity->title->key = $menu;
+			$translate = new Ytnuk\Translation\Translate\Entity;
+			$translate->value = $this->translator->translate($menu);
+			$entity->title->translates->add($translate);
 			$menu = $entity;
 		}
 		if ($offset === NULL) {
@@ -116,32 +124,28 @@ final class Control extends Ytnuk\Application\Control
 	{
 		if ( ! $this->breadcrumb) {
 			$active = $this->getActive();
-			$this->breadcrumb = array_merge($active ? array_reverse($active->getterParents(TRUE)) + [$active->id => $active] : [], $this->append);
+			$this->breadcrumb = array_merge(array_reverse($active->getterParents(TRUE)) + [$active->id => $active], $this->append);
 		}
 
 		return $this->breadcrumb;
 	}
 
 	/**
-	 * @return Entity|NULL
+	 * @return Entity
 	 */
 	public function getActive()
 	{
 		if ($this->active === NULL) {
-			$views = array_unique([
-				$this->getPresenter()->getAction(),
-				'list'
-			]);
-			foreach ($views as $view) {
-				$destination = ':' . implode(':', [
-						$this->getPresenter()->getName(),
-						$view
-					]);
-				if ($menu = $this->service->getByLink($this->menu, $destination, $this->getPresenter()->getRequest()->getParameters())) {
-					$this->setActive($menu);
-					break;
+			if ( ! $menu = $this->service->getByLink($this->menu, $destination = $this->getPresenter()->getAction(TRUE), $this->getPresenter()->getRequest()->getParameters())) {
+				$destination = substr($destination, 0, -strlen($this->getPresenter()->getAction()));
+				foreach ($this->menu->getterChildren(TRUE) as $child) {
+					if (strpos($child->link->destination, $destination) !== FALSE) {
+						$menu = $child;
+						break;
+					}
 				}
 			}
+			$this->setActive($menu ? : $this->menu);
 		}
 
 		return $this->active;
