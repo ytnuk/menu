@@ -1,6 +1,6 @@
 <?php
 
-namespace Ytnuk\Shop;
+namespace Ytnuk\Blog;
 
 use Kdyby;
 use Nette;
@@ -9,7 +9,7 @@ use Ytnuk;
 /**
  * Class Extension
  *
- * @package Ytnuk\Shop
+ * @package Ytnuk\Blog
  */
 final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config\Provider
 {
@@ -22,7 +22,8 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 		return [
 			Ytnuk\Orm\Extension::class => [
 				'repositories' => [
-					$this->prefix('categoryRepository') => Category\Repository::class
+					$this->prefix('categoryRepository') => Category\Repository::class,
+					$this->prefix('postRepository') => Post\Repository::class
 				]
 			],
 			Kdyby\Translation\DI\TranslationExtension::class => [
@@ -33,6 +34,8 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 			'services' => [
 				Category\Control\Factory::class,
 				Category\Form\Control\Factory::class,
+				Post\Control\Factory::class,
+				Post\Form\Control\Factory::class,
 			]
 		];
 	}

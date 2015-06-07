@@ -8,3 +8,13 @@ category:
 				description:
 					label: Description
 					placeholder: Fill description
+post:
+	presenter:
+		action:
+			edit: Edit post
+	form:
+		container:
+			property:
+				content:
+					label: Content
+					placeholder: Fill content

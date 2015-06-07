@@ -1,0 +1,20 @@
+category:
+	presenter:
+		action:
+			edit: Upravit kategorii
+	form:
+		container:
+			property:
+				description:
+					label: Popis
+					placeholder: Vyplňte popis
+post:
+	presenter:
+		action:
+			edit: Upravit příspěvek
+	form:
+		container:
+			property:
+				content:
+					label: Obsah
+					placeholder: Vyplňte obsah
