@@ -3,6 +3,7 @@
 namespace Ytnuk\Blog\Category;
 
 use Ytnuk;
+use Nette;
 
 /**
  * Class Control

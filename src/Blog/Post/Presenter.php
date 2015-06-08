@@ -50,6 +50,10 @@ final class Presenter extends Ytnuk\Blog\Presenter
 		if ( ! $this->post) {
 			$this->error();
 		}
+		if ($category = $this->post->category) {
+			$this[Ytnuk\Web\Control::class][Ytnuk\Menu\Control::class]->setActive($category->menu);
+		}
+		$this[Ytnuk\Web\Control::class][Ytnuk\Menu\Control::class][] = $this->post->title;
 	}
 
 	/**

@@ -1,14 +1,15 @@
 <?php
 
-namespace Ytnuk\Menu\Node\Form;
+namespace Ytnuk\Blog\Post\Category\Form;
 
+use Nette;
 use Ytnuk;
 use Nextras;
 
 /**
  * Class Container
  *
- * @package Ytnuk\Menu
+ * @package Ytnuk\Blog
  */
 final class Container extends Ytnuk\Orm\Form\Container
 {
@@ -20,16 +21,15 @@ final class Container extends Ytnuk\Orm\Form\Container
 	{
 		$component = parent::addProperty($property);
 		switch ($property->name) {
-			case 'menu':
-			case 'parent':
+			case 'post':
+			case 'category':
 				$component->setOption('unique', TRUE);
 				break;
 			case 'primary':
-				$component->setOption('unique', 'menu');
+				$component->setOption('unique', 'post');
 				break;
 		}
 
 		return $component;
 	}
-
 }

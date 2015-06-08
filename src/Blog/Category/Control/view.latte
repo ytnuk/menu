@@ -1,3 +1,10 @@
 <article>
 	{$category->description}
 </article>
+<ul n:inner-foreach="$category->posts as $post">
+	<li>
+		<a n:href="$post->link">
+			{$post->title}
+		</a>
+	</li>
+</ul>

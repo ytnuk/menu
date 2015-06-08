@@ -8,9 +8,19 @@ use Ytnuk;
 /**
  * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Translation\Entity $description {1:1d Ytnuk\Translation\Repository $category primary}
  * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Menu\Entity $menu {1:1d Ytnuk\Menu\Repository $category primary}
+ * @property Nextras\Orm\Relationships\OneHasMany|Ytnuk\Blog\Post\Category\Entity[] $postNodes {1:m Ytnuk\Blog\Post\Category\Repository $category}
+ * @property-read Ytnuk\Blog\Post\Entity[] $posts {virtual}
  */
 final class Entity extends Ytnuk\Orm\Entity
 {
 
 	const PROPERTY_NAME = 'menu';
+
+	/**
+	 * @return Ytnuk\Blog\Post\Entity[]
+	 */
+	public function getterPosts()
+	{
+		return $this->postNodes->get()->fetchPairs('post', 'post');
+	}
 }
