@@ -8,6 +8,11 @@ category:
 				description:
 					label: Description
 					placeholder: Fill description
+				postNodes:
+					group: Posts
+					action:
+						add: Add post
+						delete: Delete post
 post:
 	presenter:
 		action:
@@ -31,6 +36,9 @@ post:
 			container:
 				group: Category
 				property:
+					post:
+						label: Post
+						placeholder: Select post
 					category:
 						label: Category
 						placeholder: Select category

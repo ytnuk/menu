@@ -52,6 +52,11 @@ final class Control extends Ytnuk\Application\Control
 		$this->getTemplate()->add('category', $this->category);
 	}
 
+	protected function renderView()
+	{
+		$this->getTemplate()->add('posts', $this[Ytnuk\Orm\Pagination\Control::class]['posts']->current());
+	}
+
 	/**
 	 * @inheritdoc
 	 */
@@ -60,7 +65,8 @@ final class Control extends Ytnuk\Application\Control
 		return [
 			'view' => function () {
 				return [
-					$this->category
+					$this->category,
+					$this[Ytnuk\Orm\Pagination\Control::class]['posts']->key()
 				];
 			}
 		] + parent::getViews();
@@ -80,5 +86,15 @@ final class Control extends Ytnuk\Application\Control
 	protected function createComponentYtnukGridControl()
 	{
 		return $this->gridControl->create($this->repository);
+	}
+
+	/**
+	 * @return Nette\Application\UI\Multiplier
+	 */
+	protected function createComponentYtnukOrmPaginationControl()
+	{
+		return new Nette\Application\UI\Multiplier(function ($key) {
+			return new Ytnuk\Orm\Pagination\Control($this->category->getValue($key));
+		});
 	}
 }

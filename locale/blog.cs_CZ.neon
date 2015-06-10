@@ -8,6 +8,11 @@ category:
 				description:
 					label: Popis
 					placeholder: Vyplňte popis
+				postNodes:
+					group: Příspěvky
+					action:
+						add: Přidat příspěvek
+						delete: Odebrat příspěvek
 post:
 	presenter:
 		action:
@@ -31,6 +36,9 @@ post:
 			container:
 				group: Kategorie
 				property:
+					post:
+						label: Příspěvek
+						placeholder: Vyberte příspěvek
 					category:
 						label: Kategorie
 						placeholder: Vyberte kategorii
