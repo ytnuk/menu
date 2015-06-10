@@ -18,3 +18,21 @@ post:
 				content:
 					label: Obsah
 					placeholder: Vyplňte obsah
+				title:
+					label: Název
+					placeholder: Vyplňte název
+				categoryNodes:
+					group: Kategorie
+					action:
+						add: Přidat kategorii
+						delete: Odebrat kategorii
+	category:
+		form:
+			container:
+				group: Kategorie
+				property:
+					category:
+						label: Kategorie
+						placeholder: Vyberte kategorii
+					primary:
+						label: Hlavní kategorie

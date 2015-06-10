@@ -18,3 +18,21 @@ post:
 				content:
 					label: Content
 					placeholder: Fill content
+				title:
+					label: Title
+					placeholder: Fill title
+				categoryNodes:
+					group: Categories
+					action:
+						add: Add category
+						delete: Delete category
+	category:
+		form:
+			container:
+				group: Category
+				property:
+					category:
+						label: Category
+						placeholder: Select category
+					primary:
+						label: Primary category
