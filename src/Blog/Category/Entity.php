@@ -21,6 +21,6 @@ final class Entity extends Ytnuk\Orm\Entity
 	 */
 	public function getterPosts()
 	{
-		return $this->getModel()->getRepository(Ytnuk\Blog\Post\Repository::class)->findBy(['this->categoryNodes->id' => $this->postNodes->get()->fetchPairs(NULL, 'id')]);
+		return $this->getModel()->getRepository(Ytnuk\Blog\Post\Repository::class)->findBy(['this->categoryNodes->category' => $this->id]);
 	}
 }

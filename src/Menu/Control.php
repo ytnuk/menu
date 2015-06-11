@@ -10,7 +10,7 @@ use Ytnuk;
  *
  * @package Ytnuk\Menu
  */
-final class Control extends Ytnuk\Application\Control
+final class Control extends Ytnuk\Orm\Control
 {
 
 	/**
@@ -73,6 +73,7 @@ final class Control extends Ytnuk\Application\Control
 	 */
 	public function __construct(Entity $menu, Service $service, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request, Nette\Localization\ITranslator $translator)
 	{
+		parent::__construct($menu);
 		$this->menu = $menu;
 		$this->service = $service;
 		$this->control = $control;
@@ -180,7 +181,7 @@ final class Control extends Ytnuk\Application\Control
 	/**
 	 * @return Form\Control
 	 */
-	protected function createComponentYtnukFormControl()
+	protected function createComponentYtnukOrmFormControl()
 	{
 		return $this->formControl->create($this->menu ? : new Entity);
 	}

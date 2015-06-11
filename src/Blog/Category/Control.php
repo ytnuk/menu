@@ -10,7 +10,7 @@ use Nette;
  *
  * @package Ytnuk\Blog
  */
-final class Control extends Ytnuk\Application\Control
+final class Control extends Ytnuk\Orm\Control
 {
 
 	/**
@@ -41,6 +41,7 @@ final class Control extends Ytnuk\Application\Control
 	 */
 	public function __construct(Entity $category, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Repository $repository)
 	{
+		parent::__construct($category);
 		$this->category = $category;
 		$this->formControl = $formControl;
 		$this->gridControl = $gridControl;
@@ -66,7 +67,7 @@ final class Control extends Ytnuk\Application\Control
 			'view' => function () {
 				return [
 					$this->category,
-					$this[Ytnuk\Orm\Pagination\Control::class]['posts']->key()
+					$this[Ytnuk\Orm\Pagination\Control::class]['posts']->page
 				];
 			}
 		] + parent::getViews();
@@ -75,7 +76,7 @@ final class Control extends Ytnuk\Application\Control
 	/**
 	 * @return Form\Control
 	 */
-	protected function createComponentYtnukFormControl()
+	protected function createComponentYtnukOrmFormControl()
 	{
 		return $this->formControl->create($this->category);
 	}
@@ -86,15 +87,5 @@ final class Control extends Ytnuk\Application\Control
 	protected function createComponentYtnukGridControl()
 	{
 		return $this->gridControl->create($this->repository);
-	}
-
-	/**
-	 * @return Nette\Application\UI\Multiplier
-	 */
-	protected function createComponentYtnukOrmPaginationControl()
-	{
-		return new Nette\Application\UI\Multiplier(function ($key) {
-			return new Ytnuk\Orm\Pagination\Control($this->category->getValue($key));
-		});
 	}
 }

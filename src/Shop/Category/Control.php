@@ -9,7 +9,7 @@ use Ytnuk;
  *
  * @package Ytnuk\Shop
  */
-final class Control extends Ytnuk\Application\Control
+final class Control extends Ytnuk\Orm\Control
 {
 
 	/**
@@ -40,6 +40,7 @@ final class Control extends Ytnuk\Application\Control
 	 */
 	public function __construct(Entity $category, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Repository $repository)
 	{
+		parent::__construct($category);
 		$this->category = $category;
 		$this->formControl = $formControl;
 		$this->gridControl = $gridControl;
@@ -68,7 +69,7 @@ final class Control extends Ytnuk\Application\Control
 	/**
 	 * @return Form\Control
 	 */
-	protected function createComponentYtnukFormControl()
+	protected function createComponentYtnukOrmFormControl()
 	{
 		return $this->formControl->create($this->category);
 	}

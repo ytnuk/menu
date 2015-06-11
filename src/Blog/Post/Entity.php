@@ -16,14 +16,14 @@ use Ytnuk;
 final class Entity extends Ytnuk\Orm\Entity
 {
 
-	const PROPERTY_NAME = 'content';
+	const PROPERTY_NAME = 'title';
 
 	/**
 	 * @return Nextras\Orm\Collection\ICollection|Ytnuk\Blog\Category\Entity[]
 	 */
 	public function getterCategories()
 	{
-		return $this->getModel()->getRepository(Ytnuk\Blog\Category\Repository::class)->findBy(['this->postNodes->id' => $this->categoryNodes->get()->fetchPairs(NULL, 'id')]);
+		return $this->getModel()->getRepository(Ytnuk\Blog\Category\Repository::class)->findBy(['this->postNodes->post' => $this->id]);
 	}
 
 	/**
