@@ -2,6 +2,7 @@
 
 namespace Ytnuk\Blog\Post;
 
+use Nextras;
 use Ytnuk;
 
 /**
@@ -12,4 +13,11 @@ use Ytnuk;
 final class Repository extends Ytnuk\Orm\Repository
 {
 
+	/**
+	 * @inheritdoc
+	 */
+	public function findAll()
+	{
+		return parent::findAll()->orderBy('id', Nextras\Orm\Collection\ICollection::DESC);
+	}
 }

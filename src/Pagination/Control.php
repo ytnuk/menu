@@ -6,6 +6,7 @@ use Ytnuk;
 use Traversable;
 use Iterator;
 use Countable;
+use Nette;
 
 /**
  * Class Control
@@ -19,7 +20,12 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 * @var int
 	 * @persistent
 	 */
-	public $page = 1;
+	public $page = 0;
+
+	/**
+	 * @var int
+	 */
+	private $iterator;
 
 	/**
 	 * @var Traversable
@@ -27,19 +33,21 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	private $collection;
 
 	/**
-	 * @param Traversable $collection
+	 * @var Nette\Utils\Paginator
 	 */
-	public function __construct(Traversable $collection)
-	{
-		$this->collection = $collection;
-	}
+	private $paginator;
 
 	/**
-	 * @inheritdoc
+	 * @param Traversable $collection
+	 * @param int $itemsPerPage
 	 */
-	public function current()
+	public function __construct(Traversable $collection, $itemsPerPage = 1)
 	{
-		// TODO: Implement current() method.
+		$this->collection = $collection;
+		$this->paginator = new Nette\Utils\Paginator;
+		$this->paginator->setItemsPerPage($itemsPerPage);
+		$this->paginator->setItemCount(count($collection));
+		$this->page = $this->iterator = $this->paginator->getBase();
 	}
 
 	/**
@@ -47,7 +55,7 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function next()
 	{
-		// TODO: Implement next() method.
+		$this->iterator++;
 	}
 
 	/**
@@ -55,7 +63,7 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function key()
 	{
-		// TODO: Implement key() method.
+		return $this->iterator;
 	}
 
 	/**
@@ -63,15 +71,23 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function valid()
 	{
-		// TODO: Implement valid() method.
+		return $this->iterator <= $this->paginator->getPageCount();
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function rewind()
+	public function current()
 	{
-		// TODO: Implement rewind() method.
+		return $this->iterator === $this->paginator->getPage();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCollection()
+	{
+		return array_slice(iterator_to_array($this->collection), $this->paginator->getOffset(), $this->paginator->getItemsPerPage());
 	}
 
 	/**
@@ -79,6 +95,36 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function count()
 	{
-		// TODO: Implement count() method.
+		return $this->paginator->getPageCount();
+	}
+
+	/**
+	 * @return Nette\Utils\Paginator
+	 */
+	public function getPaginator()
+	{
+		return $this->paginator;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function rewind()
+	{
+		$this->iterator = $this->paginator->getBase();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function attached($presenter)
+	{
+		parent::attached($presenter);
+		$this->paginator->setPage($this->page);
+	}
+
+	protected function startup()
+	{
+		$this->getTemplate()->add('paginator', $this->paginator);
 	}
 }

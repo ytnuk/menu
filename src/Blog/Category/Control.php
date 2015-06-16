@@ -55,7 +55,7 @@ final class Control extends Ytnuk\Orm\Control
 
 	protected function renderView()
 	{
-		$this->getTemplate()->add('posts', $this[Ytnuk\Orm\Pagination\Control::class]['posts']->current());
+		$this->getTemplate()->add('posts', $this[Ytnuk\Orm\Pagination\Control::class]['posts']->getCollection());
 	}
 
 	/**
@@ -67,7 +67,7 @@ final class Control extends Ytnuk\Orm\Control
 			'view' => function () {
 				return [
 					$this->category,
-					$this[Ytnuk\Orm\Pagination\Control::class]['posts']->page
+					$this[Ytnuk\Orm\Pagination\Control::class]['posts']->getPaginator()->getPage()
 				];
 			}
 		] + parent::getViews();
