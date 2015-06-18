@@ -26,6 +26,9 @@ post:
 				title:
 					label: Název
 					placeholder: Vyplňte název
+				description:
+					label: Popis
+					placeholder: Vyplňte popis
 				categoryNodes:
 					group: Kategorie
 					action:

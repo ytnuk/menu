@@ -22,7 +22,9 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 		return [
 			Ytnuk\Orm\Extension::class => [
 				'repositories' => [
-					$this->prefix('categoryRepository') => Category\Repository::class
+					$this->prefix('categoryRepository') => Category\Repository::class,
+					$this->prefix('postRepository') => Product\Repository::class,
+					$this->prefix('postCategoryRepository') => Product\Category\Repository::class
 				]
 			],
 			Kdyby\Translation\DI\TranslationExtension::class => [
@@ -33,6 +35,8 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 			'services' => [
 				Category\Control\Factory::class,
 				Category\Form\Control\Factory::class,
+				Product\Control\Factory::class,
+				Product\Form\Control\Factory::class,
 			]
 		];
 	}

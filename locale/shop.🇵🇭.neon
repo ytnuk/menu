@@ -8,3 +8,37 @@ category:
 				description:
 					label: Popis
 					placeholder: Vyplňte popis
+product:
+	presenter:
+		action:
+			edit: Upravit produkt
+	form:
+		container:
+			property:
+				content:
+					label: Obsah
+					placeholder: Vyplňte obsah
+				title:
+					label: Název
+					placeholder: Vyplňte název
+				description:
+					label: Popis
+					placeholder: Vyplňte popis
+				categoryNodes:
+					group: Kategorie
+					action:
+						add: Přidat kategorii
+						delete: Odebrat kategorii
+	category:
+		form:
+			container:
+				group: Kategorie
+				property:
+					product:
+						label: Produkt
+						placeholder: Vyberte produkt
+					category:
+						label: Kategorie
+						placeholder: Vyberte kategorii
+					primary:
+						label: Hlavní kategorie

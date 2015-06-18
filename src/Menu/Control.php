@@ -173,9 +173,16 @@ final class Control extends Ytnuk\Orm\Control
 		] + parent::getViews();
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function startup()
 	{
-		$this->getTemplate()->add('menu', $this->menu)->add('active', $this->getActive())->add('breadcrumb', $this->getBreadcrumb());
+		return [
+			'menu' => $this->menu,
+			'active' => $this->getActive(),
+			'breadcrumb' => $this->getBreadcrumb()
+		];
 	}
 
 	/**

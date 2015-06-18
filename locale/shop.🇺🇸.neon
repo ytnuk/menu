@@ -8,3 +8,37 @@ category:
 				description:
 					label: Description
 					placeholder: Fill description
+product:
+	presenter:
+		action:
+			edit: Edit product
+	form:
+		container:
+			property:
+				content:
+					label: Content
+					placeholder: Fill content
+				title:
+					label: Title
+					placeholder: Fill title
+				description:
+					label: Description
+					placeholder: Fill description
+				categoryNodes:
+					group: Categories
+					action:
+						add: Add category
+						delete: Delete category
+	category:
+		form:
+			container:
+				group: Category
+				property:
+					product:
+						label: Product
+						placeholder: Select product
+					category:
+						label: Category
+						placeholder: Select category
+					primary:
+						label: Primary category

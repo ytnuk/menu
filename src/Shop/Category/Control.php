@@ -47,9 +47,24 @@ final class Control extends Ytnuk\Orm\Control
 		$this->repository = $repository;
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function startup()
 	{
-		$this->getTemplate()->add('category', $this->category);
+		return [
+			'category' => $this->category
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function renderView()
+	{
+		return [
+			'products' => $this[Ytnuk\Orm\Pagination\Control::class]['products']->getCollection()
+		];
 	}
 
 	/**
@@ -60,7 +75,8 @@ final class Control extends Ytnuk\Orm\Control
 		return [
 			'view' => function () {
 				return [
-					$this->category
+					$this->category,
+					$this[Ytnuk\Orm\Pagination\Control::class]['products']
 				];
 			}
 		] + parent::getViews();

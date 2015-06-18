@@ -46,19 +46,31 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 		$this->collection = $collection;
 		$this->paginator = new Nette\Utils\Paginator;
 		$this->paginator->setItemsPerPage($itemsPerPage);
-		$this->paginator->setItemCount(count($collection));
+		if ($collection instanceof Countable) {
+			$this->paginator->setItemCount($this->count($collection));
+		}
 		$this->page = $this->iterator = $this->paginator->getBase();
 	}
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @param Countable|NULL $collection
 	 */
-	public function redrawControl($snippet = NULL, $redraw = TRUE)
+	public function count(Countable $collection = NULL)
 	{
-		if ($control = $this->lookup(Nette\Application\UI\Control::class, FALSE)) {
-			$control->redrawControl();
+		return $collection ? count($collection) : $this->paginator->getPageCount();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function handleRedirect($fragment = NULL)
+	{
+		if ($this->getPresenter()->isAjax() && $parent = $this->lookup(Nette\Application\UI\IRenderable::class, FALSE)) {
+			$parent->redrawControl();
 		}
-		parent::redrawControl($snippet, $redraw);
+		parent::handleRedirect($fragment);
 	}
 
 	/**
@@ -102,14 +114,6 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	}
 
 	/**
-	 * @inheritdoc
-	 */
-	public function count()
-	{
-		return $this->paginator->getPageCount();
-	}
-
-	/**
 	 * @return Nette\Utils\Paginator
 	 */
 	public function getPaginator()
@@ -145,8 +149,13 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 		$this->paginator->setPage($this->page);
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function startup()
 	{
-		$this->getTemplate()->add('paginator', $this->paginator);
+		return [
+			'paginator' => $this->paginator
+		];
 	}
 }

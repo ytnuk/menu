@@ -26,6 +26,9 @@ post:
 				title:
 					label: Title
 					placeholder: Fill title
+				description:
+					label: Description
+					placeholder: Fill description
 				categoryNodes:
 					group: Categories
 					action:

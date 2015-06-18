@@ -1,14 +1,13 @@
 <?php
 
-namespace Ytnuk\Blog\Category;
+namespace Ytnuk\Shop\Product;
 
 use Ytnuk;
-use Nette;
 
 /**
  * Class Control
  *
- * @package Ytnuk\Blog
+ * @package Ytnuk\Shop
  */
 final class Control extends Ytnuk\Orm\Control
 {
@@ -16,7 +15,7 @@ final class Control extends Ytnuk\Orm\Control
 	/**
 	 * @var Entity
 	 */
-	private $category;
+	private $product;
 
 	/**
 	 * @var Form\Control\Factory
@@ -34,15 +33,15 @@ final class Control extends Ytnuk\Orm\Control
 	private $repository;
 
 	/**
-	 * @param Entity $category
+	 * @param Entity $product
 	 * @param Form\Control\Factory $formControl
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 * @param Repository $repository
 	 */
-	public function __construct(Entity $category, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Repository $repository)
+	public function __construct(Entity $product, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Repository $repository)
 	{
-		parent::__construct($category);
-		$this->category = $category;
+		parent::__construct($product);
+		$this->product = $product;
 		$this->formControl = $formControl;
 		$this->gridControl = $gridControl;
 		$this->repository = $repository;
@@ -54,17 +53,7 @@ final class Control extends Ytnuk\Orm\Control
 	protected function startup()
 	{
 		return [
-			'category' => $this->category
-		];
-	}
-
-	/**
-	 * @return array
-	 */
-	protected function renderView()
-	{
-		return [
-			'posts' => $this[Ytnuk\Orm\Pagination\Control::class]['posts']->getCollection()
+			'product' => $this->product
 		];
 	}
 
@@ -76,8 +65,7 @@ final class Control extends Ytnuk\Orm\Control
 		return [
 			'view' => function () {
 				return [
-					$this->category,
-					$this[Ytnuk\Orm\Pagination\Control::class]['posts']
+					$this->product
 				];
 			}
 		] + parent::getViews();
@@ -88,7 +76,7 @@ final class Control extends Ytnuk\Orm\Control
 	 */
 	protected function createComponentYtnukOrmFormControl()
 	{
-		return $this->formControl->create($this->category);
+		return $this->formControl->create($this->product);
 	}
 
 	/**

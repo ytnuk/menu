@@ -17,13 +17,6 @@ final class Entity extends Ytnuk\Orm\Entity
 	const PROPERTY_NAME = 'menu';
 
 	/**
-	 * @var array
-	 */
-	public $itemsPerPage = [
-		'posts' => 2,
-	];
-
-	/**
 	 * @return Nextras\Orm\Collection\ICollection|Ytnuk\Blog\Post\Entity[]
 	 */
 	public function getterPosts()
