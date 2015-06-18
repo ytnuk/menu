@@ -53,6 +53,17 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	/**
 	 * @inheritdoc
 	 */
+	public function redrawControl($snippet = NULL, $redraw = TRUE)
+	{
+		if ($control = $this->lookup(Nette\Application\UI\Control::class, FALSE)) {
+			$control->redrawControl();
+		}
+		parent::redrawControl($snippet, $redraw);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function next()
 	{
 		$this->iterator++;
@@ -112,6 +123,17 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	public function rewind()
 	{
 		$this->iterator = $this->paginator->getBase();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getCacheKey()
+	{
+		return array_merge(parent::getCacheKey(), [
+			$this->paginator->getPage(),
+			$this->paginator->getItemsPerPage()
+		]);
 	}
 
 	/**

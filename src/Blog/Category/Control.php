@@ -67,7 +67,7 @@ final class Control extends Ytnuk\Orm\Control
 			'view' => function () {
 				return [
 					$this->category,
-					$this[Ytnuk\Orm\Pagination\Control::class]['posts']->getPaginator()->getPage()
+					$this[Ytnuk\Orm\Pagination\Control::class]['posts']
 				];
 			}
 		] + parent::getViews();
