@@ -3,6 +3,7 @@
 namespace Ytnuk\Blog\Post\Category;
 
 use Ytnuk;
+use Nextras;
 
 /**
  * Class Mapper
@@ -15,11 +16,8 @@ final class Mapper extends Ytnuk\Orm\Mapper
 	/**
 	 * @inheritdoc
 	 */
-	public function createCollection()
+	public function createCollectionOneHasMany(Nextras\Orm\Entity\Reflection\PropertyMetadata $metadata, Nextras\Orm\Entity\IEntity $parent)
 	{
-		$collection = parent::createCollection();
-		$collection->orderBy('primary', $collection::DESC);
-
-		return $collection;
+		return parent::createCollectionOneHasMany($metadata, $parent)->orderBy('primary', Nextras\Orm\Collection\ICollection::DESC);
 	}
 }
