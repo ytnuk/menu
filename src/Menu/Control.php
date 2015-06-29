@@ -70,6 +70,7 @@ final class Control extends Ytnuk\Orm\Control
 	 * @param Form\Control\Factory $formControl
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 * @param Nette\Http\Request $request
+	 * @param Nette\Localization\ITranslator $translator
 	 */
 	public function __construct(Entity $menu, Service $service, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request, Nette\Localization\ITranslator $translator)
 	{
