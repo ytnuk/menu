@@ -8,6 +8,11 @@ category:
 				description:
 					label: Description
 					placeholder: Fill description
+				productNodes:
+					group: Products
+					action:
+						add: Add product
+						delete: Delete product
 product:
 	presenter:
 		action:

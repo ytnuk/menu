@@ -8,6 +8,11 @@ category:
 				description:
 					label: Popis
 					placeholder: Vyplňte popis
+				productNodes:
+					group: Produkty
+					action:
+						add: Přidat produkt
+						delete: Odebrat produkt
 product:
 	presenter:
 		action:
