@@ -5,14 +5,18 @@ category:
 	form:
 		container:
 			property:
-				description:
-					label: Popis
-					placeholder: Vyplňte popis
 				productNodes:
 					group: Produkty
 					action:
 						add: Přidat produkt
 						delete: Odebrat produkt
+	description:
+		form:
+			container:
+				property:
+					value:
+						label: Popis
+						placeholder: Vyplňte popis
 product:
 	presenter:
 		action:
@@ -20,15 +24,9 @@ product:
 	form:
 		container:
 			property:
-				content:
-					label: Obsah
-					placeholder: Vyplňte obsah
 				title:
 					label: Název
 					placeholder: Vyplňte název
-				description:
-					label: Popis
-					placeholder: Vyplňte popis
 				categoryNodes:
 					group: Kategorie
 					action:
@@ -47,3 +45,17 @@ product:
 						placeholder: Vyberte kategorii
 					primary:
 						label: Hlavní kategorie
+	description:
+		form:
+			container:
+				property:
+					value:
+						label: Popis
+						placeholder: Vyplňte popis
+	content:
+		form:
+			container:
+				property:
+					value:
+						label: Obsah
+						placeholder: Vyplňte obsah

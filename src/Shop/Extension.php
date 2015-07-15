@@ -23,8 +23,11 @@ final class Extension extends Nette\DI\CompilerExtension implements Ytnuk\Config
 			Ytnuk\Orm\Extension::class => [
 				'repositories' => [
 					$this->prefix('categoryRepository') => Category\Repository::class,
-					$this->prefix('postRepository') => Product\Repository::class,
-					$this->prefix('postCategoryRepository') => Product\Category\Repository::class
+					$this->prefix('categoryDescriptionRepository') => Category\Description\Repository::class,
+					$this->prefix('productRepository') => Product\Repository::class,
+					$this->prefix('productDescriptionRepository') => Product\Description\Repository::class,
+					$this->prefix('productContentRepository') => Product\Content\Repository::class,
+					$this->prefix('productCategoryRepository') => Product\Category\Repository::class
 				]
 			],
 			Kdyby\Translation\DI\TranslationExtension::class => [

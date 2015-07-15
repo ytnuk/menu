@@ -1,9 +1,9 @@
 <?php
-
 namespace Ytnuk\Blog\Category\Form;
 
 use Nette;
 use Ytnuk;
+use Nextras;
 
 /**
  * Class Container
@@ -19,7 +19,7 @@ final class Container extends Ytnuk\Orm\Form\Container
 	public function setValues($values, $erase = FALSE)
 	{
 		$link = $this['menu']->getEntity()->link;
-		$link->destination = ':Blog:Category:Presenter:view';
+		$link->module = 'Blog:Category';
 		$container = parent::setValues($values, $erase);
 		if ( ! $link->parameters->get()->getBy(['key' => 'id'])) {
 			$linkParameter = new Ytnuk\Link\Parameter\Entity;
@@ -36,7 +36,17 @@ final class Container extends Ytnuk\Orm\Form\Container
 	 */
 	protected function attached($form)
 	{
-		parent::attached($form);;
+		parent::attached($form);
 		unset($this['menu']['link']);
+	}
+
+	/**
+	 * @param Nextras\Orm\Entity\Reflection\PropertyMetadata $metadata
+	 *
+	 * @return Nette\Forms\Container
+	 */
+	protected function addPropertyDescription(Nextras\Orm\Entity\Reflection\PropertyMetadata $metadata)
+	{
+		return $this->addPropertyOneHasOneDirected($metadata, TRUE);
 	}
 }

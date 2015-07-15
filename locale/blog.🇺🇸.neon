@@ -5,14 +5,18 @@ category:
 	form:
 		container:
 			property:
-				description:
-					label: Description
-					placeholder: Fill description
 				postNodes:
 					group: Posts
 					action:
 						add: Add post
 						delete: Delete post
+	description:
+		form:
+			container:
+				property:
+					value:
+						label: Description
+						placeholder: Fill description
 post:
 	presenter:
 		action:
@@ -26,14 +30,18 @@ post:
 				title:
 					label: Title
 					placeholder: Fill title
-				description:
-					label: Description
-					placeholder: Fill description
 				categoryNodes:
 					group: Categories
 					action:
 						add: Add category
 						delete: Delete category
+	description:
+		form:
+			container:
+				property:
+					value:
+						label: Description
+						placeholder: Fill description
 	category:
 		form:
 			container:

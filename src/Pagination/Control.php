@@ -25,7 +25,7 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	/**
 	 * @var int
 	 */
-	private $iterator;
+	private $iterator = 0;
 
 	/**
 	 * @var Traversable
@@ -49,7 +49,7 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 		if ($collection instanceof Countable) {
 			$this->paginator->setItemCount($this->count($collection));
 		}
-		$this->page = $this->iterator = $this->paginator->getBase();
+		$this->page = $this->iterator = $this->paginator->getFirstPage();
 	}
 
 	/**
@@ -98,11 +98,17 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	}
 
 	/**
-	 * @inheritdoc
+	 * @param int|NULL $page
+	 *
+	 * @return array
 	 */
-	public function current()
+	public function current($page = NULL)
 	{
-		return $this->iterator === $this->paginator->getPage();
+		$this->paginator->setPage($page ? (is_int($page) ? $page : $this->page) : $this->iterator);
+		$collection = $this->getCollection();
+		$this->paginator->setPage($this->page);
+
+		return $collection;
 	}
 
 	/**
@@ -110,7 +116,7 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function getCollection()
 	{
-		return array_slice(iterator_to_array($this->collection), $this->paginator->getOffset(), $this->paginator->getItemsPerPage());
+		return array_slice(iterator_to_array($this->collection), $this->paginator->getOffset(), $this->paginator->getItemsPerPage(), TRUE);
 	}
 
 	/**
@@ -126,7 +132,7 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function rewind()
 	{
-		$this->iterator = $this->paginator->getBase();
+		$this->iterator = $this->paginator->getFirstPage();
 	}
 
 	/**

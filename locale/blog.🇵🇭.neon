@@ -5,14 +5,18 @@ category:
 	form:
 		container:
 			property:
-				description:
-					label: Popis
-					placeholder: Vyplňte popis
 				postNodes:
 					group: Příspěvky
 					action:
 						add: Přidat příspěvek
 						delete: Odebrat příspěvek
+	description:
+		form:
+			container:
+				property:
+					value:
+						label: Popis
+						placeholder: Vyplňte popis
 post:
 	presenter:
 		action:
@@ -26,14 +30,18 @@ post:
 				title:
 					label: Název
 					placeholder: Vyplňte název
-				description:
-					label: Popis
-					placeholder: Vyplňte popis
 				categoryNodes:
 					group: Kategorie
 					action:
 						add: Přidat kategorii
 						delete: Odebrat kategorii
+	description:
+		form:
+			container:
+				property:
+					value:
+						label: Popis
+						placeholder: Vyplňte popis
 	category:
 		form:
 			container:

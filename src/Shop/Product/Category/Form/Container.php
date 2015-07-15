@@ -17,10 +17,10 @@ final class Container extends Ytnuk\Orm\Form\Container
 	/**
 	 * @inheritdoc
 	 */
-	protected function addProperty(Nextras\Orm\Entity\Reflection\PropertyMetadata $property)
+	protected function addProperty(Nextras\Orm\Entity\Reflection\PropertyMetadata $metadata)
 	{
-		$component = parent::addProperty($property);
-		switch ($property->name) {
+		$component = parent::addProperty($metadata);
+		switch ($metadata->name) {
 			case 'product':
 			case 'category':
 				$component->setOption('unique', TRUE);

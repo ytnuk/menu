@@ -41,8 +41,11 @@ final class Service
 	 */
 	public function getByLink(Entity $menu, $destination, $parameters = [])
 	{
+		$destination = explode(':', ltrim($destination, ':'));
 		$links = $this->repository->findBy([
-			'this->link->destination' => $destination,
+			'this->link->action' => array_pop($destination),
+			'this->link->presenter' => array_pop($destination),
+			'this->link->module' => implode(':', $destination),
 			'id' => array_keys([$menu->id => $menu] + $menu->getterChildren(TRUE))
 		])->fetchPairs('link', 'link');
 		if ( ! $links) {
