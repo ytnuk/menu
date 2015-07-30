@@ -1,16 +1,16 @@
 <?php
-
 namespace Ytnuk\Blog\Category;
 
-use Ytnuk;
 use Nette;
+use Ytnuk;
 
 /**
  * Class Control
  *
  * @package Ytnuk\Blog
  */
-final class Control extends Ytnuk\Orm\Control
+final class Control
+	extends Ytnuk\Orm\Control
 {
 
 	/**
@@ -39,8 +39,12 @@ final class Control extends Ytnuk\Orm\Control
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 * @param Repository $repository
 	 */
-	public function __construct(Entity $category, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Repository $repository)
-	{
+	public function __construct(
+		Entity $category,
+		Form\Control\Factory $formControl,
+		Ytnuk\Orm\Grid\Control\Factory $gridControl,
+		Repository $repository
+	) {
 		parent::__construct($category);
 		$this->category = $category;
 		$this->formControl = $formControl;
@@ -54,7 +58,7 @@ final class Control extends Ytnuk\Orm\Control
 	protected function startup()
 	{
 		return [
-			'category' => $this->category
+			'category' => $this->category,
 		];
 	}
 
@@ -64,7 +68,7 @@ final class Control extends Ytnuk\Orm\Control
 	protected function renderView()
 	{
 		return [
-			'posts' => $this[Ytnuk\Orm\Pagination\Control::class]['posts']->getCollection()
+			'posts' => $this[Ytnuk\Orm\Pagination\Control::class]['posts']->getCollection(),
 		];
 	}
 
@@ -77,9 +81,9 @@ final class Control extends Ytnuk\Orm\Control
 			'view' => function () {
 				return [
 					$this->category,
-					$this[Ytnuk\Orm\Pagination\Control::class]['posts']
+					$this[Ytnuk\Orm\Pagination\Control::class]['posts'],
 				];
-			}
+			},
 		] + parent::getViews();
 	}
 

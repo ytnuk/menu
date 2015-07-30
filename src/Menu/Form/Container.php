@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Menu\Form;
 
 use Ytnuk;
@@ -9,7 +8,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Menu
  */
-final class Container extends Ytnuk\Orm\Form\Container
+final class Container
+	extends Ytnuk\Orm\Form\Container
 {
 
 }

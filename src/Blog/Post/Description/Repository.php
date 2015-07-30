@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Blog\Post\Description;
 
 use Ytnuk;
@@ -9,7 +8,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Blog
  */
-final class Repository extends Ytnuk\Orm\Repository
+final class Repository
+	extends Ytnuk\Orm\Repository
 {
 
 }

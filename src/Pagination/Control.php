@@ -1,19 +1,20 @@
 <?php
-
 namespace Ytnuk\Pagination;
 
-use Ytnuk;
-use Traversable;
-use Iterator;
 use Countable;
+use Iterator;
 use Nette;
+use Traversable;
+use Ytnuk;
 
 /**
  * Class Control
  *
  * @package Ytnuk\Pagination
  */
-class Control extends Ytnuk\Application\Control implements Iterator, Countable
+class Control
+	extends Ytnuk\Application\Control
+	implements Iterator, Countable
 {
 
 	/**
@@ -41,15 +42,18 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 * @param Traversable $collection
 	 * @param int $itemsPerPage
 	 */
-	public function __construct(Traversable $collection, $itemsPerPage = 1)
-	{
+	public function __construct(
+		Traversable $collection,
+		$itemsPerPage = 1
+	) {
+		parent::__construct();
 		$this->collection = $collection;
 		$this->paginator = new Nette\Utils\Paginator;
 		$this->paginator->setItemsPerPage($itemsPerPage);
 		if ($collection instanceof Countable) {
 			$this->paginator->setItemCount($this->count($collection));
 		}
-		$this->page = $this->iterator = $this->paginator->getFirstPage();
+		$this->rewind();
 	}
 
 	/**
@@ -67,7 +71,11 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function handleRedirect($fragment = NULL)
 	{
-		if ($this->getPresenter()->isAjax() && $parent = $this->lookup(Nette\Application\UI\IRenderable::class, FALSE)) {
+		if ($this->getPresenter()->isAjax() && $parent = $this->lookup(
+				Nette\Application\UI\IRenderable::class,
+				FALSE
+			)
+		) {
 			$parent->redrawControl();
 		}
 		parent::handleRedirect($fragment);
@@ -98,13 +106,11 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	}
 
 	/**
-	 * @param int|NULL $page
-	 *
 	 * @return array
 	 */
-	public function current($page = NULL)
+	public function current()
 	{
-		$this->paginator->setPage($page ? (is_int($page) ? $page : $this->page) : $this->iterator);
+		$this->paginator->setPage($this->iterator);
 		$collection = $this->getCollection();
 		$this->paginator->setPage($this->page);
 
@@ -116,7 +122,12 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function getCollection()
 	{
-		return array_slice(iterator_to_array($this->collection), $this->paginator->getOffset(), $this->paginator->getItemsPerPage(), TRUE);
+		return array_slice(
+			iterator_to_array($this->collection),
+			$this->paginator->getOffset(),
+			$this->paginator->getItemsPerPage(),
+			TRUE
+		);
 	}
 
 	/**
@@ -140,19 +151,36 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	 */
 	public function getCacheKey()
 	{
-		return array_merge(parent::getCacheKey(), [
-			$this->paginator->getPage(),
-			$this->paginator->getItemsPerPage()
-		]);
+		return array_merge(
+			parent::getCacheKey(),
+			[
+				$this->paginator->getPage(),
+				$this->paginator->getItemsPerPage(),
+			]
+		);
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
-	protected function attached($presenter)
+	public function loadState(array $params)
 	{
-		parent::attached($presenter);
+		parent::loadState($params);
 		$this->paginator->setPage($this->page);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function saveState(
+		array & $params,
+		$reflection = NULL
+	) {
+		$this->page = $this->paginator->getPage();
+		parent::saveState(
+			$params,
+			$reflection
+		);
 	}
 
 	/**
@@ -161,7 +189,7 @@ class Control extends Ytnuk\Application\Control implements Iterator, Countable
 	protected function startup()
 	{
 		return [
-			'paginator' => $this->paginator
+			'paginator' => $this->paginator,
 		];
 	}
 }

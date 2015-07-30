@@ -1,17 +1,17 @@
 <?php
-
 namespace Ytnuk\Shop\Product\Category\Form;
 
 use Nette;
-use Ytnuk;
 use Nextras;
+use Ytnuk;
 
 /**
  * Class Container
  *
  * @package Ytnuk\Shop
  */
-final class Container extends Ytnuk\Orm\Form\Container
+final class Container
+	extends Ytnuk\Orm\Form\Container
 {
 
 	/**
@@ -23,10 +23,16 @@ final class Container extends Ytnuk\Orm\Form\Container
 		switch ($metadata->name) {
 			case 'product':
 			case 'category':
-				$component->setOption('unique', TRUE);
+				$component->setOption(
+					'unique',
+					TRUE
+				);
 				break;
 			case 'primary':
-				$component->setOption('unique', 'product');
+				$component->setOption(
+					'unique',
+					'product'
+				);
 				break;
 		}
 

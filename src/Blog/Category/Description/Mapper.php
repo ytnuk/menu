@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Blog\Category\Description;
 
 use Ytnuk;
@@ -9,7 +8,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Blog
  */
-final class Mapper extends Ytnuk\Orm\Mapper
+final class Mapper
+	extends Ytnuk\Orm\Mapper
 {
 
 }

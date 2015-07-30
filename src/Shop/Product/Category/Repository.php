@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Shop\Product\Category;
 
 use Ytnuk;
@@ -9,7 +8,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Shop
  */
-final class Repository extends Ytnuk\Orm\Repository
+final class Repository
+	extends Ytnuk\Orm\Repository
 {
 
 }

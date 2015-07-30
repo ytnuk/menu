@@ -1,16 +1,16 @@
 <?php
-
 namespace Ytnuk\Menu\Node\Form;
 
-use Ytnuk;
 use Nextras;
+use Ytnuk;
 
 /**
  * Class Container
  *
  * @package Ytnuk\Menu
  */
-final class Container extends Ytnuk\Orm\Form\Container
+final class Container
+	extends Ytnuk\Orm\Form\Container
 {
 
 	/**
@@ -22,14 +22,19 @@ final class Container extends Ytnuk\Orm\Form\Container
 		switch ($metadata->name) {
 			case 'menu':
 			case 'parent':
-				$component->setOption('unique', TRUE);
+				$component->setOption(
+					'unique',
+					TRUE
+				);
 				break;
 			case 'primary':
-				$component->setOption('unique', 'menu');
+				$component->setOption(
+					'unique',
+					'menu'
+				);
 				break;
 		}
 
 		return $component;
 	}
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Shop\Product\Form;
 
 use Ytnuk;
@@ -9,15 +8,21 @@ use Ytnuk;
  *
  * @package Ytnuk\Shop
  */
-final class Control extends Ytnuk\Orm\Form\Control
+final class Control
+	extends Ytnuk\Orm\Form\Control
 {
 
 	/**
 	 * @param Ytnuk\Shop\Product\Entity $product
 	 * @param Ytnuk\Orm\Form\Factory $form
 	 */
-	public function __construct(Ytnuk\Shop\Product\Entity $product, Ytnuk\Orm\Form\Factory $form)
-	{
-		parent::__construct($product, $form);
+	public function __construct(
+		Ytnuk\Shop\Product\Entity $product,
+		Ytnuk\Orm\Form\Factory $form
+	) {
+		parent::__construct(
+			$product,
+			$form
+		);
 	}
 }

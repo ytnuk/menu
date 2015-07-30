@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Menu;
 
 use Nette;
@@ -10,7 +9,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Menu
  */
-final class Presenter extends Ytnuk\Web\Presenter
+final class Presenter
+	extends Ytnuk\Web\Presenter
 {
 
 	/**
@@ -32,8 +32,10 @@ final class Presenter extends Ytnuk\Web\Presenter
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 */
-	public function __construct(Repository $repository, Control\Factory $control)
-	{
+	public function __construct(
+		Repository $repository,
+		Control\Factory $control
+	) {
 		parent::__construct();
 		$this->repository = $repository;
 		$this->control = $control;

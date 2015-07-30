@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Blog\Post;
 
 use Nextras;
@@ -10,7 +9,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Blog
  */
-final class Repository extends Ytnuk\Orm\Repository
+final class Repository
+	extends Ytnuk\Orm\Repository
 {
 
 	/**
@@ -18,6 +18,10 @@ final class Repository extends Ytnuk\Orm\Repository
 	 */
 	public function findAll()
 	{
-		return parent::findAll()->orderBy('id', Nextras\Orm\Collection\ICollection::DESC);
+		return parent::findAll()->orderBy(
+			current($this->getEntityMetadata()->getPrimaryKey()),
+			Nextras\Orm\Collection\ICollection::DESC
+		)
+			;
 	}
 }

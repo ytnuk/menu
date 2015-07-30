@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Blog\Category\Control;
 
 use Ytnuk;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Shop;
 
 use Ytnuk;
@@ -9,7 +8,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Shop
  */
-abstract class Presenter extends Ytnuk\Web\Presenter
+abstract class Presenter
+	extends Ytnuk\Web\Presenter
 {
 
 }

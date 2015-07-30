@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Menu;
 
 use Ytnuk;
@@ -9,7 +8,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Menu
  */
-final class Mapper extends Ytnuk\Orm\Mapper
+final class Mapper
+	extends Ytnuk\Orm\Mapper
 {
 
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Menu;
 
 use Nette;
@@ -10,7 +9,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Menu
  */
-final class Control extends Ytnuk\Orm\Control
+final class Control
+	extends Ytnuk\Orm\Control
 {
 
 	/**
@@ -19,9 +19,9 @@ final class Control extends Ytnuk\Orm\Control
 	private $menu;
 
 	/**
-	 * @var Service
+	 * @var Repository
 	 */
-	private $service;
+	private $repository;
 
 	/**
 	 * @var Control\Factory
@@ -65,18 +65,25 @@ final class Control extends Ytnuk\Orm\Control
 
 	/**
 	 * @param Entity $menu
-	 * @param Service $service
+	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 * @param Form\Control\Factory $formControl
 	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
 	 * @param Nette\Http\Request $request
 	 * @param Nette\Localization\ITranslator $translator
 	 */
-	public function __construct(Entity $menu, Service $service, Control\Factory $control, Form\Control\Factory $formControl, Ytnuk\Orm\Grid\Control\Factory $gridControl, Nette\Http\Request $request, Nette\Localization\ITranslator $translator)
-	{
+	public function __construct(
+		Entity $menu,
+		Repository $repository,
+		Control\Factory $control,
+		Form\Control\Factory $formControl,
+		Ytnuk\Orm\Grid\Control\Factory $gridControl,
+		Nette\Http\Request $request,
+		Nette\Localization\ITranslator $translator
+	) {
 		parent::__construct($menu);
 		$this->menu = $menu;
-		$this->service = $service;
+		$this->repository = $repository;
 		$this->control = $control;
 		$this->formControl = $formControl;
 		$this->gridControl = $gridControl;
@@ -85,51 +92,21 @@ final class Control extends Ytnuk\Orm\Control
 	}
 
 	/**
-	 * @param string $offset
-	 * @param Entity|string $menu
-	 */
-	public function offsetSet($offset, $menu)
-	{
-		if ( ! $menu instanceof Entity) {
-			$this->service->getRepository()->attach($entity = new Entity);
-			$entity->title = new Ytnuk\Translation\Entity;
-			$translate = new Ytnuk\Translation\Translate\Entity;
-			$translate->value = $this->translator->translate($menu);
-			$entity->title->translates->add($translate);
-			$menu = $entity;
-		}
-		if ($offset === NULL) {
-			$this->append[] = $menu;
-		} else {
-			$this->append[$offset] = $menu;
-		}
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function offsetExists($id)
-	{
-		foreach ($this->getBreadcrumb() as $menu) {
-			if ($menu->id === $id) {
-				return $menu;
-			}
-		}
-
-		return FALSE;
-	}
-
-	/**
+	 * @param bool $append
+	 *
 	 * @return Entity[]
 	 */
-	public function getBreadcrumb()
+	public function getBreadcrumb($append = TRUE)
 	{
-		if ( ! $this->breadcrumb) {
-			$active = $this->getActive();
-			$this->breadcrumb = array_merge(array_reverse($active->getterParents(TRUE)) + [$active->id => $active], $this->append);
+		if ( ! $this->breadcrumb && $active = $this->getActive()) {
+			$this->breadcrumb = array_reverse($active->getterParents(TRUE));
+			$this->breadcrumb[$active->id] = $active;
 		}
 
-		return $this->breadcrumb;
+		return $append ? array_merge(
+			$this->breadcrumb,
+			$this->append
+		) : $this->breadcrumb;
 	}
 
 	/**
@@ -138,10 +115,25 @@ final class Control extends Ytnuk\Orm\Control
 	public function getActive()
 	{
 		if ($this->active === NULL) {
-			if ( ! $menu = $this->service->getByLink($this->menu, $destination = $this->getPresenter()->getAction(TRUE), $this->getPresenter()->getRequest()->getParameters())) {
-				$destination = substr($destination, 0, -strlen($this->getPresenter()->getAction()));
-				foreach ($this->menu->getterChildren(TRUE) as $child) {
-					if (strpos($child->link->destination, $destination) !== FALSE) {
+			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters(
+				$this->menu,
+				$destination = $this->getPresenter()->getAction(TRUE),
+				$this->getPresenter()->getRequest()->getParameters()
+			)
+			) {
+				$destination = substr(
+					$destination,
+					0,
+					-strlen($this->getPresenter()->getAction())
+				);
+				foreach (
+					$this->menu->getterChildren(TRUE) as $child
+				) {
+					if (strpos(
+							$child->link->destination,
+							$destination
+						) !== FALSE
+					) {
 						$menu = $child;
 						break;
 					}
@@ -169,9 +161,40 @@ final class Control extends Ytnuk\Orm\Control
 		return [
 			'breadcrumb' => TRUE,
 			'navbar' => TRUE,
-			'header' => TRUE,
-			'xml' => FALSE
+			'title' => TRUE,
+			'xml' => FALSE,
 		] + parent::getViews();
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function offsetExists($id)
+	{
+		return isset($this->getBreadcrumb(FALSE)[$id]);
+	}
+
+	/**
+	 * @param string $offset
+	 * @param Entity|string $menu
+	 */
+	public function offsetSet(
+		$offset,
+		$menu
+	) {
+		if ( ! $menu instanceof Entity) {
+			$this->repository->attach($entity = new Entity);
+			$entity->title = new Ytnuk\Translation\Entity;
+			$translate = new Ytnuk\Translation\Translate\Entity;
+			$translate->value = $this->translator->translate($menu);
+			$entity->title->translates->add($translate);
+			$menu = $entity;
+		}
+		if ($offset === NULL) {
+			$this->append[] = $menu;
+		} else {
+			$this->append[$offset] = $menu;
+		}
 	}
 
 	/**
@@ -181,8 +204,26 @@ final class Control extends Ytnuk\Orm\Control
 	{
 		return [
 			'menu' => $this->menu,
-			'active' => $this->getActive(),
-			'breadcrumb' => $this->getBreadcrumb()
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function renderTitle()
+	{
+		return [
+			'last' => $this->append ? end($this->append) : $this->getActive(),
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function renderBreadcrumb()
+	{
+		return [
+			'breadcrumb' => $this->getBreadcrumb(),
 		];
 	}
 
@@ -199,6 +240,6 @@ final class Control extends Ytnuk\Orm\Control
 	 */
 	protected function createComponentYtnukGridControl()
 	{
-		return $this->gridControl->create($this->service->getRepository());
+		return $this->gridControl->create($this->repository);
 	}
 }

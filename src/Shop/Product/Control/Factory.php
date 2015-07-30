@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Shop\Product\Control;
 
 use Ytnuk;

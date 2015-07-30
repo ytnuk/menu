@@ -5,7 +5,7 @@
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
-    <li n:foreach="$control as $page => $collection" n:class="$page === $control->page ? active">
+    <li n:foreach="$control as $page => $collection" n:class="$page === $paginator->getPage() ? active">
     	<a n:href="redirect! page => $page">{$page}</a>
     </li>
     <li n:class="$disabled = $paginator->getPage() >= $paginator->getPageCount() ? disabled">

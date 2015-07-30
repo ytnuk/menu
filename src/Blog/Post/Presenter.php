@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Blog\Post;
 
 use Nette;
@@ -10,7 +9,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Blog
  */
-final class Presenter extends Ytnuk\Blog\Presenter
+final class Presenter
+	extends Ytnuk\Blog\Presenter
 {
 
 	/**
@@ -32,8 +32,10 @@ final class Presenter extends Ytnuk\Blog\Presenter
 	 * @param Repository $repository
 	 * @param Control\Factory $control
 	 */
-	public function __construct(Repository $repository, Control\Factory $control)
-	{
+	public function __construct(
+		Repository $repository,
+		Control\Factory $control
+	) {
 		parent::__construct();
 		$this->repository = $repository;
 		$this->control = $control;
@@ -77,11 +79,19 @@ final class Presenter extends Ytnuk\Blog\Presenter
 	/**
 	 * @inheritdoc
 	 */
-	public function redrawControl($snippet = NULL, $redraw = TRUE)
-	{
-		parent::redrawControl($snippet, $redraw);
+	public function redrawControl(
+		$snippet = NULL,
+		$redraw = TRUE
+	) {
+		parent::redrawControl(
+			$snippet,
+			$redraw
+		);
 		if ($this->post) {
-			$this[Control::class]->redrawControl($snippet, $redraw);
+			$this[Control::class]->redrawControl(
+				$snippet,
+				$redraw
+			);
 		}
 	}
 

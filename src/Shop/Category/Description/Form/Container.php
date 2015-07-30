@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Shop\Category\Description\Form;
 
 use Ytnuk;
@@ -9,16 +8,22 @@ use Ytnuk;
  *
  * @package Ytnuk\Shop
  */
-final class Container extends Ytnuk\Orm\Form\Container
+final class Container
+	extends Ytnuk\Orm\Form\Container
 {
 
 	/**
 	 * @inheritdoc
 	 */
-	public function setValues($values, $erase = FALSE)
-	{
-		if ((array) $values->value->translates) {
-			return parent::setValues($values, $erase);
+	public function setValues(
+		$values,
+		$erase = FALSE
+	) {
+		if (isset($values['value'], $values['value']['translates']) && (array) $values['value']['translates']) {
+			return parent::setValues(
+				$values,
+				$erase
+			);
 		} else {
 			$this->removeEntity(FALSE);
 

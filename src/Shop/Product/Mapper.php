@@ -1,5 +1,4 @@
 <?php
-
 namespace Ytnuk\Shop\Product;
 
 use Ytnuk;
@@ -9,7 +8,8 @@ use Ytnuk;
  *
  * @package Ytnuk\Shop
  */
-final class Mapper extends Ytnuk\Orm\Mapper
+final class Mapper
+	extends Ytnuk\Orm\Mapper
 {
 
 }

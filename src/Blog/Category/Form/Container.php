@@ -2,29 +2,38 @@
 namespace Ytnuk\Blog\Category\Form;
 
 use Nette;
-use Ytnuk;
 use Nextras;
+use Ytnuk;
 
 /**
  * Class Container
  *
  * @package Ytnuk\Blog
  */
-final class Container extends Ytnuk\Orm\Form\Container
+final class Container
+	extends Ytnuk\Orm\Form\Container
 {
 
 	/**
 	 * @inheritdoc
 	 */
-	public function setValues($values, $erase = FALSE)
-	{
+	public function setValues(
+		$values,
+		$erase = FALSE
+	) {
 		$link = $this['menu']->getEntity()->link;
 		$link->module = 'Blog:Category';
-		$container = parent::setValues($values, $erase);
+		$container = parent::setValues(
+			$values,
+			$erase
+		);
 		if ( ! $link->parameters->get()->getBy(['key' => 'id'])) {
 			$linkParameter = new Ytnuk\Link\Parameter\Entity;
 			$linkParameter->key = 'id';
-			$linkParameter->value = $this->getEntity()->getPersistedId() ? : $this->getRepository()->persist($this->getEntity())->getPersistedId();
+			$linkParameter->value = $this->getEntity()->getPersistedId() ? : $this->getRepository()->persist(
+				$this->getEntity()
+			)->getPersistedId()
+			;
 			$link->parameters->add($linkParameter);
 		}
 
@@ -47,6 +56,9 @@ final class Container extends Ytnuk\Orm\Form\Container
 	 */
 	protected function addPropertyDescription(Nextras\Orm\Entity\Reflection\PropertyMetadata $metadata)
 	{
-		return $this->addPropertyOneHasOneDirected($metadata, TRUE);
+		return $this->addPropertyOneHasOneDirected(
+			$metadata,
+			TRUE
+		);
 	}
 }
