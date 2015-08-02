@@ -15,13 +15,38 @@ final class Container
 {
 
 	/**
+	 * @var Ytnuk\Blog\Post\Entity
+	 */
+	private $entity;
+
+	/**
+	 * @var Ytnuk\Blog\Post\Repository
+	 */
+	private $repository;
+
+	/**
+	 * @inheritDoc
+	 */
+	public function __construct(
+		Ytnuk\Blog\Post\Entity $entity,
+		Ytnuk\Blog\Post\Repository $repository
+	) {
+		parent::__construct(
+			$entity,
+			$repository
+		);
+		$this->entity = $entity;
+		$this->repository = $repository;
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function setValues(
 		$values,
 		$erase = FALSE
 	) {
-		$link = $this->getEntity()->link;
+		$link = $this->entity->link;
 		$link->module = 'Blog:Post';
 		$container = parent::setValues(
 			$values,
@@ -30,10 +55,9 @@ final class Container
 		if ( ! $link->parameters->get()->getBy(['key' => 'id'])) {
 			$linkParameter = new Ytnuk\Link\Parameter\Entity;
 			$linkParameter->key = 'id';
-			$linkParameter->value = $this->getEntity()->getPersistedId() ? : $this->getRepository()->persist(
-				$this->getEntity()
-			)->getPersistedId()
-			;
+			$linkParameter->value = $this->entity->getPersistedId() ? : $this->repository->persist(
+				$this->entity
+			)->getPersistedId();
 			$link->parameters->add($linkParameter);
 		}
 

@@ -48,8 +48,7 @@ final class Presenter
 	 */
 	public function actionView($id)
 	{
-		$this->category = $this->repository->getById($id);
-		if ( ! $this->category) {
+		if ( ! $this->category = $this->repository->getById($id)) {
 			$this->error();
 		}
 	}
@@ -61,8 +60,7 @@ final class Presenter
 	 */
 	public function actionEdit($id)
 	{
-		$this->category = $this->repository->getById($id);
-		if ( ! $this->category) {
+		if ( ! $this->category = $this->repository->getById($id)) {
 			$this->error();
 		}
 	}

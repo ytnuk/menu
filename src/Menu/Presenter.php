@@ -48,8 +48,7 @@ final class Presenter
 	 */
 	public function actionEdit($id)
 	{
-		$this->menu = $this->repository->getById($id);
-		if ( ! $this->menu) {
+		if ( ! $this->menu = $this->repository->getById($id)) {
 			$this->error();
 		}
 	}

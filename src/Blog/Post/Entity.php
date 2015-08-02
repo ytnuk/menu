@@ -37,6 +37,9 @@ final class Entity
 	 */
 	public function getterCategory()
 	{
+		/**
+		 * @var Category\Entity|NULL $node
+		 */
 		$node = $this->categoryNodes->get()->fetch();
 
 		return $node ? $node->category : NULL;

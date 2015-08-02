@@ -62,8 +62,7 @@ final class Repository
 		)->fetchPairs(
 			NULL,
 			'link'
-		)
-		;
+		);
 		$links = array_combine(
 			array_map(
 				function (Ytnuk\Link\Entity $entity) {

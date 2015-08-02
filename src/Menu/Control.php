@@ -92,68 +92,6 @@ final class Control
 	}
 
 	/**
-	 * @param bool $append
-	 *
-	 * @return Entity[]
-	 */
-	public function getBreadcrumb($append = TRUE)
-	{
-		if ( ! $this->breadcrumb && $active = $this->getActive()) {
-			$this->breadcrumb = array_reverse($active->getterParents(TRUE));
-			$this->breadcrumb[$active->id] = $active;
-		}
-
-		return $append ? array_merge(
-			$this->breadcrumb,
-			$this->append
-		) : $this->breadcrumb;
-	}
-
-	/**
-	 * @return Entity
-	 */
-	public function getActive()
-	{
-		if ($this->active === NULL) {
-			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters(
-				$this->menu,
-				$destination = $this->getPresenter()->getAction(TRUE),
-				$this->getPresenter()->getRequest()->getParameters()
-			)
-			) {
-				$destination = substr(
-					$destination,
-					0,
-					-strlen($this->getPresenter()->getAction())
-				);
-				foreach (
-					$this->menu->getterChildren(TRUE) as $child
-				) {
-					if (strpos(
-							$child->link->destination,
-							$destination
-						) !== FALSE
-					) {
-						$menu = $child;
-						break;
-					}
-				}
-			}
-			$this->setActive($menu ? : $this->menu);
-		}
-
-		return $this->active;
-	}
-
-	/**
-	 * @param Entity $entity
-	 */
-	public function setActive(Entity $entity)
-	{
-		$this->active = $entity;
-	}
-
-	/**
 	 * @inheritdoc
 	 */
 	protected function getViews()
@@ -167,22 +105,22 @@ final class Control
 	}
 
 	/**
-	 * @inheritdoc
-	 */
-	public function offsetExists($id)
-	{
-		return isset($this->getBreadcrumb(FALSE)[$id]);
-	}
-
-	/**
 	 * @param string $offset
-	 * @param Entity|string $menu
+	 * @param Entity|Ytnuk\Translation\Entity|string $menu
 	 */
 	public function offsetSet(
 		$offset,
 		$menu
 	) {
-		if ( ! $menu instanceof Entity) {
+		if ($menu instanceof Entity && ! $this->active && $offset === NULL) {
+			$this->active = $menu;
+
+			return;
+		} elseif ($menu instanceof Ytnuk\Translation\Entity) {
+			$entity = new Entity;
+			$entity->title = $menu;
+			$menu = $entity;
+		} elseif (is_string($menu)) {
 			$this->repository->attach($entity = new Entity);
 			$entity->title = new Ytnuk\Translation\Entity;
 			$translate = new Ytnuk\Translation\Translate\Entity;
@@ -190,10 +128,17 @@ final class Control
 			$entity->title->translates->add($translate);
 			$menu = $entity;
 		}
-		if ($offset === NULL) {
-			$this->append[] = $menu;
+		if ($menu instanceof Entity) {
+			if ($offset === NULL) {
+				$this->append[] = $menu;
+			} else {
+				$this->append[$offset] = $menu;
+			}
 		} else {
-			$this->append[$offset] = $menu;
+			parent::offsetSet(
+				$offset,
+				$menu
+			);
 		}
 	}
 
@@ -228,6 +173,16 @@ final class Control
 	}
 
 	/**
+	 * @return array
+	 */
+	protected function renderNavbar()
+	{
+		return [
+			'breadcrumb' => $this->getBreadcrumb(FALSE),
+		];
+	}
+
+	/**
 	 * @return Form\Control
 	 */
 	protected function createComponentYtnukOrmFormControl()
@@ -241,5 +196,62 @@ final class Control
 	protected function createComponentYtnukGridControl()
 	{
 		return $this->gridControl->create($this->repository);
+	}
+
+	/**
+	 * @param bool $append
+	 *
+	 * @return Entity[]
+	 */
+	private function getBreadcrumb($append = TRUE)
+	{
+		if ( ! $this->breadcrumb && $active = $this->getActive()) {
+			$this->breadcrumb = array_reverse(
+				$active->getterParents(TRUE),
+				TRUE
+			);
+			$this->breadcrumb[$active->id] = $active;
+		}
+
+		return $append ? array_merge(
+			$this->breadcrumb,
+			$this->append
+		) : $this->breadcrumb;
+	}
+
+	/**
+	 * @return Entity
+	 */
+	private function getActive()
+	{
+		if ($this->active === NULL) {
+			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters(
+				$this->menu,
+				$destination = $this->getPresenter()->getAction(TRUE),
+				$this->getPresenter()->getRequest()->getParameters()
+			)
+			) {
+				$destination = substr(
+					$destination,
+					0,
+					-strlen($this->getPresenter()->getAction())
+				);
+				foreach (
+					$this->menu->getterChildren(TRUE) as $child
+				) {
+					if (strpos(
+							$child->link->destination,
+							$destination
+						) !== FALSE
+					) {
+						$menu = $child;
+						break;
+					}
+				}
+			}
+			$this->active = $menu ? : $this->menu;
+		}
+
+		return $this->active;
 	}
 }

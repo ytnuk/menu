@@ -15,7 +15,7 @@
 						{$menu->title}
 					</a>
 				</li>
-				<li n:foreach="$menu->children as $menu" n:class="isset($control[$menu->id])?active,count($menu->children)?dropdown">
+				<li n:foreach="$menu->children as $menu" n:class="isset($breadcrumb[$menu->id])?active,count($menu->children)?dropdown">
 					<a n:href="$menu->link" n:attr="data-toggle=>count($menu->children)?dropdown" n:class="count($menu->children)?dropdown-toggle">
 						{$menu->title}
 						<b class="caret" n:if="count($menu->children)"></b>
@@ -27,7 +27,7 @@
 								{$menu->title}
 							</a>
 						</li>
-						<li n:class="isset($control[$menu->id])?active" n:foreach="$menu->children as $menu">
+						<li n:class="isset($breadcrumb[$menu->id])?active" n:foreach="$menu->children as $menu">
 							<a n:href="$menu->link"> {$menu->title}</a>
 						</li>
 					</ul>

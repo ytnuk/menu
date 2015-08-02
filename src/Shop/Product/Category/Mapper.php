@@ -26,7 +26,6 @@ final class Mapper
 		)->orderBy(
 			'primary',
 			Nextras\Orm\Collection\ICollection::DESC
-		)
-			;
+		);
 	}
 }

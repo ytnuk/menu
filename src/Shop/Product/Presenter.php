@@ -48,12 +48,10 @@ final class Presenter
 	 */
 	public function actionView($id)
 	{
-		$this->product = $this->repository->getById($id);
-		if ( ! $this->product) {
+		if ( ! $this->product = $this->repository->getById($id)) {
 			$this->error();
-		}
-		if ($category = $this->product->category) {
-			$this[Ytnuk\Web\Control::class][Ytnuk\Menu\Control::class]->setActive($category->menu);
+		} elseif ($category = $this->product->category) {
+			$this[Ytnuk\Web\Control::class][Ytnuk\Menu\Control::class][] = $category->menu;
 		}
 		$this[Ytnuk\Web\Control::class][Ytnuk\Menu\Control::class][] = $this->product->title;
 	}
@@ -65,8 +63,7 @@ final class Presenter
 	 */
 	public function actionEdit($id)
 	{
-		$this->product = $this->repository->getById($id);
-		if ( ! $this->product) {
+		if ( ! $this->product = $this->repository->getById($id)) {
 			$this->error();
 		}
 	}

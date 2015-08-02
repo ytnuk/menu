@@ -21,7 +21,6 @@ final class Repository
 		return parent::findAll()->orderBy(
 			current($this->getEntityMetadata()->getPrimaryKey()),
 			Nextras\Orm\Collection\ICollection::DESC
-		)
-			;
+		);
 	}
 }

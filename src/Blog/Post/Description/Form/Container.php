@@ -14,6 +14,8 @@ final class Container
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @param Ytnuk\Blog\Post\Description\Entity $values
 	 */
 	public function setValues(
 		$values,
@@ -21,7 +23,7 @@ final class Container
 	) {
 		if ((array) $values->value->translates) {
 			return parent::setValues(
-				$values,
+				(array) $values,
 				$erase
 			);
 		} else {

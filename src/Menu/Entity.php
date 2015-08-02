@@ -34,8 +34,7 @@ final class Entity
 		} elseif ($nodes = $this->nodes->getRawValue()) {
 			return $this->getRepository()->findBy(['this->childNodes->id' => $nodes])->fetchPairs(
 				current($this->metadata->getPrimaryKey())
-			)
-				;
+			);
 		}
 
 		return [];
@@ -52,8 +51,7 @@ final class Entity
 		if ($childNodes = $this->childNodes->getRawValue()) {
 			$children += $this->getRepository()->findBy(['this->nodes->id' => $childNodes])->fetchPairs(
 				current($this->metadata->getPrimaryKey())
-			)
-			;
+			);
 		}
 		if ($deep) {
 			if (is_int($deep)) {
