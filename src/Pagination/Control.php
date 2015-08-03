@@ -71,12 +71,14 @@ class Control
 	 */
 	public function handleRedirect($fragment = NULL)
 	{
-		if ($this->getPresenter()->isAjax() && $parent = $this->lookup(
+		if ($this->getPresenter()->isAjax()) {
+			$parent = $this->lookup(
 				Nette\Application\UI\IRenderable::class,
 				FALSE
-			)
-		) {
-			$parent->redrawControl();
+			);
+			if ($parent && $parent instanceof Nette\Application\UI\IRenderable) {
+				$parent->redrawControl();
+			}
 		}
 		parent::handleRedirect($fragment);
 	}

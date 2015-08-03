@@ -82,10 +82,7 @@ final class Presenter
 			$redraw
 		);
 		if ($this->category) {
-			$this[Control::class]->redrawControl(
-				$snippet,
-				$redraw
-			);
+			$this[Control::class]->redrawControl();
 		}
 	}
 

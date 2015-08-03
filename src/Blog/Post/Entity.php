@@ -37,12 +37,9 @@ final class Entity
 	 */
 	public function getterCategory()
 	{
-		/**
-		 * @var Category\Entity|NULL $node
-		 */
-		$node = $this->categoryNodes->get()->fetch();
+		$node = $this->categoryNodes->get()->findBy(['primary' => TRUE])->fetch();
 
-		return $node ? $node->category : NULL;
+		return $node instanceof Category\Entity ? $node->category : NULL;
 	}
 
 	/**

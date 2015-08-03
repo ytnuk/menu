@@ -63,7 +63,9 @@ final class Entity
 			foreach (
 				$children as $child
 			) {
-				$children += $child->getterChildren($deep);
+				if ($child instanceof self) {
+					$children += $child->getterChildren($deep);
+				}
 			}
 		}
 
