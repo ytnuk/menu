@@ -4,11 +4,6 @@ namespace Ytnuk\Menu;
 use Nette;
 use Ytnuk;
 
-/**
- * Class Control
- *
- * @package Ytnuk\Menu
- */
 final class Control
 	extends Ytnuk\Orm\Control
 {
@@ -63,15 +58,6 @@ final class Control
 	 */
 	private $translator;
 
-	/**
-	 * @param Entity $menu
-	 * @param Repository $repository
-	 * @param Control\Factory $control
-	 * @param Form\Control\Factory $formControl
-	 * @param Ytnuk\Orm\Grid\Control\Factory $gridControl
-	 * @param Nette\Http\Request $request
-	 * @param Nette\Localization\ITranslator $translator
-	 */
 	public function __construct(
 		Entity $menu,
 		Repository $repository,
@@ -91,10 +77,7 @@ final class Control
 		$this->translator = $translator;
 	}
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function getViews()
+	protected function getViews() : array
 	{
 		return [
 			'breadcrumb' => TRUE,
@@ -104,10 +87,6 @@ final class Control
 		] + parent::getViews();
 	}
 
-	/**
-	 * @param string $offset
-	 * @param Entity|Ytnuk\Translation\Entity|string $menu
-	 */
 	public function offsetSet(
 		$offset,
 		$menu
@@ -142,68 +121,45 @@ final class Control
 		}
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function startup()
+	protected function startup() : array
 	{
 		return [
 			'menu' => $this->menu,
 		];
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function renderTitle()
+	protected function renderTitle() : array
 	{
 		return [
 			'last' => $this->append ? end($this->append) : $this->getActive(),
 		];
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function renderBreadcrumb()
+	protected function renderBreadcrumb() : array
 	{
 		return [
 			'breadcrumb' => $this->getBreadcrumb(),
 		];
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function renderNavbar()
+	protected function renderNavbar() : array
 	{
 		return [
 			'breadcrumb' => $this->getBreadcrumb(FALSE),
 		];
 	}
 
-	/**
-	 * @return Form\Control
-	 */
-	protected function createComponentYtnukOrmFormControl()
+	protected function createComponentYtnukOrmFormControl() : Form\Control
 	{
 		return $this->formControl->create($this->menu ? : new Entity);
 	}
 
-	/**
-	 * @return Ytnuk\Orm\Grid\Control
-	 */
-	protected function createComponentYtnukGridControl()
+	protected function createComponentYtnukGridControl() : Ytnuk\Orm\Grid\Control
 	{
 		return $this->gridControl->create($this->repository);
 	}
 
-	/**
-	 * @param bool $append
-	 *
-	 * @return Entity[]
-	 */
-	private function getBreadcrumb($append = TRUE)
+	private function getBreadcrumb(bool $append = TRUE) : array
 	{
 		if ( ! $this->breadcrumb && $active = $this->getActive()) {
 			$this->breadcrumb = array_reverse(
@@ -219,10 +175,7 @@ final class Control
 		) : $this->breadcrumb;
 	}
 
-	/**
-	 * @return Entity
-	 */
-	private function getActive()
+	private function getActive() : Entity
 	{
 		if ($this->active === NULL) {
 			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters(

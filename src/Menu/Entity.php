@@ -20,12 +20,7 @@ final class Entity
 
 	const PROPERTY_NAME = 'title';
 
-	/**
-	 * @param bool|int $deep
-	 *
-	 * @return self[]
-	 */
-	public function getterParents($deep = FALSE)
+	public function getterParents($deep = FALSE) : array
 	{
 		if (is_int($deep) || $deep) {
 			return $this->parent ? [$this->parent->id => $this->parent] + (! is_int(
@@ -40,12 +35,7 @@ final class Entity
 		return [];
 	}
 
-	/**
-	 * @param bool|int $deep
-	 *
-	 * @return self[]
-	 */
-	public function getterChildren($deep = FALSE)
+	public function getterChildren($deep = FALSE) : array
 	{
 		$children = [];
 		if ($childNodes = $this->childNodes->getRawValue()) {
@@ -72,17 +62,11 @@ final class Entity
 		return $children;
 	}
 
-	/**
-	 * @return self|NULL
-	 */
 	protected function getterParent()
 	{
 		return $this->node ? $this->node->parent : NULL;
 	}
 
-	/**
-	 * @return self|NULL
-	 */
 	protected function getterNode()
 	{
 		return $this->nodes->get()->getBy(['primary' => TRUE]);

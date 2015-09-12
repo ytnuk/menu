@@ -5,9 +5,6 @@ use Nextras;
 use Ytnuk;
 
 /**
- * Class Repository
- *
- * @package Ytnuk\Menu
  * @method Entity|NULL getByLink(Ytnuk\Link\Entity $entity)
  */
 final class Repository
@@ -19,26 +16,16 @@ final class Repository
 	 */
 	private $linkRepository;
 
-	/**
-	 * @inheritDoc
-	 */
 	public function setModel(Nextras\Orm\Model\IModel $model)
 	{
 		parent::setModel($model);
 		$this->linkRepository = $model->getRepository(Ytnuk\Link\Repository::class);
 	}
 
-	/**
-	 * @param Entity $menu
-	 * @param string $destination
-	 * @param array $parameters
-	 *
-	 * @return Entity|NULL
-	 */
 	public function getByMenuAndDestinationAndParameters(
 		Entity $menu,
-		$destination,
-		$parameters = []
+		string $destination,
+		array $parameters = []
 	) {
 		$destination = explode(
 			':',

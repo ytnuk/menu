@@ -4,11 +4,6 @@ namespace Ytnuk\Menu;
 use Nette;
 use Ytnuk;
 
-/**
- * Class Presenter
- *
- * @package Ytnuk\Menu
- */
 final class Presenter
 	extends Ytnuk\Web\Presenter
 {
@@ -28,10 +23,6 @@ final class Presenter
 	 */
 	private $menu;
 
-	/**
-	 * @param Repository $repository
-	 * @param Control\Factory $control
-	 */
 	public function __construct(
 		Repository $repository,
 		Control\Factory $control
@@ -41,12 +32,7 @@ final class Presenter
 		$this->control = $control;
 	}
 
-	/**
-	 * @param $id
-	 *
-	 * @throws Nette\Application\BadRequestException
-	 */
-	public function actionEdit($id)
+	public function actionEdit(int $id)
 	{
 		if ( ! $this->menu = $this->repository->getById($id)) {
 			$this->error();
@@ -58,10 +44,7 @@ final class Presenter
 		$this[Ytnuk\Web\Control::class][Control::class][] = 'menu.presenter.action.edit';
 	}
 
-	/**
-	 * @return Control
-	 */
-	protected function createComponentYtnukMenuControl()
+	protected function createComponentYtnukMenuControl() : Control
 	{
 		return $this->control->create($this->menu ? : new Entity);
 	}

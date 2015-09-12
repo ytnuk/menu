@@ -4,22 +4,15 @@ namespace Ytnuk\Menu\Node;
 use Nextras;
 use Ytnuk;
 
-/**
- * Class Mapper
- *
- * @package Ytnuk\Menu
- */
 final class Mapper
 	extends Ytnuk\Orm\Mapper
 {
 
-	/**
-	 * @inheritdoc
-	 */
 	public function createCollectionOneHasMany(
 		Nextras\Orm\Entity\Reflection\PropertyMetadata $metadata,
 		Nextras\Orm\Entity\IEntity $parent
-	) {
+	) : Nextras\Orm\Mapper\Dbal\DbalCollection
+	{
 		return parent::createCollectionOneHasMany(
 			$metadata,
 			$parent
