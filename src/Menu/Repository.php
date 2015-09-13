@@ -22,6 +22,13 @@ final class Repository
 		$this->linkRepository = $model->getRepository(Ytnuk\Link\Repository::class);
 	}
 
+	public static function getEntityClassNames() : array
+	{
+		return [
+			Entity::class,
+		];
+	}
+
 	public function getByMenuAndDestinationAndParameters(
 		Entity $menu,
 		string $destination,
