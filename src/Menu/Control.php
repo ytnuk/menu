@@ -105,6 +105,7 @@ final class Control
 			$translate = new Ytnuk\Translation\Translate\Entity;
 			$translate->value = $this->translator->translate($menu);
 			$entity->title->translates->add($translate);
+			$this->repository->detach($entity);
 			$menu = $entity;
 		}
 		if ($menu instanceof Entity) {
