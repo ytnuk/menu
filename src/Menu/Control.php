@@ -152,7 +152,7 @@ final class Control
 
 	protected function createComponentYtnukOrmFormControl() : Form\Control
 	{
-		return $this->formControl->create($this->menu ? : new Entity);
+		return $this->formControl->create($this->menu);
 	}
 
 	protected function createComponentYtnukGridControl() : Ytnuk\Orm\Grid\Control

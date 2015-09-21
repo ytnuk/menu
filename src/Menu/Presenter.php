@@ -5,7 +5,7 @@ use Nette;
 use Ytnuk;
 
 final class Presenter
-	extends Ytnuk\Web\Presenter
+	extends Ytnuk\Web\Application\Presenter
 {
 
 	/**
