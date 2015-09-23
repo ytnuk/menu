@@ -16,17 +16,17 @@ final class Repository
 	 */
 	private $linkRepository;
 
-	public function setModel(Nextras\Orm\Model\IModel $model)
-	{
-		parent::setModel($model);
-		$this->linkRepository = $model->getRepository(Ytnuk\Link\Repository::class);
-	}
-
 	public static function getEntityClassNames() : array
 	{
 		return [
 			Entity::class,
 		];
+	}
+
+	public function setModel(Nextras\Orm\Model\IModel $model)
+	{
+		parent::setModel($model);
+		$this->linkRepository = $model->getRepository(Ytnuk\Link\Repository::class);
 	}
 
 	public function getByMenuAndDestinationAndParameters(

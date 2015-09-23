@@ -8,6 +8,8 @@ final class Control
 	extends Ytnuk\Orm\Control
 {
 
+	const NAME = 'menu';
+
 	/**
 	 * @var Entity
 	 */
@@ -150,12 +152,12 @@ final class Control
 		];
 	}
 
-	protected function createComponentYtnukOrmFormControl() : Form\Control
+	protected function createComponentForm() : Form\Control
 	{
 		return $this->formControl->create($this->menu);
 	}
 
-	protected function createComponentYtnukGridControl() : Ytnuk\Orm\Grid\Control
+	protected function createComponentGrid() : Ytnuk\Orm\Grid\Control
 	{
 		return $this->gridControl->create($this->repository);
 	}
