@@ -2,6 +2,7 @@
 namespace Ytnuk\Menu;
 
 use Nette;
+use Nextras;
 use Ytnuk;
 
 final class Control
@@ -184,7 +185,12 @@ final class Control
 			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters(
 				$this->menu,
 				$destination = $this->getPresenter()->getAction(TRUE),
-				$this->getPresenter()->getRequest()->getParameters()
+				array_map(
+					function ($parameter) {
+						return $parameter instanceof Nextras\Orm\Entity\IEntity ? $parameter->getPersistedId() : $parameter;
+					},
+					$this->getPresenter()->getRequest()->getParameters()
+				)
 			)
 			) {
 				$destination = substr(
