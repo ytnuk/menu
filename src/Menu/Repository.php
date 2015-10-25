@@ -4,9 +4,6 @@ namespace Ytnuk\Menu;
 use Nextras;
 use Ytnuk;
 
-/**
- * @method Entity|NULL getByLink(Ytnuk\Link\Entity $entity)
- */
 final class Repository
 	extends Ytnuk\Orm\Repository
 {
@@ -77,6 +74,10 @@ final class Repository
 			$link = reset($links);
 		}
 
-		return $this->getByLink($link);
+		return $this->getBy(
+			[
+				'link' => $link,
+			]
+		);
 	}
 }
