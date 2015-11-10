@@ -6,10 +6,10 @@ use Ytnuk;
 
 /**
  * @property int $id {primary}
- * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Translation\Entity $title {1:1d Ytnuk\Translation\Entity::$menu, primary=true}
+ * @property Nextras\Orm\Relationships\OneHasOne|Ytnuk\Translation\Entity $title {1:1 Ytnuk\Translation\Entity::$menu, primary=true}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $nodes {1:m Node\Entity::$menu}
  * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $childNodes {1:m Node\Entity::$parent}
- * @property Nextras\Orm\Relationships\OneHasOneDirected|Ytnuk\Link\Entity $link {1:1d Ytnuk\Link\Entity::$menu, primary=true}
+ * @property Nextras\Orm\Relationships\OneHasOne|Ytnuk\Link\Entity $link {1:1 Ytnuk\Link\Entity::$menu, primary=true}
  * @property-read Entity|NULL $node {virtual}
  * @property-read Entity|NULL $parent {virtual}
  * @property-read Entity[] $parents {virtual}
