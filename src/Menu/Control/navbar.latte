@@ -15,20 +15,20 @@
 						{$menu->title}
 					</a>
 				</li>
-				<li n:foreach="$menu->children as $menu" n:class="isset($breadcrumb[$menu->id])?active,count($menu->children)?dropdown">
-					<a n:href="$menu->link" n:attr="data-toggle=>count($menu->children)?dropdown" n:class="count($menu->children)?dropdown-toggle">
-						{$menu->title}
-						<b class="caret" n:if="count($menu->children)"></b>
+				<li n:foreach="$menu->children as $child" n:class="isset($breadcrumb[$child->id])?active,count($child->children)?dropdown">
+					<a n:href="$child->link" n:attr="data-toggle=>count($child->children)?dropdown" n:class="count($child->children)?dropdown-toggle">
+						{$child->title}
+						<b class="caret" n:if="count($child->children)"></b>
 					</a>
-					<ul n:if="count($menu->children)" class="dropdown-menu">
-						<li n:class="$presenter->isLinkCurrent($menu->link) ? active">
-							<a n:href="$menu->link">
+					<ul n:if="count($child->children)" class="dropdown-menu">
+						<li n:class="$presenter->isLinkCurrent($child->link) ? active">
+							<a n:href="$child->link">
 								<b class="caret-down"></b>
-								{$menu->title}
+								{$child->title}
 							</a>
 						</li>
-						<li n:class="isset($breadcrumb[$menu->id])?active" n:foreach="$menu->children as $menu">
-							<a n:href="$menu->link"> {$menu->title}</a>
+						<li n:class="isset($breadcrumb[$child->id])?active" n:foreach="$child->children as $child">
+							<a n:href="$child->link"> {$child->title}</a>
 						</li>
 					</ul>
 				</li>

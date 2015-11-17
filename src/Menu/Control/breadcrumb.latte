@@ -1,5 +1,5 @@
-<ol class="breadcrumb" n:inner-foreach="$breadcrumb as $menu">
+<ol class="breadcrumb" n:inner-foreach="$breadcrumb as $child">
 	<li n:class="$iterator->last?active">
-		<a n:tag-if="!$iterator->last" n:href="$menu->link">{$menu->title}</a>
+		<a n:tag-if="!$iterator->last" n:href="$child->link">{$child->title}</a>
 	</li>
 </ol>
