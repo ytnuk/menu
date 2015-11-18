@@ -147,11 +147,6 @@ final class Control
 		];
 	}
 
-	protected function renderNavbar() : array
-	{
-		return $this->renderNavbarNav();
-	}
-
 	protected function renderNavbarNav() : array
 	{
 		return [
