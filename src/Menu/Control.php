@@ -85,6 +85,7 @@ final class Control
 		return [
 			'breadcrumb' => TRUE,
 			'navbar' => TRUE,
+			'navbarNav' => TRUE,
 			'title' => TRUE,
 			'xml' => FALSE,
 		] + parent::getViews();
@@ -147,6 +148,11 @@ final class Control
 	}
 
 	protected function renderNavbar() : array
+	{
+		return $this->renderNavbarNav();
+	}
+
+	protected function renderNavbarNav() : array
 	{
 		return [
 			'breadcrumb' => $this->getBreadcrumb(FALSE),

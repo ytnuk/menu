@@ -1,0 +1,19 @@
+<ul class="nav navbar-nav" n:inner-foreach="$menu->children as $child">
+	<li n:class="nav-item, $active = isset($breadcrumb[$child->id])?active,count($child->children)?dropdown">
+		<a n:href="$child->link" n:attr="data-toggle=>count($child->children)?dropdown" n:class="nav-link, count($child->children)?dropdown-toggle">
+			{$child->title}
+		</a>
+		<ul n:if="count($child->children)" class="dropdown-menu">
+			<li>
+				<a n:href="$child->link" n:class="dropdown-item, $presenter->isLinkCurrent($child->link) ? active">
+					{$child->title}
+				</a>
+			</li>
+			<li n:foreach="$child->children as $child">
+				<a n:href="$child->link" n:class="dropdown-item, isset($breadcrumb[$child->id])?active">
+					{$child->title}
+				</a>
+			</li>
+		</ul>
+	</li>
+</ul>

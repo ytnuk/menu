@@ -1,38 +1,13 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-dark bg-inverse navbar-sticky-top">
 	<div class="container">
-		<header class="navbar-header">
-			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-{$menu->id}-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-		</header>
-		<div class="collapse navbar-collapse navbar-{$menu->id}-collapse">
-			<ul n:class="nav,navbar-nav">
-				<li n:class="$presenter->isLinkCurrent($menu->link) ? active">
-					<a n:href="$menu->link">
-						<span class="glyphicon glyphicon-home"></span>
-						{$menu->title}
-					</a>
-				</li>
-				<li n:foreach="$menu->children as $child" n:class="isset($breadcrumb[$child->id])?active,count($child->children)?dropdown">
-					<a n:href="$child->link" n:attr="data-toggle=>count($child->children)?dropdown" n:class="count($child->children)?dropdown-toggle">
-						{$child->title}
-						<b class="caret" n:if="count($child->children)"></b>
-					</a>
-					<ul n:if="count($child->children)" class="dropdown-menu">
-						<li n:class="$presenter->isLinkCurrent($child->link) ? active">
-							<a n:href="$child->link">
-								<b class="caret-down"></b>
-								{$child->title}
-							</a>
-						</li>
-						<li n:class="isset($breadcrumb[$child->id])?active" n:foreach="$child->children as $child">
-							<a n:href="$child->link"> {$child->title}</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
+		<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target=".navbar-toggleable-{$control->getUniqueId()}">
+			&#9776;
+		</button>
+		<div class="collapse navbar-toggleable-xs navbar-toggleable-{$control->getUniqueId()}">
+			<a n:href="$menu->link" class="navbar-brand">
+				{$menu->title}
+			</a>
+			{include navbarNav.latte}
 		</div>
 	</div>
 </nav>
