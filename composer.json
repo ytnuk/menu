@@ -2,10 +2,9 @@
 	"name": "ytnuk/menu",
 	"extra": {
 		"extensions": {
-			"ytnuk/menu": "Ytnuk\\Menu\\Extension"
+			"ytnuk_menu": "Ytnuk\\Menu\\Extension"
 		}
 	},
-	,
 	"require": {
 		"ytnuk/application": "dev-master",
 		"kdyby/translation": "dev-master",
