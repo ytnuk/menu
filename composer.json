@@ -2,7 +2,7 @@
 	"name": "ytnuk/menu",
 	"extra": {
 		"extensions": {
-			"ytnuk_menu": "Ytnuk\\Menu\\Extension"
+			"ytnuk.menu": "Ytnuk\\Menu\\Extension"
 		}
 	},
 	"require": {
