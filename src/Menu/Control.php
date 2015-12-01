@@ -9,8 +9,6 @@ final class Control
 	extends Ytnuk\Orm\Control
 {
 
-	const NAME = 'menu';
-
 	/**
 	 * @var Entity
 	 */

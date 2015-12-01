@@ -41,7 +41,7 @@ final class Presenter
 
 	public function renderEdit()
 	{
-		$this[Ytnuk\Web\Control::NAME][Control::NAME][] = 'menu.presenter.action.edit';
+		$this['web-menu'][] = 'menu.presenter.action.edit';
 	}
 
 	protected function createComponentMenu() : Control
