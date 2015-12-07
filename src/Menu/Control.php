@@ -85,7 +85,6 @@ final class Control
 			'navbar' => TRUE,
 			'navbarNav' => TRUE,
 			'title' => TRUE,
-			'xml' => FALSE,
 		] + parent::getViews();
 	}
 
