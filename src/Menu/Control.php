@@ -116,10 +116,7 @@ final class Control
 				$this->append[$offset] = $menu;
 			}
 		} else {
-			parent::offsetSet(
-				$offset,
-				$menu
-			);
+			parent::offsetSet($offset, $menu);
 		}
 	}
 
@@ -164,46 +161,25 @@ final class Control
 	private function getBreadcrumb(bool $append = TRUE) : array
 	{
 		if ( ! $this->breadcrumb && $active = $this->getActive()) {
-			$this->breadcrumb = array_reverse(
-				$active->getterParents(TRUE),
-				TRUE
-			);
+			$this->breadcrumb = array_reverse($active->getterParents(TRUE), TRUE);
 			$this->breadcrumb[$active->id] = $active;
 		}
 
-		return $append ? array_merge(
-			$this->breadcrumb,
-			$this->append
-		) : $this->breadcrumb;
+		return $append ? array_merge($this->breadcrumb, $this->append) : $this->breadcrumb;
 	}
 
 	private function getActive() : Entity
 	{
 		if ($this->active === NULL) {
-			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters(
-				$this->menu,
-				$destination = $this->getPresenter()->getAction(TRUE),
-				array_map(
-					function ($parameter) {
-						return $parameter instanceof Nextras\Orm\Entity\IEntity ? $parameter->getPersistedId() : $parameter;
-					},
-					$this->getPresenter()->getRequest()->getParameters()
-				)
-			)
+			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters($this->menu, $destination = $this->getPresenter()->getAction(TRUE), array_map(function ($parameter) {
+				return $parameter instanceof Nextras\Orm\Entity\IEntity ? $parameter->getPersistedId() : $parameter;
+			}, $this->getPresenter()->getRequest()->getParameters()))
 			) {
-				$destination = substr(
-					$destination,
-					0,
-					-strlen($this->getPresenter()->getAction())
-				);
+				$destination = substr($destination, 0, -strlen($this->getPresenter()->getAction()));
 				foreach (
 					$this->menu->getterChildren(TRUE) as $child
 				) {
-					if (strpos(
-							$child->link->destination,
-							$destination
-						) !== FALSE
-					) {
+					if (strpos($child->link->destination, $destination) !== FALSE) {
 						$menu = $child;
 						break;
 					}

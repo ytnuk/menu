@@ -31,53 +31,25 @@ final class Repository
 		string $destination,
 		array $parameters = []
 	) {
-		$destination = explode(
-			':',
-			ltrim(
-				$destination,
-				':'
-			)
-		);
-		$links = $this->findBy(
-			[
-				'this->link->action' => array_pop($destination),
-				'this->link->presenter' => array_pop($destination),
-				'this->link->module' => implode(
-					':',
-					$destination
-				),
-				current($menu->getMetadata()->getPrimaryKey()) => array_keys(
-					[$menu->id => $menu] + $menu->getterChildren(TRUE)
-				),
-			]
-		)->fetchPairs(
-			NULL,
-			'link'
-		);
-		$links = array_combine(
-			array_map(
-				function (Ytnuk\Link\Entity $entity) {
-					return $entity->id;
-				},
-				$links
-			),
-			$links
-		);
+		$destination = explode(':', ltrim($destination, ':'));
+		$links = $this->findBy([
+			'this->link->action' => array_pop($destination),
+			'this->link->presenter' => array_pop($destination),
+			'this->link->module' => implode(':', $destination),
+			current($menu->getMetadata()->getPrimaryKey()) => array_keys([$menu->id => $menu] + $menu->getterChildren(TRUE)),
+		])->fetchPairs(NULL, 'link');
+		$links = array_combine(array_map(function (Ytnuk\Link\Entity $entity) {
+			return $entity->id;
+		}, $links), $links);
 		if ( ! $links) {
 			return NULL;
 		}
-		if ( ! $parameters || ! $link = $this->linkRepository->sortByParameters(
-				$this->linkRepository->findById(array_keys($links)),
-				$parameters
-			)->fetch()
-		) {
+		if ( ! $parameters || ! $link = $this->linkRepository->sortByParameters($this->linkRepository->findById(array_keys($links)), $parameters)->fetch()) {
 			$link = reset($links);
 		}
 
-		return $this->getBy(
-			[
-				'link' => $link,
-			]
-		);
+		return $this->getBy([
+			'link' => $link,
+		]);
 	}
 }

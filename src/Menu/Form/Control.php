@@ -11,9 +11,6 @@ final class Control
 		Ytnuk\Menu\Entity $menu,
 		Ytnuk\Orm\Form\Factory $form
 	) {
-		parent::__construct(
-			$menu,
-			$form
-		);
+		parent::__construct($menu, $form);
 	}
 }

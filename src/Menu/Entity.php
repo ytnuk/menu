@@ -24,13 +24,9 @@ final class Entity
 	public function getterParents($deep = FALSE) : array
 	{
 		if (is_int($deep) || $deep) {
-			return $this->parent ? [$this->parent->id => $this->parent] + (! is_int(
-					$deep
-				) || --$deep > 0 ? $this->parent->getterParents($deep) : []) : [];
+			return $this->parent ? [$this->parent->id => $this->parent] + (! is_int($deep) || --$deep > 0 ? $this->parent->getterParents($deep) : []) : [];
 		} elseif ($nodes = $this->nodes->getRawValue()) {
-			return $this->getRepository()->findBy(['this->childNodes->id' => $nodes])->fetchPairs(
-				current($this->metadata->getPrimaryKey())
-			);
+			return $this->getRepository()->findBy(['this->childNodes->id' => $nodes])->fetchPairs(current($this->metadata->getPrimaryKey()));
 		}
 
 		return [];
@@ -40,16 +36,11 @@ final class Entity
 	{
 		$children = [];
 		if ($childNodes = $this->childNodes->getRawValue()) {
-			$children += $this->getRepository()->findBy(['this->nodes->id' => $childNodes])->fetchPairs(
-				current($this->metadata->getPrimaryKey())
-			);
+			$children += $this->getRepository()->findBy(['this->nodes->id' => $childNodes])->fetchPairs(current($this->metadata->getPrimaryKey()));
 		}
 		if ($deep) {
 			if (is_int($deep)) {
-				$deep = max(
-					$deep - 1,
-					0
-				);
+				$deep = max($deep - 1, 0);
 			}
 			foreach (
 				$children as $child
