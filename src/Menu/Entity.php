@@ -7,9 +7,9 @@ use Ytnuk;
 /**
  * @property int $id {primary}
  * @property Nextras\Orm\Relationships\OneHasOne|Ytnuk\Translation\Entity $title {1:1 Ytnuk\Translation\Entity, oneSided=true, isMain=true, cascade=[persist, remove]}
- * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $nodes {1:m Node\Entity::$menu}
- * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $childNodes {1:m Node\Entity::$parent}
- * @property Nextras\Orm\Relationships\OneHasOne|Ytnuk\Link\Entity $link {1:1 Ytnuk\Link\Entity, oneSided=true, isMain=true}
+ * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $nodes {1:m Node\Entity::$menu, cascade=[persist, remove]}
+ * @property Nextras\Orm\Relationships\OneHasMany|Node\Entity[] $childNodes {1:m Node\Entity::$parent, cascade=[persist, remove]}
+ * @property Nextras\Orm\Relationships\OneHasOne|Ytnuk\Link\Entity $link {1:1 Ytnuk\Link\Entity, oneSided=true, isMain=true, cascade=[persist, remove]}
  * @property-read Entity|NULL $node {virtual}
  * @property-read Entity|NULL $parent {virtual}
  * @property-read Entity[] $parents {virtual}
