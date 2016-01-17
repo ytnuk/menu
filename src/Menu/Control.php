@@ -171,10 +171,10 @@ final class Control
 	private function getActive() : Entity
 	{
 		if ($this->active === NULL) {
-			if ( ! $menu = $this->repository->getByMenuAndDestinationAndParameters($this->menu, $destination = $this->getPresenter()->getAction(TRUE), array_map(function ($parameter) {
+			$menu = $this->repository->getByMenuAndDestinationAndParameters($this->menu, $destination = $this->getPresenter()->getAction(TRUE), array_map(function ($parameter) {
 				return $parameter instanceof Nextras\Orm\Entity\IEntity ? $parameter->getPersistedId() : $parameter;
-			}, $this->getPresenter()->getRequest()->getParameters()))
-			) {
+			}, $this->getPresenter()->getRequest()->getParameters()));
+			if ( ! $menu) {
 				$destination = substr($destination, 0, -strlen($this->getPresenter()->getAction()));
 				foreach (
 					$this->menu->getterChildren(TRUE) as $child
